@@ -18,7 +18,7 @@ export const usePromiseTracker = () => {
         options: PromiseOptions = {}
     ): Promise<T | undefined> => {
 
-        const { minDuration = 300, isGlobal = false } = options
+        const { minDuration = 300, isGlobal = true } = options
 
         // Bật loading (Cục bộ hoặc Toàn cục)
         if (isGlobal) loadingStore.setGlobalLoading(true)

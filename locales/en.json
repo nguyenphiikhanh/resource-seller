@@ -1,9 +1,0 @@
-{
-  "hello": "Hello",
-  "auth": {
-    "login": "Login",
-    "logout": "Logout",
-    "success": "Login successful!",
-    "failed": "Login failed: {msg}"
-  }
-}

@@ -1,0 +1,13 @@
+{
+  "hello": "Hello",
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "success": "Login successful!",
+    "failed": "Login failed: {msg}",
+    "message": {
+      "invalid_credentials": "Invalid credentials.",
+      "account_locked": "Account is locked."
+    }
+  }
+}

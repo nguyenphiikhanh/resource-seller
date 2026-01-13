@@ -3,6 +3,7 @@
 import {appService} from "~/services/app.services";
 
 export const useAuthStore = defineStore('auth', () => {
+    const { $i18n} = useNuxtApp();
     const {auth} = appService()
     const { exec } = usePromiseTracker()
     const { toastError } = useAppToast();
@@ -12,7 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
         return await exec(async () => {
             const { error } = await auth.login(email, pass)
             if (error) {
-                toastError(error.message)
+                toastError($i18n.t(`auth.message.${error.code}`))
                 throw error
             }
         })
