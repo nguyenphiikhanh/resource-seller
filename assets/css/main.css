@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0b0c15; }
+::-webkit-scrollbar-thumb { background: #2d3047; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #7f5af0; }
+
+/* Neon Glow Effect Classes */
+.neon-border:hover {
+    box-shadow: 0 0 10px rgba(127, 90, 240, 0.5);
+    border-color: #7f5af0;
+}
+
+.fb-card:hover { border-color: #1877F2; box-shadow: 0 0 15px rgba(24, 119, 242, 0.3); }
+.yt-card:hover { border-color: #FF0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); }
+.code-card:hover { border-color: #2cb67d; box-shadow: 0 0 15px rgba(44, 182, 125, 0.3); }
+.tiktok-card:hover { border-color: #FE2C55; box-shadow: 0 0 15px rgba(254, 44, 85, 0.3); }
+.google-card:hover { border-color: #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
+.proxy-card:hover { border-color: #60a5fa; box-shadow: 0 0 15px rgba(96, 165, 250, 0.3); }
+
+/* Animation for Live Feed */
+@keyframes scrollUp {
+    0% { transform: translateY(100%); opacity: 0; }
+    10% { transform: translateY(0); opacity: 1; }
+    90% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100%); opacity: 0; }
+}
+.live-item { animation: scrollUp 4s infinite; }
