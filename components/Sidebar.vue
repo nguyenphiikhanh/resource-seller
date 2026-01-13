@@ -1,5 +1,5 @@
 <template>
-  <aside class="w-full sm:hidden lg:w-64 flex-shrink-0 space-y-8">
+  <aside class="w-full lg:w-64 flex-shrink-0 space-y-8">
     
     <div class="bg-white dark:bg-dark-800 rounded-xl p-5 border border-gray-200 dark:border-white/5 shadow-sm dark:shadow-none transition-colors duration-300">
         <h3 class="text-gray-900 dark:text-white font-bold mb-4 uppercase text-sm tracking-wider flex items-center">
