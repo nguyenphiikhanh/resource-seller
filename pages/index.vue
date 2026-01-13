@@ -6,28 +6,31 @@
 
         <div class="flex-1">
             
-            <div class="mb-8 rounded-2xl overflow-hidden relative h-64 border border-white/10 shadow-2xl group">
+            <div class="mb-8 rounded-2xl overflow-hidden relative h-64 border border-gray-200 dark:border-white/10 shadow-xl dark:shadow-2xl group transition-all">
                 <div class="absolute inset-0 bg-gradient-to-r from-brand-fb to-purple-900 opacity-90"></div>
                 <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:20px_20px]"></div>
                 
                 <div class="relative z-10 p-8 h-full flex flex-col justify-center items-start">
                     <span class="bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded mb-3 animate-pulse">HOT DEAL</span>
-                    <h2 class="text-4xl font-bold text-white mb-2">BM50 & BM350 Kháng Limit</h2>
-                    <p class="text-gray-200 mb-6 max-w-lg">Bao camp xanh, bao tụt limit. Hàng cổ 2018-2022. Đã verify mail.</p>
-                    <button class="bg-white text-brand-fb font-bold px-6 py-2 rounded-full hover:bg-gray-100 transition shadow-lg">Mua Ngay (-20%)</button>
+                    <h2 class="text-4xl font-bold text-white mb-2 shadow-sm">BM50 & BM350 Kháng Limit</h2>
+                    <p class="text-gray-100 mb-6 max-w-lg shadow-sm">Bao camp xanh, bao tụt limit. Hàng cổ 2018-2022. Đã verify mail.</p>
+                    <button class="bg-white text-brand-fb font-bold px-6 py-2 rounded-full hover:bg-gray-100 transition shadow-lg border-2 border-transparent hover:border-brand-fb/20">Mua Ngay (-20%)</button>
                 </div>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" class="absolute -right-10 -bottom-10 w-64 opacity-20 rotate-12 transition-transform group-hover:rotate-0" alt="FB">
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
                 <div class="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto scrollbar-hide">
-                    <button class="px-4 py-1.5 rounded-full bg-brand-purple text-white font-medium text-sm whitespace-nowrap">Tất cả</button>
-                    <button class="px-4 py-1.5 rounded-full bg-dark-800 border border-white/10 hover:border-brand-fb hover:text-white transition text-sm whitespace-nowrap">Facebook</button>
-                    <button class="px-4 py-1.5 rounded-full bg-dark-800 border border-white/10 hover:border-red-500 hover:text-white transition text-sm whitespace-nowrap">Youtube</button>
+                    <button class="px-4 py-1.5 rounded-full bg-brand-purple text-white font-medium text-sm whitespace-nowrap shadow-md shadow-purple-500/20">Tất cả</button>
+                    
+                    <button class="px-4 py-1.5 rounded-full bg-white dark:bg-dark-800 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-brand-fb hover:text-brand-fb dark:hover:text-white transition text-sm whitespace-nowrap shadow-sm dark:shadow-none">Facebook</button>
+                    
+                    <button class="px-4 py-1.5 rounded-full bg-white dark:bg-dark-800 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-red-500 hover:text-red-500 dark:hover:text-white transition text-sm whitespace-nowrap shadow-sm dark:shadow-none">Youtube</button>
                 </div>
+
                 <div class="flex items-center gap-2">
-                    <span class="text-sm text-gray-500">Sắp xếp:</span>
-                    <select class="bg-dark-800 border border-white/10 rounded text-sm text-white px-2 py-1 outline-none">
+                    <span class="text-sm text-gray-600 dark:text-gray-500 font-medium">Sắp xếp:</span>
+                    <select class="bg-white dark:bg-dark-800 border border-gray-200 dark:border-white/10 rounded text-sm text-gray-900 dark:text-white px-3 py-1.5 outline-none focus:border-brand-purple transition shadow-sm dark:shadow-none">
                         <option>Mới nhất</option>
                         <option>Giá thấp -> Cao</option>
                     </select>
@@ -40,10 +43,17 @@
 
             <div class="mt-12 flex justify-center">
                  <nav class="flex gap-2">
-                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-dark-800 border border-white/10 text-gray-400 hover:text-white hover:border-brand-purple transition"><i class="fas fa-chevron-left"></i></a>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-dark-800 border border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-700 hover:text-brand-purple hover:border-brand-purple transition shadow-sm dark:shadow-none">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    
                     <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-brand-purple text-white font-bold shadow-lg shadow-purple-500/30">1</a>
-                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-dark-800 border border-white/10 text-gray-400 hover:text-white hover:border-brand-purple transition">2</a>
-                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-dark-800 border border-white/10 text-gray-400 hover:text-white hover:border-brand-purple transition"><i class="fas fa-chevron-right"></i></a>
+                    
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-dark-800 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-700 hover:text-brand-purple hover:border-brand-purple transition shadow-sm dark:shadow-none">2</a>
+                    
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-dark-800 border border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-700 hover:text-brand-purple hover:border-brand-purple transition shadow-sm dark:shadow-none">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
                 </nav>
             </div>
         </div>
@@ -54,6 +64,7 @@
 <script setup>
 import Sidebar from '~/components/Sidebar.vue';
 
+// Data giữ nguyên
 const products = ref([
     { id: 1, type: 'fb', title: 'BM50 Kháng 902 Live Ads', price: '85.000đ', oldPrice: '150.000đ', badge: 'CÒN HÀNG', tags: ['2019', 'VN', 'No Limit'], specs: ['Đã xác minh danh tính', 'Bao add thẻ không hold', 'Bảo hành login 24h'] },
     { id: 2, type: 'yt', title: 'Kênh Youtube BKT (Bật kiếm tiền)', price: '2.500.000đ', badge: 'HOT', tags: ['US', 'Content'], specs: ['1000 Subs / 4000h Watch time', 'Đã nối gà (Adsense)', 'Không gậy bản quyền'] },

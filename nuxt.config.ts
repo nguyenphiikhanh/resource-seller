@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
   app: {
     head: {
       title: 'MMO DUYLON | Sàn Tài Nguyên Số 1 VN',
@@ -16,5 +16,10 @@ export default defineNuxtConfig({
     }
   },
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+  colorMode: {
+    classSuffix: '', // Quan trọng: Để nó tạo ra class 'dark' thay vì 'dark-mode'
+    preference: 'system', // Mặc định theo hệ thống
+    fallback: 'light',
+  }
 })
