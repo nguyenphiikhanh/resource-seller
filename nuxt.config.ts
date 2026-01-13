@@ -1,6 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
+  compatibilityDate: '2025-07-15',
+  devtools: { enabled: true },
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/supabase',
+    '@pinia/nuxt',
+    ],
+
   app: {
     head: {
       title: 'MMO DUYLON | Sàn Tài Nguyên Số 1 VN',
@@ -15,11 +23,21 @@ export default defineNuxtConfig({
       ]
     }
   },
-  compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+
+  // dark/ligt
   colorMode: {
     classSuffix: '', // Quan trọng: Để nó tạo ra class 'dark' thay vì 'dark-mode'
     preference: 'system', // Mặc định theo hệ thống
     fallback: 'light',
-  }
+  },
+
+  //supabase
+  supabase: {
+    redirect: false, // Tắt bắt buộc đăng nhập mặc định
+  },
+
+  // auto-import stores
+  pinia: {
+    storesDirs: ['./stores/**'],
+  },
 })

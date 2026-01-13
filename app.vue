@@ -1,6 +1,8 @@
 <template>
   <div>
-    <NuxtLoadingIndicator color="#7f5af0" />
+<!--    common loading-->
+    <LazyCommonLoadingOverlay/>
+
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
