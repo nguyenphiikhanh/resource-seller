@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     '@pinia/nuxt',
     '@nuxtjs/i18n',
+    '@vee-validate/nuxt',
     ],
 
   app: {
@@ -45,5 +46,10 @@ export default defineNuxtConfig({
   },
 
   // i18n config
-  i18n: i18nConfigs
+  i18n: i18nConfigs,
+
+  // vee-validate config
+  veeValidate: {
+    autoImports: true,
+  }
 })

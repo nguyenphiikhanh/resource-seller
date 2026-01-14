@@ -98,16 +98,17 @@ const form = reactive({
 const showPassword = ref(false)
 const handleSubmit = async () => {
   try {
-    // Gọi hàm login (Store tự bật tắt loading bên trong rồi)
-    await authStore.login(form.email, form.password);
-    await router.push('/');
+    await authStore.login(form.email, form.password).then(() => {
+      router.push('/');
+    });
   } catch (err) {}
 }
 
 const handleSocialLogin = async (provider) => {
   try {
-    await authStore.loginWithProvider(provider);
-    await router.push('/');
+    await authStore.loginWithProvider(provider).then(() => {
+      router.push('/');
+    });
   } catch (err) {}
 }
 </script>

@@ -1,3 +1,5 @@
+import type {RegisterAccount} from "~/types/auth.types";
+
 export const authService = () => {
     const router = useRouter();
     const client = useSupabaseClient();
@@ -7,7 +9,6 @@ export const authService = () => {
                 email: email,
                 password: pass
             })
-            if (!error) await router.push('/') // Chuyển về trang chủ nếu thành công
             return {data, error}
         },
 
@@ -18,10 +19,23 @@ export const authService = () => {
             })
         },
 
+        async signUp({ email, password, fullName }: RegisterAccount) {
+            const { error, data } = await client.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        full_name: fullName,
+                        // avatar_url: ... (nếu muốn set avatar mặc định)
+                    }
+                }
+            })
+            return {data, error}
+        },
+
         async logout() {
-            await client.auth.signOut()
-            await router.push('/login')
-        }
+            await client.auth.signOut();
+        },
     }
 
     return {

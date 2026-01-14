@@ -3,7 +3,7 @@
 import {appService} from "~/services/app.services";
 
 export const useAuthStore = defineStore('auth', () => {
-    const { $i18n} = useNuxtApp();
+    const { $i18n } = useNuxtApp();
     const {auth} = appService()
     const { exec } = usePromiseTracker()
     const { toastError } = useAppToast();
@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
         return await exec(async () => {
             const { error } = await auth.login(email, pass)
             if (error) {
-                toastError($i18n.t(`auth.message.${error.code}`))
+                toastError($i18n.t(`auth.errors.${error.code}`))
                 throw error
             }
         })
@@ -27,8 +27,31 @@ export const useAuthStore = defineStore('auth', () => {
         })
     }
 
+    // Action: Register
+    const register = async ({ email, password, fullName }: { email: string, password: string, fullName: string }) => {
+        return await exec(async () => {
+            const { error, data } = await auth.signUp({
+                email,
+                password,
+                fullName
+            })
+
+            if (error) {
+                const transKey = `auth.errors.${error.code}`
+                const message = $i18n.t(transKey) === transKey ? error.message : $i18n.t(transKey)
+                toastError(message)
+                throw error
+            }
+
+            // Supabase mặc định yêu cầu confirm email.
+            // Nếu tắt confirm email trong dashboard thì user sẽ được log in luôn.
+            return data
+        })
+    }
+
     return {
         login,
+        register,
         loginWithProvider
     }
 })

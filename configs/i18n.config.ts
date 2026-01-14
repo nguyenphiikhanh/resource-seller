@@ -9,13 +9,13 @@ export const i18nConfigs: NuxtI18nOptions = {
             code: 'vi',
             iso: 'vi-VN',
             name: 'Tiếng Việt',
-            file: 'vi.json'
+            file: 'vi/index.ts'
         },
         {
             code: 'en',
             iso: 'en-US',
             name: 'English',
-            file: 'en.json'
+            file: 'en/index.ts'
         }
     ],
 
