@@ -1,19 +1,27 @@
 // stores/auth.ts
-
 import {appService} from "~/services/app.services";
 
 export const useAuthStore = defineStore('auth', () => {
     const { $i18n } = useNuxtApp();
-    const {auth} = appService()
-    const { exec } = usePromiseTracker()
+    const { auth } = appService();
+    const { exec } = usePromiseTracker();
     const { toastError } = useAppToast();
+
+    const user = useSupabaseUser();
 
     // Action: Login
     const login = async (email: string, pass: string) => {
         return await exec(async () => {
-            const { error } = await auth.login(email, pass)
+            const { error, data } = await auth.login(email, pass)
+
             if (error) {
-                toastError($i18n.t(`auth.errors.${error.code}`))
+                // Xử lý thông báo lỗi đa ngôn ngữ
+                // Nếu không có key dịch thì hiển thị message gốc từ Supabase
+                const transKey = `auth.errors.${error.code}`
+                // @ts-ignore - Bỏ qua check type strict của i18n nếu cần
+                const message = $i18n.t(transKey) === transKey ? error.message : $i18n.t(transKey)
+
+                toastError(message)
                 throw error
             }
         })
@@ -24,6 +32,7 @@ export const useAuthStore = defineStore('auth', () => {
         return await exec(async () => {
             const { error } = await auth.loginWithProvider(provider)
             if (error) throw error
+            // Lưu ý: Social login sẽ redirect trang nên code phía sau có thể không chạy ngay
         })
     }
 
@@ -43,15 +52,22 @@ export const useAuthStore = defineStore('auth', () => {
                 throw error
             }
 
-            // Supabase mặc định yêu cầu confirm email.
-            // Nếu tắt confirm email trong dashboard thì user sẽ được log in luôn.
             return data
         })
     }
 
+    // Action: Logout
+    const logout = async () => {
+        return await exec(async () => {
+            await auth.logout();
+        })
+    }
+
     return {
+        user,
         login,
         register,
-        loginWithProvider
+        loginWithProvider,
+        logout
     }
 })

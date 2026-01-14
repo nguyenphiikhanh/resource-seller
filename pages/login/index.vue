@@ -15,7 +15,7 @@
             class="w-14 h-14 bg-gradient-to-br from-brand-purple to-brand-cyan rounded-xl flex items-center justify-center text-white text-2xl font-bold mb-6 shadow-lg shadow-purple-500/20 mx-auto">
           N
         </div>
-        <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2">Đăng Nhập</h1>
+        <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2">Đăng nhập</h1>
         <p class="text-sm text-gray-500 dark:text-gray-400">Chào mừng bạn quay trở lại với MMODUYLON.</p>
       </div>
 
@@ -79,7 +79,7 @@
 
         <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           Chưa có tài khoản?
-          <NuxtLink to="/register" class="font-bold text-brand-purple hover:text-brand-cyan transition">Đăng ký ngay
+          <NuxtLink :to="ROUTER_LIST.REGISTER" class="font-bold text-brand-purple hover:text-brand-cyan transition">Đăng ký ngay
           </NuxtLink>
         </p>
       </form>
@@ -89,6 +89,12 @@
 </template>
 
 <script setup>
+import {ROUTER_LIST} from "~/constants/router.const.ts";
+
+definePageMeta({
+  middleware: 'guest'
+})
+
 const {authStore} = useAppStore();
 const router = useRouter();
 const form = reactive({
@@ -99,16 +105,14 @@ const showPassword = ref(false)
 const handleSubmit = async () => {
   try {
     await authStore.login(form.email, form.password).then(() => {
-      router.push('/');
+      router.push(ROUTER_LIST.HOME);
     });
   } catch (err) {}
 }
 
 const handleSocialLogin = async (provider) => {
   try {
-    await authStore.loginWithProvider(provider).then(() => {
-      router.push('/');
-    });
+    await authStore.loginWithProvider(provider);
   } catch (err) {}
 }
 </script>

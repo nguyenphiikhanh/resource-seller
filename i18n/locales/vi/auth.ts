@@ -4,10 +4,11 @@ export default {
     resigter: "Đăng ký",
     resigter_now: "Đăng ký ngay",
     create_account: "Tạo tài khoản",
+    register_with_google: "Đăng ký bằng tài khoản Google",
     success: "Đăng nhập thành công!",
     failed: "Đăng nhập thất bại: {msg}",
     errors: {
-        unexpected_failure: "Đã xảy ra lỗi không mong muốn.",
+        unexpected_failure: "Đã xảy ra lỗi. Vui lòng thử lại sau!",
         validation_failed: "Dữ liệu nhập vào không hợp lệ.",
         bad_json: "Lỗi định dạng dữ liệu hệ thống.",
         email_exists: "Địa chỉ email này đã được sử dụng.",
