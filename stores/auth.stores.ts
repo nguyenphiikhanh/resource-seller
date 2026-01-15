@@ -1,5 +1,7 @@
 // stores/auth.ts
 import {appService} from "~/services/app.services";
+import {GROUP, PERMISSION_FUNCTION_GET} from "~/constants/authorization.const";
+import type {Database} from "~/types/database.types";
 
 export const useAuthStore = defineStore('auth', () => {
     const { $i18n } = useNuxtApp();
@@ -8,6 +10,9 @@ export const useAuthStore = defineStore('auth', () => {
     const { toastError } = useAppToast();
 
     const user = useSupabaseUser();
+    const client = useSupabaseClient<Database>();
+    const permissions = ref<string[]>([]);
+    const groups = ref<string[]>([]);
 
     // Action: Login
     const login = async (email: string, pass: string) => {
@@ -36,6 +41,22 @@ export const useAuthStore = defineStore('auth', () => {
         })
     }
 
+    const fetchPermissions = async () => {
+        if (!user.value) return;
+
+        const { data, error } = await client.rpc('get_my_permissions') as { data: string[] | null, error: any };
+
+        if (data && !error) {
+            permissions.value = data ?? [];
+        }
+    }
+
+    const can = (actionCode: string) => {
+        // super admin
+        if (groups.value.includes(GROUP.SUPER_ADMIN)) return true;
+
+        return permissions.value.includes(actionCode);
+    }
     // Action: Register
     const register = async ({ email, password, fullName }: { email: string, password: string, fullName: string }) => {
         return await exec(async () => {
@@ -68,6 +89,8 @@ export const useAuthStore = defineStore('auth', () => {
         login,
         register,
         loginWithProvider,
-        logout
+        logout,
+        can,
+        fetchPermissions
     }
 })

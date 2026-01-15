@@ -63,14 +63,16 @@
               <span class="absolute -top-1 -right-1 bg-brand-cyan text-dark-900 text-[10px] font-bold px-1.5 rounded-full">3</span>
             </button>
 
-            <button
-                @click="toggleTheme"
-                class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
-                title="Đổi giao diện"
-            >
-              <i v-if="$colorMode.value === 'dark'" class="fas fa-sun text-yellow-400 text-lg"></i>
-              <i v-else class="fas fa-moon text-indigo-600 text-lg"></i>
-            </button>
+            <ClientOnly>
+              <button
+                  @click="toggleTheme"
+                  class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
+                  title="Đổi giao diện"
+              >
+                <i v-if="$colorMode.value === 'dark'" class="fas fa-sun text-yellow-400 text-lg"></i>
+                <i v-else class="fas fa-moon text-indigo-600 text-lg"></i>
+              </button>
+            </ClientOnly>
 
             <div v-if="user" class="hidden sm:block h-8 w-[1px] bg-gray-300 dark:bg-white/10 mx-1"></div>
 
@@ -107,7 +109,13 @@
 
                   <div class="p-2 space-y-1">
                     <NuxtLink to="/profile" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition">
-                      <i class="fas fa-user-circle w-5 text-gray-400"></i> Hồ sơ cá nhân
+                      <i class="fas fa-user-circle w-5 text-gray-400"></i> Thông tin cá nhân
+                    </NuxtLink>
+                    <NuxtLink to="/admin" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition">
+                      <i class="fas fa-user-tie w-5 text-gray-400"></i> Trang quản trị
+                    </NuxtLink>
+                    <NuxtLink to="/orders" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition">
+                      <i class="fas fa-person-booth w-5 text-gray-400"></i> Quản lý gian hàng
                     </NuxtLink>
                     <NuxtLink to="/orders" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition">
                       <i class="fas fa-history w-5 text-gray-400"></i> Lịch sử đơn hàng

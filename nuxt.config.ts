@@ -38,6 +38,7 @@ export default defineNuxtConfig({
   //supabase
   supabase: {
     redirect: false, // Tắt bắt buộc đăng nhập mặc định
+    types: '~~/types/database.types.ts',
   },
 
   // auto-import stores

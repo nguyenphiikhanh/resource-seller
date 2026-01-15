@@ -1,7 +1,3 @@
-# Nuxt Minimal Starter
-
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
 ## Setup
 
 Make sure to install dependencies:
@@ -20,7 +16,15 @@ yarn install
 bun install
 ```
 
+## Sync Database Type
+
 ## Development Server
+```bash
+# Supabase login
+npx supabase login
+
+npx supabase gen types typescript --project-id <project-id-here> > types/database.types.ts
+```
 
 Start the development server on `http://localhost:3000`:
 
@@ -71,5 +75,3 @@ yarn preview
 # bun
 bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
