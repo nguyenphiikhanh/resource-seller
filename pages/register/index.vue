@@ -125,7 +125,7 @@ const onValidSubmit = async (values) => {
       password: values.password,
       fullName: values.fullName
     });
-  } catch (err) {}
+  } catch{}
 };
 
 const onSubmit = handleSubmit(onValidSubmit);
@@ -133,6 +133,6 @@ const onSubmit = handleSubmit(onValidSubmit);
 const handleSocialLogin = async (provider) => {
   try {
     await authStore.loginWithProvider(provider);
-  } catch (err) {}
+  } catch {}
 }
 </script>

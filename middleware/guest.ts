@@ -1,7 +1,7 @@
 // middleware/guest.ts
 import {ROUTER_LIST} from "~/constants/router.const";
 
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(() => {
     const user = useSupabaseUser()
 
     if (user.value) {

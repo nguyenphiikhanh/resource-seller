@@ -4,3 +4,8 @@ export const GROUP = {
     SUPER_ADMIN: 'Super Admin',
 }
 
+export const PERMISSIONS = {
+    ADMIN: {
+        ACCESS: 'admin.access',
+    }
+}

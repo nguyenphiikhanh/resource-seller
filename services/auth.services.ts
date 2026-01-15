@@ -1,7 +1,6 @@
 import type {RegisterAccount} from "~/types/auth.types";
 
 export const authService = () => {
-    const router = useRouter();
     const client = useSupabaseClient();
     const auth = {
         async login(email: string, pass: string) {

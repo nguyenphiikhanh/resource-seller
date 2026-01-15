@@ -107,12 +107,12 @@ const handleSubmit = async () => {
     await authStore.login(form.email, form.password).then(() => {
       router.push(ROUTER_LIST.HOME);
     });
-  } catch (err) {}
+  } catch{}
 }
 
 const handleSocialLogin = async (provider) => {
   try {
     await authStore.loginWithProvider(provider);
-  } catch (err) {}
+  } catch{}
 }
 </script>
