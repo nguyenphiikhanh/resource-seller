@@ -16,14 +16,7 @@
 
     <div class="bg-brand-purple/10 border-b border-brand-purple/20 text-xs py-2">
       <div class="container mx-auto px-4 flex justify-between items-center">
-        <div class="flex items-center gap-4 overflow-hidden h-5 w-full md:w-1/2">
-          <span class="text-brand-cyan font-bold whitespace-nowrap"><i class="fas fa-bolt mr-1"></i> LIVE:</span>
-          <div class="flex flex-col relative w-full h-5 overflow-hidden">
-            <div :key="currentLiveText" class="live-item absolute w-full">
-              <span class="text-gray-600 dark:text-gray-400" v-html="currentLiveText"></span>
-            </div>
-          </div>
-        </div>
+        <CommonLiveTicker />
         <div class="hidden md:flex gap-4">
           <a href="#" class="hover:text-brand-purple dark:hover:text-white"><i class="fab fa-telegram mr-1"></i> Support Telegram</a>
         </div>
@@ -187,7 +180,7 @@ const handleLogout = async () => {
     await authStore.logout().then(async () => {
       await router.push(ROUTER_LIST.HOME);
     });
-  } catch (e) {}
+  } catch{}
 }
 
 router.afterEach(() => {
@@ -195,15 +188,4 @@ router.afterEach(() => {
   isUserMenuOpen.value = false;
 });
 
-const names = ['nam_mmo', 'tuan_ads', 'hacker_lo', 'facebook_king'];
-const actions = ['vừa mua 50 Clone', 'vừa mua BM2500', 'vừa tải Source Code'];
-const currentLiveText = ref('User <span class="text-gray-900 dark:text-white font-mono">hoang***</span> vừa mua <span class="text-brand-green">100 Via FB XMDT</span> - 2 phút trước');
-
-onMounted(() => {
-  setInterval(() => {
-    const randomName = names[Math.floor(Math.random() * names.length)];
-    const randomAction = actions[Math.floor(Math.random() * actions.length)];
-    currentLiveText.value = `User <span class="text-gray-900 dark:text-white font-mono">${randomName}***</span> ${randomAction} - 1 phút trước`;
-  }, 4000);
-});
 </script>
