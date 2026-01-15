@@ -1,9 +1,9 @@
-import {useAuthSchema} from "~/composables/schemas/auth";
+import { useAuthSchema } from '~/composables/schemas/auth'
 
 export const useAppSchema = () => {
-    const auth = useAuthSchema();
+  const auth = useAuthSchema()
 
-    return {
-        ...auth,
-    }
+  return {
+    ...auth,
+  }
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
-<!--    common loading-->
-    <LazyCommonLoadingOverlay/>
+    <!--    common loading-->
+    <LazyCommonLoadingOverlay />
 
     <NuxtLayout>
       <NuxtPage />

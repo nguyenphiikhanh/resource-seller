@@ -1,0 +1,30 @@
+# 1. Dependencies & System
+node_modules
+.DS_Store
+dist
+
+# 2. Nuxt Build Output (QUAN TRỌNG)
+.nuxt
+.output
+
+# 3. Package Manager Lock Files (TUYỆT ĐỐI KHÔNG FORMAT)
+# Format file này sẽ làm sai lệch checksum khi người khác cài đặt
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+bun.lockb
+
+# 4. Environment Variables
+.env
+.env.*
+
+# 5. Editor Configs
+.vscode
+.idea
+
+# 6. Static Assets (Tùy chọn)
+# Nếu trong public có chứa các file JS/CSS đã minified
+# public/
+
+# 7. Generated Types (Nếu có file auto-gen từ Supabase quá nặng)
+# types/supabase.ts

@@ -19,6 +19,7 @@ bun install
 ## Sync Database Type
 
 ## Development Server
+
 ```bash
 # Supabase login
 npx supabase login

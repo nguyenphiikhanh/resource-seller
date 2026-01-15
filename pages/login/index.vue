@@ -1,118 +1,143 @@
 <template>
   <div
-      class="min-h-screen flex items-center justify-center bg-white dark:bg-dark-900 transition-colors duration-300 relative p-4">
-
-    <NuxtLink to="/"
-              class="absolute top-6 left-6 lg:top-8 lg:left-8 text-gray-500 dark:text-gray-400 hover:text-brand-purple transition flex items-center gap-2 text-sm font-medium z-10">
+    class="relative flex min-h-screen items-center justify-center bg-white p-4 transition-colors duration-300 dark:bg-dark-900"
+  >
+    <NuxtLink
+      to="/"
+      class="absolute left-6 top-6 z-10 flex items-center gap-2 text-sm font-medium text-gray-500 transition hover:text-brand-purple lg:left-8 lg:top-8 dark:text-gray-400"
+    >
       <i class="fas fa-arrow-left"></i> <span class="hidden sm:inline">Trang chủ</span>
     </NuxtLink>
 
     <div
-        class="w-full max-w-md bg-white dark:bg-dark-900 sm:bg-transparent sm:dark:bg-transparent rounded-2xl sm:shadow-none p-2 sm:p-0">
-
+      class="w-full max-w-md rounded-2xl bg-white p-2 sm:bg-transparent sm:p-0 sm:shadow-none dark:bg-dark-900 sm:dark:bg-transparent"
+    >
       <div class="mb-8 text-center">
         <div
-            class="w-14 h-14 bg-gradient-to-br from-brand-purple to-brand-cyan rounded-xl flex items-center justify-center text-white text-2xl font-bold mb-6 shadow-lg shadow-purple-500/20 mx-auto">
+          class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-brand-purple to-brand-cyan text-2xl font-bold text-white shadow-lg shadow-purple-500/20"
+        >
           N
         </div>
-        <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2">Đăng nhập</h1>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Chào mừng bạn quay trở lại với MMODUYLON.</p>
+        <h1 class="mb-2 text-2xl font-bold text-gray-900 lg:text-3xl dark:text-white">Đăng nhập</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          Chào mừng bạn quay trở lại với MMODUYLON.
+        </p>
       </div>
 
       <div class="mb-8">
-        <button @click="handleSocialLogin('google')"
-                class="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-200 dark:border-white/10 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition bg-white dark:bg-dark-800 text-gray-700 dark:text-gray-300 font-medium text-sm group shadow-sm">
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg"
-               class="w-5 h-5 group-hover:scale-110 transition" alt="Google">
+        <button
+          @click="handleSocialLogin('google')"
+          class="group flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 dark:border-white/10 dark:bg-dark-800 dark:text-gray-300 dark:hover:bg-white/5"
+        >
+          <img
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            class="h-5 w-5 transition group-hover:scale-110"
+            alt="Google"
+          />
           Tiếp tục với Google
         </button>
       </div>
 
-      <div class="relative flex py-2 items-center mb-8">
+      <div class="relative mb-8 flex items-center py-2">
         <div class="flex-grow border-t border-gray-200 dark:border-white/10"></div>
-        <span class="flex-shrink-0 mx-4 text-gray-400 text-xs uppercase font-medium tracking-wider">Hoặc Email</span>
+        <span class="mx-4 flex-shrink-0 text-xs font-medium uppercase tracking-wider text-gray-400"
+          >Hoặc Email</span
+        >
         <div class="flex-grow border-t border-gray-200 dark:border-white/10"></div>
       </div>
 
       <form @submit.prevent="handleSubmit" class="space-y-5">
-
         <div class="space-y-1.5">
-          <label class="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Email</label>
+          <label class="ml-1 text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
           <div class="relative">
             <input
-                v-model="form.email"
-                type="email"
-                placeholder="name@example.com"
-                class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 dark:bg-dark-800 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition placeholder-gray-400 dark:placeholder-gray-500 text-sm"
-                required
-            >
-            <i class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+              v-model="form.email"
+              type="email"
+              placeholder="name@example.com"
+              class="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-10 pr-4 text-sm text-gray-900 placeholder-gray-400 transition focus:border-brand-purple focus:outline-none focus:ring-1 focus:ring-brand-purple dark:border-white/10 dark:bg-dark-800 dark:text-white dark:placeholder-gray-500"
+              required
+            />
+            <i
+              class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-gray-400"
+            ></i>
           </div>
         </div>
 
         <div class="space-y-1.5">
-          <div class="flex items-center justify-between ml-1">
+          <div class="ml-1 flex items-center justify-between">
             <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Mật khẩu</label>
-            <a href="#" class="text-xs font-medium text-brand-purple hover:text-brand-cyan transition">Quên mật
-              khẩu?</a>
+            <a
+              href="#"
+              class="text-xs font-medium text-brand-purple transition hover:text-brand-cyan"
+              >Quên mật khẩu?</a
+            >
           </div>
           <div class="relative">
             <input
-                v-model="form.password"
-                :type="showPassword ? 'text' : 'password'"
-                placeholder="••••••••"
-                class="w-full pl-10 pr-10 py-3 rounded-xl bg-gray-50 dark:bg-dark-800 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition placeholder-gray-400 dark:placeholder-gray-500 text-sm"
-                required
+              v-model="form.password"
+              :type="showPassword ? 'text' : 'password'"
+              placeholder="••••••••"
+              class="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-10 pr-10 text-sm text-gray-900 placeholder-gray-400 transition focus:border-brand-purple focus:outline-none focus:ring-1 focus:ring-brand-purple dark:border-white/10 dark:bg-dark-800 dark:text-white dark:placeholder-gray-500"
+              required
+            />
+            <i
+              class="fas fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-gray-400"
+            ></i>
+            <button
+              type="button"
+              @click="showPassword = !showPassword"
+              class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-gray-600 focus:outline-none dark:hover:text-gray-200"
             >
-            <i class="fas fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-            <button type="button" @click="showPassword = !showPassword"
-                    class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition focus:outline-none">
               <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
             </button>
           </div>
         </div>
 
-        <button type="submit"
-            class="w-full py-3.5 px-4 bg-gradient-to-r from-brand-purple to-brand-cyan text-white font-bold rounded-xl shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-sm uppercase tracking-wide mt-2">
+        <button
+          type="submit"
+          class="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-purple to-brand-cyan px-4 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-purple-500/30 transition-all hover:scale-[1.02] hover:shadow-purple-500/50 active:scale-[0.98]"
+        >
           <span>Đăng Nhập</span>
         </button>
 
-        <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
+        <p class="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
           Chưa có tài khoản?
-          <NuxtLink :to="ROUTER_LIST.REGISTER" class="font-bold text-brand-purple hover:text-brand-cyan transition">Đăng ký ngay
+          <NuxtLink
+            :to="ROUTER_LIST.REGISTER"
+            class="font-bold text-brand-purple transition hover:text-brand-cyan"
+            >Đăng ký ngay
           </NuxtLink>
         </p>
       </form>
     </div>
-
   </div>
 </template>
 
 <script setup>
-import {ROUTER_LIST} from "~/constants/router.const.ts";
+import { ROUTER_LIST } from '~/constants/router.const.ts'
 
 definePageMeta({
-  middleware: 'guest'
+  middleware: 'guest',
 })
 
-const {authStore} = useAppStore();
-const router = useRouter();
+const { authStore } = useAppStore()
+const router = useRouter()
 const form = reactive({
   email: '',
-  password: ''
+  password: '',
 })
 const showPassword = ref(false)
 const handleSubmit = async () => {
   try {
     await authStore.login(form.email, form.password).then(() => {
-      router.push(ROUTER_LIST.HOME);
-    });
-  } catch{}
+      router.push(ROUTER_LIST.HOME)
+    })
+  } catch {}
 }
 
 const handleSocialLogin = async (provider) => {
   try {
-    await authStore.loginWithProvider(provider);
-  } catch{}
+    await authStore.loginWithProvider(provider)
+  } catch {}
 }
 </script>

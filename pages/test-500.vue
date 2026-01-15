@@ -4,7 +4,7 @@
 throw createError({
   statusCode: 500,
   statusMessage: 'Kết nối Database thất bại (Giả lập)',
-  fatal: true
+  fatal: true,
 })
 </script>
 
