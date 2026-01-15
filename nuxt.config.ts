@@ -4,14 +4,7 @@ import {i18nConfigs} from './configs/i18n.config'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxtjs/color-mode',
-    '@nuxtjs/supabase',
-    '@pinia/nuxt',
-    '@nuxtjs/i18n',
-    '@vee-validate/nuxt',
-    ],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/supabase', '@pinia/nuxt', '@nuxtjs/i18n', '@vee-validate/nuxt', '@nuxt/eslint'],
 
   app: {
     head: {
