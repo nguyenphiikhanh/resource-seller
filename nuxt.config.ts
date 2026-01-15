@@ -13,6 +13,17 @@ export default defineNuxtConfig({
     '@vee-validate/nuxt',
     ],
 
+
+  build: {
+    transpile: ['vue-toastification']
+  },
+
+  vite: {
+    optimizeDeps: {
+      include: ['vue-toastification']
+    }
+  },
+
   app: {
     head: {
       title: 'MMO DUYLON | Sàn Tài Nguyên Số 1 VN',
