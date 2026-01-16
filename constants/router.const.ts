@@ -3,5 +3,7 @@ export const ROUTER_LIST = {
   LOGIN: '/login',
   REGISTER: '/register',
   ADMIN: '/admin',
-  UN_AUTHORIZED: '/un-authorized',
+  ERROR: {
+    UN_AUTHORIZED: '/un-authorized',
+  }
 }

@@ -1,12 +1,14 @@
 // stores/auth.ts
 import { appService } from '~/services/app.services'
 import type { Database } from '~/types/database.types'
+import {ROUTER_LIST} from "~/constants/router.const";
 
 export const useAuthStore = defineStore('auth', () => {
   const { $i18n } = useNuxtApp()
   const { auth } = appService()
   const { exec } = usePromiseTracker()
   const { toastError } = useAppToast()
+  const router = useRouter();
 
   const user = useSupabaseUser()
   const client = useSupabaseClient<Database>()
@@ -89,17 +91,26 @@ export const useAuthStore = defineStore('auth', () => {
   // Action: Logout
   const logout = async () => {
     return await exec(async () => {
-      await auth.logout()
+      await auth.logout();
+      clearPermissions()
+      await router.push(ROUTER_LIST.LOGIN)
     })
+  }
+
+  // Reset khi logout
+  const clearPermissions = () => {
+    permissions.value = []
   }
 
   return {
     user,
+    permissions,
     login,
     register,
     loginWithProvider,
     logout,
     can,
+    clearPermissions,
     fetchPermissions,
   }
 })
