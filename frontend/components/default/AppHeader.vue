@@ -7,6 +7,7 @@ import {
   User, Wallet, LayoutGrid
 } from 'lucide-vue-next'
 import ThemeToggle from '@/components/ThemeToggle.vue'
+import {APP_NAME} from "@/constants/app";
 
 // Menu items cho Mobile
 const navItems = [
@@ -49,7 +50,7 @@ const navItems = [
           <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-red-600 text-white shadow-lg shadow-primary/20">
             <span class="text-sm">M</span>
           </div>
-          <span class="hidden sm:inline-block">MMO <span class="text-primary">DUYLON</span></span>
+          <span class="hidden sm:inline-block">MMO <span class="text-primary">{{APP_NAME}}</span></span>
         </NuxtLink>
 
         <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">

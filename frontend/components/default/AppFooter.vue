@@ -4,7 +4,7 @@
       <div class="space-y-4">
         <div class="flex items-center gap-2 font-bold text-lg">
           <div class="h-6 w-6 rounded bg-primary"></div>
-          MMO DUYLON
+          MMO {{APP_NAME}}
         </div>
         <p class="text-muted-foreground leading-relaxed max-w-xs">
           Hệ thống cung cấp tài nguyên MMO tự động lớn nhất Việt Nam. Uy tín, Bảo mật, Tốc độ.
@@ -45,9 +45,13 @@
           </div>
         </div>
         <p class="mt-4 text-xs text-muted-foreground">
-          © 2026 MMODUYLON. <br>All rights reserved.
+          © 2026 MMO{{APP_NAME}}. <br>All rights reserved.
         </p>
       </div>
     </div>
   </footer>
 </template>
+
+<script setup>
+import {APP_NAME} from "@/constants/app.ts";
+</script>
