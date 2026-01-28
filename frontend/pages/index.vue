@@ -117,30 +117,59 @@ const formatCurrency = (value: number) => {
 <template>
   <div class="bg-muted/10 min-h-screen">
 
-    <div class="bg-red-50 dark:bg-red-900/10 border-b border-red-100 dark:border-red-900/30 text-sm py-2.5 overflow-hidden">
-      <div class="container flex items-center justify-between">
-        <div class="flex items-center gap-4 w-full md:w-2/3 overflow-hidden">
-          <div class="flex items-center gap-2 text-primary font-bold whitespace-nowrap px-2 flex-shrink-0">
-            <Zap class="h-4 w-4 animate-pulse" /> LIVE:
+    <!-- Magnificent Live Feed Bar -->
+    <div class="relative h-12 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-primary/10 overflow-hidden shadow-sm z-40">
+      <div class="container h-full flex items-center justify-between">
+        <!-- Live Badge -->
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-lg border border-primary/20">
+            <div class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-primary text-white"></span>
+            </div>
+            <span class="text-[10px] font-black uppercase tracking-widest text-primary italic">Live Feed</span>
           </div>
-          <div class="flex flex-col relative w-full h-5 overflow-hidden">
-            <div class="animate-slide-up">
-              <span v-for="(feed, i) in liveFeed" :key="i" class="block h-5 text-muted-foreground truncate">
-                User <span class="font-bold text-foreground">{{ feed.user }}</span>
-                {{ feed.action }} <span class="text-primary font-medium">{{ feed.item }}</span>
-                - {{ feed.time }}
-              </span>
+          <div class="h-4 w-px bg-primary/20"></div>
+        </div>
+
+        <!-- Animated Content Area (Horizontal Carousel Ticker) -->
+        <div class="flex-1 overflow-hidden h-full relative mx-4">
+          <!-- Fade Edges -->
+          <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background/95 to-transparent z-10"></div>
+          <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background/95 to-transparent z-10"></div>
+          
+          <div class="h-full flex items-center gap-12 whitespace-nowrap animate-horizontal-scroll pr-12">
+            <!-- Quadruple the items for a long, seamless horizontal strip -->
+            <div v-for="(feed, i) in [...liveFeed, ...liveFeed, ...liveFeed, ...liveFeed]" :key="i" class="flex items-center gap-4 group">
+              <div class="flex items-center gap-2">
+                <div class="h-1.5 w-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors"></div>
+                <span class="text-[11px] font-bold text-muted-foreground uppercase tracking-tighter">
+                  User <span class="text-foreground font-black">{{ feed.user }}</span>
+                </span>
+              </div>
+              <div class="flex items-center gap-2 bg-primary/5 px-3 py-1.5 rounded-2xl border border-primary/10 shadow-sm transition-all group-hover:scale-105 group-hover:bg-primary/10 group-hover:border-primary/30">
+                <span class="text-[10px] font-black text-primary/60 italic uppercase tracking-widest">{{ feed.action }}</span>
+                <span class="text-xs font-black text-primary">{{ feed.item }}</span>
+              </div>
+              <span class="text-[10px] font-black text-muted-foreground/30 font-mono tracking-tighter">{{ feed.time }}</span>
             </div>
           </div>
         </div>
-        <div class="flex items-center gap-6 text-muted-foreground font-bold text-sm">
-          <NuxtLink to="/login" class="text-primary hover:underline flex items-center gap-1.5 border border-primary/20 bg-primary/5 px-4 py-1 rounded-full text-xs">
-            <User class="h-3 w-3"/> Đăng nhập
-          </NuxtLink>
-          <div class="hidden lg:flex gap-6">
-            <a href="#" class="hover:text-primary transition-colors flex items-center gap-1.5 font-medium"><ShieldCheck class="h-4 w-4"/> Bảo hành</a>
-            <a href="#" class="hover:text-primary transition-colors flex items-center gap-1.5 font-medium"><Globe class="h-4 w-4"/> Telegram</a>
-          </div>
+
+        <!-- Social/Support Links -->
+        <div class="hidden lg:flex items-center gap-6 text-muted-foreground font-black text-[10px] uppercase tracking-widest">
+          <a href="#" class="hover:text-primary transition-all flex items-center gap-2 group">
+            <div class="h-6 w-6 rounded-lg bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+              <ShieldCheck class="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary" />
+            </div>
+            Bảo hành
+          </a>
+          <a href="#" class="hover:text-primary transition-all flex items-center gap-2 group text-[#0088cc]">
+            <div class="h-6 w-6 rounded-lg bg-[#0088cc]/10 flex items-center justify-center">
+              <Globe class="h-3.5 w-3.5" />
+            </div>
+            Telegram
+          </a>
         </div>
       </div>
     </div>
@@ -341,14 +370,18 @@ const formatCurrency = (value: number) => {
 
 <style scoped>
 /* Animation cho Live Feed */
-@keyframes slideUp {
-  0%, 20% { transform: translateY(0); }
-  25%, 45% { transform: translateY(-100%); }
-  50%, 70% { transform: translateY(-200%); }
-  75%, 100% { transform: translateY(-300%); }
+@keyframes horizontalScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-.animate-slide-up {
-  animation: slideUp 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+.animate-horizontal-scroll {
+  animation: horizontalScroll 40s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.animate-horizontal-scroll:hover {
+  animation-play-state: paused;
 }
 </style>
