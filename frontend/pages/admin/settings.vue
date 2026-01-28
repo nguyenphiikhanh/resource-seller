@@ -10,7 +10,11 @@ import {
   Server,
   Key,
   Palette,
+  Bell,
+  Zap as ZapIcon
 } from 'lucide-vue-next'
+
+const { popups } = usePopups()
 
 definePageMeta({
   layout: 'admin'
@@ -109,6 +113,48 @@ const systemSettings = ref({
                  <Save class="h-5 w-5" /> Lưu cấu hình
                </Button>
              </div>
+          </div>
+        </Card>
+
+        <!-- Popup Management -->
+        <Card class="border-0 shadow-lg overflow-hidden">
+          <div class="p-8 border-b bg-muted/30">
+            <h2 class="font-black text-xl mb-6 flex items-center gap-2">
+               Quản lý Popup thông báo <div class="h-1.5 w-1.5 rounded-full bg-primary"></div>
+            </h2>
+            <div class="space-y-6">
+              <div v-for="popup in popups" :key="popup.id" class="p-6 rounded-[2rem] border bg-card hover:border-primary/20 transition-all group">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-4">
+                    <div class="h-12 w-12 rounded-[1.2rem] bg-primary/10 flex items-center justify-center text-primary">
+                      <component :is="popup.type === 'banner' ? Globe : Bell" class="h-6 w-6" />
+                    </div>
+                    <div>
+                      <p class="font-black text-sm uppercase tracking-tighter">{{ popup.title }}</p>
+                      <p class="text-[10px] font-bold text-muted-foreground uppercase">Loại: {{ popup.type }} | Hiển thị: {{ popup.pages.join(', ') }}</p>
+                    </div>
+                  </div>
+                  <Switch v-model:checked="popup.active" />
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="space-y-1">
+                    <Label class="text-[10px] font-black uppercase text-muted-foreground tracking-widest">Nội dung</Label>
+                    <Input v-model="popup.content" class="h-11 bg-muted/30 border-0 rounded-xl font-medium text-xs" />
+                  </div>
+                  <div class="space-y-1" v-if="popup.type === 'banner'">
+                    <Label class="text-[10px] font-black uppercase text-muted-foreground tracking-widest">URL Hình ảnh (Banner)</Label>
+                    <Input v-model="popup.imageUrl" class="h-11 bg-muted/30 border-0 rounded-xl font-mono text-[10px]" />
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6 rounded-[2rem] border border-dashed border-primary/20 flex flex-col items-center justify-center gap-4 hover:bg-primary/5 transition-colors cursor-pointer group">
+                  <div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                    <ZapIcon class="h-6 w-6" />
+                  </div>
+                  <p class="text-xs font-black uppercase tracking-widest text-primary">Thêm Popup mới</p>
+              </div>
+            </div>
           </div>
         </Card>
 

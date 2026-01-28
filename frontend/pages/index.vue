@@ -3,13 +3,14 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select'
-import { Card } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Slider } from '@/components/ui/slider'
 import {
   Facebook, Youtube, Smartphone, Code2, Server, ShoppingCart, Filter, ChevronRight,
-  ShieldCheck, Globe, Layers, Star, CheckCircle2, X
+  ShieldCheck, Globe, Layers, Star, CheckCircle2, X, Zap as ZapIcon, Clock
 } from 'lucide-vue-next'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
 // --- MOCK DATA ---
 const liveFeed = [
@@ -40,6 +41,10 @@ const allProducts = Array.from({ length: 100 }, (_, i) => {
   const base = baseProducts[i % baseProducts.length]
   return { ...base, id: i + 1, title: `${base.title} #${i + 1}` }
 })
+
+const formatCurrency = (val: number) => {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(val)
+}
 
 // --- INFINITE SCROLL LOGIC ---
 const pageSize = 12
@@ -98,469 +103,292 @@ const loadMore = () => {
   if (displayedCount.value >= allProducts.length || isLoading.value) return
   
   isLoading.value = true
-  // Mock artificial delay
   setTimeout(() => {
     displayedCount.value += pageSize
     isLoading.value = false
   }, 800)
 }
-
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value)
-}
 </script>
 
 <template>
-  <div class="bg-muted/10 min-h-screen">
+  <div class="min-h-screen bg-background relative overflow-hidden">
+    <!-- Fluid background effects -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <div class="absolute top-[20%] -left-[10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full animate-pulse"></div>
+      <div class="absolute bottom-[10%] -right-[5%] w-[30%] h-[30%] bg-primary/5 blur-[100px] rounded-full [animation-delay:2s]"></div>
+    </div>
 
-    <!-- Magnificent Live Feed Bar -->
-    <div class="relative h-12 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-primary/10 overflow-hidden shadow-sm z-40">
-      <div class="container h-full flex items-center justify-between">
-        <!-- Live Badge -->
-        <div class="flex items-center gap-3 shrink-0">
-          <div class="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-lg border border-primary/20">
-            <div class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-primary text-white"></span>
-            </div>
-            <span class="text-[10px] font-black uppercase tracking-widest text-primary italic">Live Feed</span>
-          </div>
-          <div class="h-4 w-px bg-primary/20"></div>
+    <!-- Live Ticker Section -->
+    <div class="w-full bg-slate-50 dark:bg-slate-950 border-b border-muted/50 py-4 relative z-10 overflow-hidden group">
+      <div class="container flex items-center gap-6">
+        <div class="bg-primary/10 p-2 rounded-xl flex items-center gap-2 border border-primary/20 shrink-0 shadow-sm">
+          <div class="h-2 w-2 rounded-full bg-primary animate-ping"></div>
+          <span class="text-[10px] font-black text-primary uppercase tracking-[0.2em] italic">LIVE:</span>
         </div>
-
-        <!-- Animated Content Area (Horizontal Carousel Ticker) -->
-        <div class="flex-1 overflow-hidden h-full relative mx-4">
-          <!-- Fade Edges -->
-          <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background/95 to-transparent z-10"></div>
-          <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background/95 to-transparent z-10"></div>
-          
-          <div class="h-full flex items-center gap-12 whitespace-nowrap animate-horizontal-scroll pr-12">
-            <!-- Quadruple the items for a long, seamless horizontal strip -->
-            <div v-for="(feed, i) in [...liveFeed, ...liveFeed, ...liveFeed, ...liveFeed]" :key="i" class="flex items-center gap-4 group">
-              <div class="flex items-center gap-2">
-                <div class="h-1.5 w-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors"></div>
-                <span class="text-[11px] font-bold text-muted-foreground uppercase tracking-tighter">
-                  User <span class="text-foreground font-black">{{ feed.user }}</span>
-                </span>
-              </div>
-              <div class="flex items-center gap-2 bg-primary/5 px-3 py-1.5 rounded-2xl border border-primary/10 shadow-sm transition-all group-hover:scale-105 group-hover:bg-primary/10 group-hover:border-primary/30">
-                <span class="text-[10px] font-black text-primary/60 italic uppercase tracking-widest">{{ feed.action }}</span>
-                <span class="text-xs font-black text-primary">{{ feed.item }}</span>
-              </div>
-              <span class="text-[10px] font-black text-muted-foreground/30 font-mono tracking-tighter">{{ feed.time }}</span>
+        
+        <div class="flex-1 overflow-hidden relative">
+          <div class="flex gap-12 whitespace-nowrap animate-marquee group-hover:pause">
+            <div v-for="(feed, i) in [...liveFeed, ...liveFeed]" :key="i" class="flex items-center gap-3">
+              <span class="text-xs font-black text-primary uppercase italic tracking-tighter">{{ feed.user }}</span>
+              <span class="text-xs font-bold text-muted-foreground">{{ feed.action }}</span>
+              <span class="text-xs font-black text-foreground italic">"{{ feed.item }}"</span>
+              <span class="text-[10px] font-black text-muted-foreground/30 font-mono tracking-tighter uppercase">{{ feed.time }}</span>
             </div>
           </div>
         </div>
 
-        <!-- Social/Support Links -->
-        <div class="hidden lg:flex items-center gap-6 text-muted-foreground font-black text-[10px] uppercase tracking-widest">
-          <a href="#" class="hover:text-primary transition-all flex items-center gap-2 group">
-            <div class="h-6 w-6 rounded-lg bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-              <ShieldCheck class="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary" />
-            </div>
-            Bảo hành
-          </a>
-          <a href="#" class="hover:text-primary transition-all flex items-center gap-2 group text-[#0088cc]">
-            <div class="h-6 w-6 rounded-lg bg-[#0088cc]/10 flex items-center justify-center">
-              <Globe class="h-3.5 w-3.5" />
-            </div>
-            Telegram
-          </a>
+        <div class="hidden lg:flex items-center gap-4 text-muted-foreground/50 font-black text-[10px] uppercase tracking-[0.2em]">
+          <a href="#" class="hover:text-primary transition-colors">Telegram</a>
+          <span class="w-1 h-1 rounded-full bg-muted-foreground/20"></span>
+          <a href="#" class="hover:text-primary transition-colors">Support</a>
         </div>
       </div>
     </div>
 
-    <div class="container py-8 md:py-10">
+    <div class="container py-10 relative z-10">
       <div class="flex flex-col lg:flex-row gap-8">
-
-        <aside class="hidden lg:block w-80 shrink-0 space-y-8">
-          <!-- Sidebar Content Block -->
-          <div class="space-y-8">
-            <Card class="p-5 border-l-4 border-l-primary shadow-sm">
-              <h3 class="font-bold mb-5 uppercase text-sm tracking-wider text-muted-foreground flex items-center gap-2">
-                <Layers class="h-5 w-5 text-primary" /> Danh Mục
-              </h3>
-              <ul class="space-y-2">
-                <li v-for="(cat, i) in categories" :key="i">
-                  <button 
-                      class="w-full flex items-center justify-between p-3 rounded-xl text-base font-medium transition-all duration-200"
+        <!-- Sidebar -->
+        <aside class="hidden lg:block w-80 shrink-0 space-y-8 animate-in slide-in-from-left duration-700">
+          <Card class="p-6 border-0 bg-card/50 backdrop-blur-xl shadow-xl shadow-black/5 rounded-[2rem]">
+            <h3 class="font-black mb-6 uppercase text-xs tracking-[0.2em] text-muted-foreground/60 flex items-center gap-3 italic">
+              <Layers class="h-5 w-5 text-primary" /> Phân Loại
+            </h3>
+            <div class="space-y-2">
+              <button v-for="cat in categories" :key="cat.name" 
+                      class="w-full flex items-center justify-between p-4 rounded-2xl text-sm font-black transition-all group border border-transparent"
                       :class="cat.active 
-                      ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm' 
-                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'"
-                  >
-                    <div class="flex items-center gap-3">
-                      <component :is="cat.icon" class="h-5 w-5" />
-                      {{ cat.name }}
-                    </div>
-                    <Badge variant="secondary" class="bg-background/80 text-xs px-2 py-0.5">{{ cat.count }}</Badge>
-                  </button>
-                </li>
-              </ul>
-            </Card>
-
-            <Card class="p-5 shadow-sm">
-              <h3 class="font-bold mb-5 uppercase text-sm tracking-wider text-muted-foreground flex items-center gap-2">
-                <Filter class="h-5 w-5 text-primary" /> Khoảng Giá
-              </h3>
-              <div class="space-y-6">
-                <div class="flex items-center justify-between text-sm text-muted-foreground font-medium">
-                  <span>0đ</span>
-                  <span>5.000.000đ</span>
+                        ? 'bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02] border-primary/20' 
+                        : 'text-muted-foreground hover:bg-muted hover:text-foreground hover:translate-x-1'">
+                <div class="flex items-center gap-3">
+                  <div class="h-8 w-8 rounded-lg flex items-center justify-center transition-colors px-0 group-hover:bg-white/20" :class="cat.active ? 'bg-white/20' : 'bg-muted text-foreground'">
+                    <component :is="cat.icon" class="h-4 w-4" />
+                  </div>
+                  {{ cat.name }}
                 </div>
-                <Slider :default-value="[0, 100]" :max="100" :step="1" class="py-2" />
-                <div class="flex gap-3">
-                  <Input type="number" placeholder="Min" class="h-10 text-sm bg-background" />
-                  <Input type="number" placeholder="Max" class="h-10 text-sm bg-background" />
-                </div>
-                <Button class="w-full font-bold h-10 text-base shadow-md shadow-primary/20">Áp dụng</Button>
-              </div>
-            </Card>
+                <Badge :variant="cat.active ? 'secondary' : 'outline'" class="text-[10px] px-2 py-0 border-0 h-5 min-w-[30px] justify-center">
+                  {{ cat.count }}
+                </Badge>
+              </button>
+            </div>
+          </Card>
 
-            <div class="relative overflow-hidden rounded-xl h-60 group cursor-pointer border shadow-sm">
-              <img 
-                  src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                  alt="Ads" 
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              >
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-              <div class="absolute bottom-5 left-5 text-white">
-                <Badge class="bg-green-500 hover:bg-green-600 border-0 mb-2 px-3 py-1 text-xs">New Tool</Badge>
-                <h4 class="font-bold text-lg leading-tight">Auto Reg Clone <br>Max Speed 2026</h4>
+          <Card class="p-6 border-0 bg-card/50 backdrop-blur-xl shadow-xl shadow-black/5 rounded-[2rem]">
+            <h3 class="font-black mb-6 uppercase text-xs tracking-[0.2em] text-muted-foreground/60 flex items-center gap-3 italic">
+              <Filter class="h-5 w-5 text-primary" /> Khoảng Giá
+            </h3>
+            <div class="space-y-6 px-1">
+              <div class="flex items-center justify-between text-[10px] font-black text-muted-foreground uppercase tracking-widest">
+                <span>0đ</span>
+                <span>Max</span>
               </div>
+              <Slider :default-value="[0, 100]" :max="100" :step="1" class="py-2" />
+              <div class="grid grid-cols-2 gap-3">
+                <div class="relative">
+                  <Input type="number" placeholder="Min" class="h-11 bg-background border-0 rounded-xl pl-8 font-bold text-xs" />
+                  <span class="absolute left-3 top-3.5 text-[10px] font-black text-muted-foreground">đ</span>
+                </div>
+                <div class="relative">
+                  <Input type="number" placeholder="Max" class="h-11 bg-background border-0 rounded-xl pl-8 font-bold text-xs" />
+                  <span class="absolute left-3 top-3.5 text-[10px] font-black text-muted-foreground">đ</span>
+                </div>
+              </div>
+              <Button class="w-full font-black h-12 text-xs uppercase tracking-widest rounded-2xl shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90">Áp dụng lọc</Button>
+            </div>
+          </Card>
+
+          <div class="relative overflow-hidden rounded-[2rem] h-64 group cursor-pointer border shadow-xl shadow-black/5">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <Badge class="bg-primary border-0 mb-3 px-3 py-1 text-[10px] font-black tracking-widest uppercase italic animation-bounce">Hot Tool</Badge>
+              <h4 class="font-black text-lg text-white leading-tight uppercase italic tracking-tighter">Auto Reg Clone <br>Max Speed 2026</h4>
             </div>
           </div>
         </aside>
 
-        <div class="flex-1 min-w-0 space-y-8">
-          
-          <!-- Mobile Sidebar Trigger -->
-          <div class="lg:hidden flex items-center justify-between p-4 bg-card border rounded-[2rem] shadow-sm mb-2">
-            <div class="flex items-center gap-3">
-              <div class="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Layers class="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 leading-none mb-1">Bộ lọc sản phẩm</p>
-                <p class="font-black text-sm">Danh Mục & Giá</p>
-              </div>
-            </div>
-            
-            <Sheet v-model:open="isMobileSidebarOpen">
-              <SheetTrigger as-child>
-                <Button variant="outline" size="sm" class="h-11 rounded-xl px-5 font-black uppercase tracking-wider text-[10px] border-2 border-primary/20 text-primary gap-2 hover:bg-primary/5 transition-all active:scale-95 shadow-lg shadow-primary/5">
-                  <Filter class="h-4 w-4" /> Hiển thị lọc
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" class="w-[320px] p-0 border-0 shadow-2xl overflow-hidden bg-background">
-                <div class="h-full flex flex-col">
-                  <div class="p-6 bg-primary text-white flex items-center justify-between shrink-0">
-                    <div class="flex items-center gap-3">
-                      <div class="h-10 w-10 rounded-xl bg-white/20 flex items-center justify-center border border-white/30 shadow-lg">
-                        <Layers class="h-5 w-5" />
-                      </div>
-                      <div>
-                        <h2 class="font-black text-lg tracking-tight italic">Bộ Lọc</h2>
-                        <p class="text-[10px] font-bold text-white/70 uppercase">Tối ưu lựa chọn của bạn</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="flex-1 overflow-y-auto p-6 space-y-8 pb-32">
-                    <!-- Duplicate Sidebar Content for Mobile Drawer -->
-                    <div class="space-y-6">
-                      <h3 class="font-black text-xs uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2 mb-4">
-                        <Layers class="h-4 w-4 text-primary" /> Danh Mục
-                      </h3>
-                      <div class="grid gap-2">
-                        <button 
-                          v-for="(cat, i) in categories" :key="i"
-                          class="w-full flex items-center justify-between p-3.5 rounded-2xl text-sm font-black transition-all duration-300"
-                          :class="cat.active 
-                            ? 'bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02]' 
-                            : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'"
-                          @click="isMobileSidebarOpen = false"
-                        >
-                          <div class="flex items-center gap-3">
-                            <component :is="cat.icon" class="h-5 w-5" />
-                            {{ cat.name }}
-                          </div>
-                          <Badge :variant="cat.active ? 'secondary' : 'outline'" class="text-[10px] px-2 py-0 border-0 h-5 min-w-[30px] justify-center">
-                            {{ cat.count }}
-                          </Badge>
-                        </button>
-                      </div>
-                    </div>
-
-                    <div class="space-y-6">
-                      <h3 class="font-black text-xs uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2 mb-4">
-                        <Filter class="h-4 w-4 text-primary" /> Khoảng Giá
-                      </h3>
-                      <div class="space-y-6 bg-muted/30 p-5 rounded-3xl border border-dashed border-muted-foreground/20">
-                        <div class="flex items-center justify-between text-[11px] font-black text-muted-foreground uppercase">
-                          <span>0đ</span>
-                          <span>Max</span>
-                        </div>
-                        <Slider :default-value="[0, 100]" :max="100" :step="1" class="py-2" />
-                        <div class="flex flex-col gap-3">
-                          <div class="relative">
-                            <Input type="number" placeholder="Min" class="h-11 bg-background border-0 rounded-xl pl-10 font-bold" />
-                            <span class="absolute left-4 top-3 text-xs font-bold text-muted-foreground">đ</span>
-                          </div>
-                          <div class="relative">
-                            <Input type="number" placeholder="Max" class="h-11 bg-background border-0 rounded-xl pl-10 font-bold" />
-                            <span class="absolute left-4 top-3 text-xs font-bold text-muted-foreground">đ</span>
-                          </div>
-                        </div>
-                        <Button class="w-full font-black h-12 text-sm uppercase tracking-widest rounded-2xl shadow-lg shadow-primary/20" @click="isMobileSidebarOpen = false">
-                          Áp dụng ngay
-                        </Button>
-                      </div>
-                    </div>
-
-                    <div class="relative overflow-hidden rounded-3xl h-48 group cursor-pointer border shadow-sm border-primary/10">
-                      <img 
-                          src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                          alt="Ads" 
-                          class="w-full h-full object-cover"
-                      >
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                      <div class="absolute bottom-4 left-4 text-white">
-                        <Badge class="bg-primary hover:bg-primary/90 border-0 mb-2 px-3 py-1 text-[10px] font-black">NEW TOOL</Badge>
-                        <h4 class="font-black text-sm leading-tight italic">Auto Reg Clone Max Speed</h4>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="absolute bottom-0 left-0 w-full p-6 bg-background border-t shrink-0">
-                    <Button variant="ghost" class="w-full rounded-2xl font-black text-sm h-12 gap-2 text-muted-foreground" @click="isMobileSidebarOpen = false">
-                      Đóng trình lọc
-                    </Button>
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-
+        <!-- Main Content -->
+        <div class="flex-1 min-w-0 space-y-8 animate-in fade-in slide-in-from-bottom duration-1000">
           <!-- Hot Deals Carousel -->
-          <div class="relative overflow-hidden rounded-[2.5rem] border shadow-2xl group/carousel h-[520px] md:h-[450px]">
-            <div 
+          <div class="relative overflow-hidden rounded-[2.5rem] border-0 shadow-[0_20px_50px_rgba(0,0,0,0.1)] group/carousel h-[520px] md:h-[450px]">
+             <div 
               class="flex transition-transform duration-1000 cubic-bezier(0.4, 0, 0.2, 1) h-full"
               :style="{ transform: `translateX(-${activeSlide * 100}%)` }"
             >
-              <div 
-                v-for="(deal, i) in hotDeals" 
-                :key="deal.id"
-                class="w-full h-full flex-shrink-0 relative"
-              >
-                <div :class="`absolute inset-0 bg-gradient-to-r ${deal.color} opacity-90`"></div>
-                <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+              <div v-for="deal in hotDeals" :key="deal.id" class="w-full h-full flex-shrink-0 relative">
+                <div :class="`absolute inset-0 bg-gradient-to-br ${deal.color}`"></div>
+                <div class="absolute inset-0 backdrop-blur-[2px] opacity-30"></div>
                 
-                <div class="relative z-10 flex flex-col md:flex-row items-center justify-center md:justify-between p-6 md:p-12 gap-8 h-full overflow-hidden">
-                  <div class="space-y-4 md:space-y-6 max-w-xl text-center md:text-left">
-                    <div class="flex items-center gap-3">
-                      <Badge class="bg-yellow-400 text-black hover:bg-yellow-500 border-0 font-black animate-pulse text-[10px] px-3 py-1 uppercase tracking-widest">
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between p-8 md:p-14 gap-8 h-full">
+                  <div class="space-y-6 max-w-xl text-center md:text-left">
+                    <div class="flex flex-wrap items-center gap-3 justify-center md:justify-start">
+                      <Badge class="bg-yellow-400 text-black border-0 font-black animate-pulse text-[10px] px-3 py-1 uppercase tracking-widest italic group-hover:scale-110 transition-transform">
                         ⚡ HOT DEAL HÔM NAY
                       </Badge>
-                      <div class="h-1 w-1 rounded-full bg-white/40"></div>
-                      <span class="text-[10px] font-black text-white/70 uppercase tracking-widest italic">{{ deal.category }}</span>
+                      <span class="text-[10px] font-black text-white/60 uppercase tracking-widest italic">{{ deal.category }}</span>
                     </div>
 
-                    <div class="space-y-1">
-                       <h2 class="text-3xl md:text-5xl font-black tracking-tighter leading-tight text-white italic">
-                        {{ deal.title }}
-                      </h2>
-                      <p class="text-white/80 text-xs md:text-base font-medium leading-relaxed line-clamp-2 md:line-clamp-none">
-                        {{ deal.description }}
-                      </p>
-                    </div>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tightest leading-[0.9] text-white italic uppercase drop-shadow-2xl">
+                      {{ deal.title }}
+                    </h2>
+                    <p class="text-white/70 text-sm md:text-base font-bold leading-relaxed line-clamp-2 md:line-clamp-none">
+                      {{ deal.description }}
+                    </p>
 
-                    <!-- Pinned Shop Info -->
-                    <div class="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 w-fit mx-auto md:mx-0 group">
-                      <Avatar class="h-10 w-10 md:h-12 md:w-12 border-2 border-white/30 shadow-lg shrink-0">
-                        <AvatarFallback class="bg-white text-primary font-black text-xs md:text-sm">{{ deal.shopAvatar }}</AvatarFallback>
-                      </Avatar>
-                      <div class="text-left">
-                        <div class="flex items-center gap-1.5 md:gap-2">
-                           <p class="text-[8px] md:text-[10px] font-black text-white/70 leading-tight uppercase">PINNED SHOP:</p>
-                           <Badge class="bg-green-500 text-[8px] h-3.5 px-1 border-0 leading-none">VERIFIED</Badge>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2 justify-center md:justify-start">
+                      <div class="bg-white/10 backdrop-blur-xl rounded-[1.5rem] p-4 border border-white/20 flex items-center gap-4 group cursor-pointer hover:bg-white/20 transition-all">
+                        <Avatar class="h-12 w-12 border-2 border-white/30 shadow-2xl">
+                          <AvatarFallback class="bg-white text-primary font-black">{{ deal.shopAvatar }}</AvatarFallback>
+                        </Avatar>
+                        <div class="text-left pr-4 border-r border-white/10">
+                          <p class="text-[9px] font-black text-white/50 uppercase tracking-widest">Store</p>
+                          <p class="font-black text-white text-sm uppercase tracking-tighter">{{ deal.shop }}</p>
                         </div>
-                        <p class="font-bold text-white text-sm md:text-base truncate max-w-[120px] md:max-w-none">{{ deal.shop }}</p>
-                      </div>
-                      <div class="h-8 md:h-10 w-px bg-white/20"></div>
-                      <div class="px-1 md:px-2 text-left">
-                         <p class="text-[8px] md:text-[10px] font-bold text-white/60 uppercase">GIÁ TỐT</p>
-                         <p class="text-sm md:text-lg font-black text-yellow-300 tracking-tighter">{{ deal.price }}</p>
+                        <div class="text-left">
+                          <p class="text-[9px] font-black text-white/50 uppercase tracking-widest">Price</p>
+                          <p class="font-black text-yellow-400 text-lg tracking-tighter">{{ deal.price }}</p>
+                        </div>
                       </div>
                     </div>
 
-                    <div class="flex flex-row gap-3 items-center justify-center md:justify-start pt-2">
-                      <Button variant="secondary" class="font-black shadow-xl rounded-xl md:rounded-2xl px-4 md:px-8 text-[11px] md:text-sm h-11 md:h-14 bg-white text-slate-900 hover:bg-slate-100 transition-all hover:scale-105 active:scale-95 shrink-0">
-                        XEM SHOP
-                      </Button>
-                      <Button variant="outline" class="font-black rounded-xl md:rounded-2xl px-4 md:px-8 text-[11px] md:text-sm h-11 md:h-14 border-white/40 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all shrink-0">
-                        CHI TIẾT
-                      </Button>
+                    <div class="flex gap-4 justify-center md:justify-start">
+                       <Button size="lg" class="bg-white text-slate-900 hover:bg-slate-100 font-black rounded-2xl px-10 h-14 shadow-2xl shadow-black/20 uppercase tracking-widest text-xs transition-transform hover:scale-105 active:scale-95">MUA NGAY</Button>
+                       <Button variant="outline" size="lg" class="border-white/20 text-white bg-white/5 backdrop-blur-md rounded-2xl px-8 h-14 font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-colors">CHI TIẾT</Button>
                     </div>
                   </div>
 
-                  <div class="hidden lg:block relative shrink-0">
-                    <div class="w-40 h-40 md:w-48 md:h-48 bg-white/10 backdrop-blur-xl rounded-[2.5rem] border border-white/20 flex items-center justify-center rotate-6 shadow-2xl transition-transform hover:rotate-0">
-                      <component :is="deal.icon" class="h-20 w-20 md:h-24 md:h-24 text-white" />
-                      <div class="absolute -bottom-4 -right-4 bg-white rounded-2xl p-4 shadow-xl rotate-[-12deg]">
-                        <Star class="h-6 w-6 text-yellow-400 fill-yellow-400" />
+                  <div class="hidden lg:flex relative h-full items-center justify-center">
+                    <div class="w-64 h-64 bg-white/10 backdrop-blur-3xl rounded-[3rem] border border-white/20 flex items-center justify-center rotate-6 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] transition-all duration-700 hover:rotate-0 hover:scale-110 group-hover:animate-float">
+                      <component :is="deal.icon" class="h-28 w-28 text-white drop-shadow-2xl" />
+                      <div class="absolute -top-3 -right-3 h-12 w-12 rounded-2xl bg-white flex items-center justify-center shadow-xl rotate-[-15deg]">
+                         <Star class="h-6 w-6 text-yellow-400 fill-amber-400" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- Carousel UI Indicators -->
-            <div class="absolute bottom-6 right-10 z-20 flex gap-2">
-              <button 
-                v-for="(_, i) in hotDeals" 
-                :key="i"
-                @click="activeSlide = i"
-                class="h-1.5 transition-all duration-300 rounded-full"
-                :class="activeSlide === i ? 'w-8 bg-white' : 'w-2 bg-white/30 hover:bg-white/50'"
-              ></button>
+            
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3 z-30">
+              <button v-for="(_, i) in hotDeals" :key="i" @click="activeSlide = i" 
+                      class="h-2 transition-all duration-500 rounded-full"
+                      :class="activeSlide === i ? 'w-12 bg-white shadow-[0_0_15px_white]' : 'w-2 bg-white/20 hover:bg-white/40'"></button>
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-card p-3 rounded-xl border shadow-sm">
-            <div class="flex gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 scrollbar-hide px-1">
-              <Button variant="default" class="rounded-full px-6 shadow-md font-bold text-sm h-9">Tất cả</Button>
-              <Button variant="ghost" class="rounded-full px-6 text-muted-foreground hover:bg-blue-50 hover:text-blue-600 text-sm h-9">Facebook</Button>
-              <Button variant="ghost" class="rounded-full px-6 text-muted-foreground hover:bg-red-50 hover:text-red-600 text-sm h-9">Youtube</Button>
-              <Button variant="ghost" class="rounded-full px-6 text-muted-foreground hover:bg-green-50 hover:text-green-600 text-sm h-9">Tools</Button>
+          <!-- Section Heading -->
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pt-4">
+            <div class="animate-in slide-in-from-left duration-700">
+              <h3 class="text-3xl font-black uppercase italic tracking-tighter flex items-center gap-3">
+                KHO TÀI NGUYÊN <div class="h-2 w-2 rounded-full bg-primary animate-pulse"></div>
+              </h3>
+              <p class="text-muted-foreground text-sm font-bold mt-1">Hàng ngàn sản phẩm chất lượng đang chờ đón bạn.</p>
             </div>
 
-            <div class="flex items-center gap-3 shrink-0">
-              <span class="text-sm font-medium text-muted-foreground">Sắp xếp:</span>
-              <Select default-value="newest">
-                <SelectTrigger class="w-[160px] h-10 text-sm bg-muted/50 border-0">
-                  <SelectValue placeholder="Chọn" />
+            <div class="flex items-center gap-2 animate-in slide-in-from-right duration-700">
+               <div class="relative group">
+                 <Filter class="absolute left-3.5 top-3.5 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                 <Input placeholder="Tìm nhanh..." class="pl-10 h-11 border-0 bg-muted/50 rounded-xl w-60 font-bold focus-visible:ring-1 focus-visible:ring-primary/20" />
+               </div>
+               <Select default-value="newest">
+                <SelectTrigger class="w-40 h-11 bg-muted/50 border-0 rounded-xl font-black text-xs uppercase cursor-pointer">
+                  <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="newest">Mới nhất</SelectItem>
-                  <SelectItem value="price-asc">Giá thấp -> Cao</SelectItem>
-                  <SelectItem value="best-seller">Bán chạy nhất</SelectItem>
+                <SelectContent class="rounded-xl border-primary/10">
+                  <SelectItem value="newest">Mới Nhất</SelectItem>
+                  <SelectItem value="hot">Bán Chạy</SelectItem>
+                  <SelectItem value="price-asc">Giá Thấp</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
+          <!-- Product Grid -->
           <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <Card
-                v-for="product in visibleProducts"
-                :key="product.id"
-                class="group relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30 flex flex-col h-[460px]"
-            >
-              <!-- Decorative background element -->
-              <div class="absolute -right-8 -top-8 h-32 w-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+            <Card v-for="(product, idx) in visibleProducts" :key="product.id" 
+                  class="group relative bg-card border-0 shadow-xl shadow-black/[0.02] hover:shadow-2xl hover:shadow-primary/10 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom duration-700"
+                  :style="{ animationDelay: `${(idx % 12) * 50}ms` }">
+              
+              <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-              <div v-if="product.tag" class="absolute top-4 right-4 z-10">
-                <Badge :class="product.tag === 'HOT' ? 'bg-primary text-white' : 'bg-background/80 text-foreground backdrop-blur-md border-primary/20'" class="text-[10px] font-black tracking-widest px-3 py-1 border shadow-sm uppercase">
-                  {{ product.tag }}
-                </Badge>
-              </div>
-
-              <CardContent class="p-0 flex flex-col h-full">
-                <!-- Top Section: Icon & Category -->
-                <div class="p-6 pb-4">
-                  <div class="flex items-center gap-4 mb-4">
-                    <div :class="`w-12 h-12 rounded-xl flex items-center justify-center border shrink-0 transition-all duration-500 group-hover:rotate-6 group-hover:scale-110 shadow-sm ${product.bgIcon}`">
-                      <component :is="product.icon" :class="`h-6 w-6 ${product.color}`" />
-                    </div>
-                    <div class="flex-1 min-w-0">
-                      <div class="flex items-center gap-1.5 mb-1">
-                        <Star class="h-3 w-3 fill-amber-400 text-amber-400" />
-                        <span class="text-[10px] font-black text-muted-foreground uppercase tracking-tighter">4.9 (1.2k bán)</span>
-                      </div>
-                      <h4 class="font-black text-base leading-tight group-hover:text-primary transition-colors line-clamp-2 min-h-[2.5rem]">
-                        {{ product.title }}
-                      </h4>
-                    </div>
+              <CardContent class="p-8 flex flex-col h-full relative z-10">
+                <div class="flex items-start justify-between mb-6">
+                  <div :class="`h-14 w-14 rounded-2xl flex items-center justify-center transition-all duration-700 shadow-inner group-hover:scale-110 group-hover:rotate-6 ${product.bgIcon}`">
+                    <component :is="product.icon" :class="`h-7 w-7 ${product.color}`" />
                   </div>
+                  <Badge variant="outline" class="bg-primary/5 text-primary border-primary/10 text-[10px] font-black italic px-3 py-1 rounded-xl uppercase tracking-widest">
+                    {{ product.tag }}
+                  </Badge>
+                </div>
 
-                  <!-- Badges -->
-                  <div class="flex flex-wrap gap-1.5 h-7 overflow-hidden">
-                    <span
-                        v-for="(badge, idx) in product.badges" :key="idx"
-                        class="text-[9px] font-black bg-muted/50 text-muted-foreground px-2 py-0.5 rounded-lg border uppercase tracking-wider"
-                    >
-                      {{ badge }}
+                <div class="space-y-4 flex-1">
+                  <h4 class="font-black text-lg leading-tight group-hover:text-primary transition-colors min-h-[3rem] line-clamp-2">
+                    {{ product.title }}
+                  </h4>
+                  
+                  <div class="flex flex-wrap gap-2">
+                    <span v-for="b in product.badges" :key="b" class="text-[9px] font-black bg-muted/50 text-muted-foreground/60 px-2 py-0.5 rounded-lg border uppercase tracking-wider">
+                      {{ b }}
                     </span>
                   </div>
+
+                  <ul class="space-y-2.5 pt-2">
+                    <li v-for="spec in product.specs" :key="spec" class="flex items-start gap-3 text-xs font-bold text-muted-foreground/70 group-hover:text-foreground transition-all">
+                      <CheckCircle2 class="h-3.5 w-3.5 text-green-500 mt-0.5 shrink-0 group-hover:scale-110" />
+                      {{ spec }}
+                    </li>
+                  </ul>
                 </div>
 
-                <!-- Specs Section -->
-                <div class="px-6 flex-1">
-                  <div class="bg-muted/20 rounded-2xl p-4 text-[11px] text-muted-foreground space-y-2 border border-dashed border-primary/5 h-[120px] overflow-hidden">
-                    <p v-for="(spec, sIdx) in product.specs" :key="sIdx" class="flex items-start gap-3 leading-snug">
-                       <CheckCircle2 class="h-3.5 w-3.5 text-primary/60 mt-0.5 shrink-0" />
-                       <span class="line-clamp-2 italic">{{ spec }}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <!-- Footer: Price & Buy Action -->
-                <div class="p-6 pt-4 mt-auto">
-                  <div class="flex items-center justify-between gap-4">
-                    <div class="flex flex-col">
-                      <span v-if="product.oldPrice" class="text-[10px] text-muted-foreground line-through font-bold">
-                        {{ formatCurrency(product.oldPrice) }}
+                <div class="mt-8 pt-6 border-t border-dashed border-muted/50 flex items-center justify-between">
+                  <div class="flex flex-col">
+                    <span v-if="product.oldPrice" class="text-[10px] text-muted-foreground line-through font-bold">
+                      {{ formatCurrency(product.oldPrice) }}
+                    </span>
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-2xl font-black text-primary tracking-tighter">
+                        {{ formatCurrency(product.price).replace('₫', '') }}
                       </span>
-                      <div class="flex items-baseline gap-1">
-                        <span class="text-xl font-black text-primary tracking-tighter">
-                          {{ formatCurrency(product.price).replace('₫', '') }}
-                        </span>
-                        <span class="text-[10px] font-black text-primary uppercase">vnđ</span>
-                        <span v-if="product.unit" class="text-[10px] text-muted-foreground font-black uppercase ml-1">
-                          {{ product.unit }}
-                        </span>
-                      </div>
+                      <span class="text-[10px] font-black text-primary uppercase italic">vnđ</span>
+                      <span v-if="product.unit" class="text-[10px] text-muted-foreground font-black uppercase ml-1 opacity-40">
+                        {{ product.unit }}
+                      </span>
                     </div>
-                    
-                    <Button class="rounded-xl px-5 h-11 font-black shadow-lg shadow-primary/20 gap-2 overflow-hidden relative group/btn">
-                      <div class="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
-                      <ShoppingCart class="h-4 w-4 relative z-10" />
-                      <span class="text-xs relative z-10">MUA</span>
-                    </Button>
                   </div>
+
+                  <Button class="h-12 w-12 rounded-2xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all transform group-hover:rotate-[360deg] duration-700 shadow-xl shadow-primary/5 active:scale-90" size="icon">
+                    <ShoppingCart class="h-5 w-5" />
+                  </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          <!-- Load More Button -->
-          <div class="flex flex-col items-center justify-center py-12 gap-4">
-            <Button 
-              v-if="displayedCount < allProducts.length"
-              @click="loadMore"
-              :disabled="isLoading"
-              variant="outline"
-              class="h-12 px-10 rounded-2xl font-black text-sm uppercase tracking-widest border-2 border-primary/20 hover:border-primary hover:bg-primary/5 shadow-lg shadow-primary/5 gap-3 transition-all active:scale-95"
-            >
-              <template v-if="isLoading">
-                <div class="flex gap-1">
-                  <div class="w-1.5 h-1.5 rounded-full bg-primary animate-bounce"></div>
-                  <div class="w-1.5 h-1.5 rounded-full bg-primary animate-bounce [animation-delay:-0.15s]"></div>
-                  <div class="w-1.5 h-1.5 rounded-full bg-primary animate-bounce [animation-delay:-0.3s]"></div>
-                </div>
-                <span>Đang tải...</span>
-              </template>
-              <template v-else>
-                <span>Xem thêm sản phẩm</span>
-                <ChevronRight class="h-4 w-4 rotate-90" />
-              </template>
-            </Button>
-            
-            <p v-if="displayedCount >= allProducts.length" class="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground italic">
-              Bạn đã xem hết 100 sản phẩm
-            </p>
+          <!-- Loading More UI -->
+          <div class="py-12 flex flex-col items-center justify-center gap-6">
+             <Button v-if="displayedCount < allProducts.length"
+                     @click="loadMore"
+                     :disabled="isLoading"
+                     variant="outline"
+                     class="h-14 px-12 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] border-2 border-primary/20 hover:border-primary hover:bg-primary/5 shadow-2xl shadow-primary/5 transition-all active:scale-95 group">
+                <template v-if="isLoading">
+                   <div class="flex gap-1.5 mr-3">
+                    <div class="w-1.5 h-1.5 rounded-full bg-primary animate-bounce"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-primary animate-bounce [animation-delay:0.2s]"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-primary animate-bounce [animation-delay:0.4s]"></div>
+                  </div>
+                  ĐANG KIỂM KHO...
+                </template>
+                <span v-else class="flex items-center gap-3">
+                  XEM THÊM SẢN PHẨM <ChevronRight class="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+             </Button>
+             
+             <div v-if="displayedCount >= allProducts.length" class="flex flex-col items-center gap-2 opacity-30">
+                <div class="h-px w-40 bg-gradient-to-r from-transparent via-muted-foreground to-transparent"></div>
+                <p class="text-[9px] font-black uppercase tracking-[0.4em] italic">You've reached the end of the stock</p>
+             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -568,19 +396,30 @@ const formatCurrency = (value: number) => {
 </template>
 
 <style scoped>
-/* Animation cho Live Feed */
-@keyframes horizontalScroll {
+@keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-.animate-horizontal-scroll {
-  animation: horizontalScroll 40s linear infinite;
+.animate-marquee {
+  animation: marquee 30s linear infinite;
   display: flex;
-  width: max-content;
 }
 
-.animate-horizontal-scroll:hover {
+.pause {
   animation-play-state: paused;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(6deg); }
+  50% { transform: translateY(-15px) rotate(8deg); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.tracking-tightest {
+  letter-spacing: -0.05em;
 }
 </style>
