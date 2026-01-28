@@ -7,8 +7,9 @@ import { Card } from '@/components/ui/card'
 import { Slider } from '@/components/ui/slider'
 import {
   Facebook, Youtube, Smartphone, Code2, Server, ShoppingCart, Filter, ChevronRight,
-  ShieldCheck, Globe, Layers, Star, CheckCircle2
+  ShieldCheck, Globe, Layers, Star, CheckCircle2, X
 } from 'lucide-vue-next'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 // --- MOCK DATA ---
 const liveFeed = [
@@ -46,6 +47,8 @@ const displayedCount = ref(pageSize)
 const isLoading = ref(false)
 
 const visibleProducts = computed(() => allProducts.slice(0, displayedCount.value))
+
+const isMobileSidebarOpen = ref(false)
 
 // --- HOT DEALS CAROUSEL ---
 const activeSlide = ref(0)
@@ -170,63 +173,173 @@ const formatCurrency = (value: number) => {
     <div class="container py-8 md:py-10">
       <div class="flex flex-col lg:flex-row gap-8">
 
-        <aside class="w-full lg:w-80 shrink-0 space-y-8">
+        <aside class="hidden lg:block w-80 shrink-0 space-y-8">
+          <!-- Sidebar Content Block -->
+          <div class="space-y-8">
+            <Card class="p-5 border-l-4 border-l-primary shadow-sm">
+              <h3 class="font-bold mb-5 uppercase text-sm tracking-wider text-muted-foreground flex items-center gap-2">
+                <Layers class="h-5 w-5 text-primary" /> Danh Mục
+              </h3>
+              <ul class="space-y-2">
+                <li v-for="(cat, i) in categories" :key="i">
+                  <button 
+                      class="w-full flex items-center justify-between p-3 rounded-xl text-base font-medium transition-all duration-200"
+                      :class="cat.active 
+                      ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm' 
+                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'"
+                  >
+                    <div class="flex items-center gap-3">
+                      <component :is="cat.icon" class="h-5 w-5" />
+                      {{ cat.name }}
+                    </div>
+                    <Badge variant="secondary" class="bg-background/80 text-xs px-2 py-0.5">{{ cat.count }}</Badge>
+                  </button>
+                </li>
+              </ul>
+            </Card>
 
-          <Card class="p-5 border-l-4 border-l-primary shadow-sm">
-            <h3 class="font-bold mb-5 uppercase text-sm tracking-wider text-muted-foreground flex items-center gap-2">
-              <Layers class="h-5 w-5 text-primary" /> Danh Mục
-            </h3>
-            <ul class="space-y-2">
-              <li v-for="(cat, i) in categories" :key="i">
-                <button
-                    class="w-full flex items-center justify-between p-3 rounded-xl text-base font-medium transition-all duration-200"
-                    :class="cat.active
-                    ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'"
-                >
-                  <div class="flex items-center gap-3">
-                    <component :is="cat.icon" class="h-5 w-5" />
-                    {{ cat.name }}
-                  </div>
-                  <Badge variant="secondary" class="bg-background/80 text-xs px-2 py-0.5">{{ cat.count }}</Badge>
-                </button>
-              </li>
-            </ul>
-          </Card>
-
-          <Card class="p-5 shadow-sm">
-            <h3 class="font-bold mb-5 uppercase text-sm tracking-wider text-muted-foreground flex items-center gap-2">
-              <Filter class="h-5 w-5 text-primary" /> Khoảng Giá
-            </h3>
-            <div class="space-y-6">
-              <div class="flex items-center justify-between text-sm text-muted-foreground font-medium">
-                <span>0đ</span>
-                <span>5.000.000đ</span>
+            <Card class="p-5 shadow-sm">
+              <h3 class="font-bold mb-5 uppercase text-sm tracking-wider text-muted-foreground flex items-center gap-2">
+                <Filter class="h-5 w-5 text-primary" /> Khoảng Giá
+              </h3>
+              <div class="space-y-6">
+                <div class="flex items-center justify-between text-sm text-muted-foreground font-medium">
+                  <span>0đ</span>
+                  <span>5.000.000đ</span>
+                </div>
+                <Slider :default-value="[0, 100]" :max="100" :step="1" class="py-2" />
+                <div class="flex gap-3">
+                  <Input type="number" placeholder="Min" class="h-10 text-sm bg-background" />
+                  <Input type="number" placeholder="Max" class="h-10 text-sm bg-background" />
+                </div>
+                <Button class="w-full font-bold h-10 text-base shadow-md shadow-primary/20">Áp dụng</Button>
               </div>
-              <Slider :default-value="[0, 100]" :max="100" :step="1" class="py-2" />
-              <div class="flex gap-3">
-                <Input type="number" placeholder="Min" class="h-10 text-sm bg-background" />
-                <Input type="number" placeholder="Max" class="h-10 text-sm bg-background" />
-              </div>
-              <Button class="w-full font-bold h-10 text-base shadow-md shadow-primary/20">Áp dụng</Button>
-            </div>
-          </Card>
+            </Card>
 
-          <div class="relative overflow-hidden rounded-xl h-60 group cursor-pointer border shadow-sm">
-            <img
-                src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                alt="Ads"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            >
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-            <div class="absolute bottom-5 left-5 text-white">
-              <Badge class="bg-green-500 hover:bg-green-600 border-0 mb-2 px-3 py-1 text-xs">New Tool</Badge>
-              <h4 class="font-bold text-lg leading-tight">Auto Reg Clone <br>Max Speed 2026</h4>
+            <div class="relative overflow-hidden rounded-xl h-60 group cursor-pointer border shadow-sm">
+              <img 
+                  src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                  alt="Ads" 
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-5 left-5 text-white">
+                <Badge class="bg-green-500 hover:bg-green-600 border-0 mb-2 px-3 py-1 text-xs">New Tool</Badge>
+                <h4 class="font-bold text-lg leading-tight">Auto Reg Clone <br>Max Speed 2026</h4>
+              </div>
             </div>
           </div>
         </aside>
 
         <div class="flex-1 min-w-0 space-y-8">
+          
+          <!-- Mobile Sidebar Trigger -->
+          <div class="lg:hidden flex items-center justify-between p-4 bg-card border rounded-[2rem] shadow-sm mb-2">
+            <div class="flex items-center gap-3">
+              <div class="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Layers class="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 leading-none mb-1">Bộ lọc sản phẩm</p>
+                <p class="font-black text-sm">Danh Mục & Giá</p>
+              </div>
+            </div>
+            
+            <Sheet v-model:open="isMobileSidebarOpen">
+              <SheetTrigger as-child>
+                <Button variant="outline" size="sm" class="h-11 rounded-xl px-5 font-black uppercase tracking-wider text-[10px] border-2 border-primary/20 text-primary gap-2 hover:bg-primary/5 transition-all active:scale-95 shadow-lg shadow-primary/5">
+                  <Filter class="h-4 w-4" /> Hiển thị lọc
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" class="w-[320px] p-0 border-0 shadow-2xl overflow-hidden bg-background">
+                <div class="h-full flex flex-col">
+                  <div class="p-6 bg-primary text-white flex items-center justify-between shrink-0">
+                    <div class="flex items-center gap-3">
+                      <div class="h-10 w-10 rounded-xl bg-white/20 flex items-center justify-center border border-white/30 shadow-lg">
+                        <Layers class="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h2 class="font-black text-lg tracking-tight italic">Bộ Lọc</h2>
+                        <p class="text-[10px] font-bold text-white/70 uppercase">Tối ưu lựa chọn của bạn</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="flex-1 overflow-y-auto p-6 space-y-8 pb-32">
+                    <!-- Duplicate Sidebar Content for Mobile Drawer -->
+                    <div class="space-y-6">
+                      <h3 class="font-black text-xs uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2 mb-4">
+                        <Layers class="h-4 w-4 text-primary" /> Danh Mục
+                      </h3>
+                      <div class="grid gap-2">
+                        <button 
+                          v-for="(cat, i) in categories" :key="i"
+                          class="w-full flex items-center justify-between p-3.5 rounded-2xl text-sm font-black transition-all duration-300"
+                          :class="cat.active 
+                            ? 'bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02]' 
+                            : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'"
+                          @click="isMobileSidebarOpen = false"
+                        >
+                          <div class="flex items-center gap-3">
+                            <component :is="cat.icon" class="h-5 w-5" />
+                            {{ cat.name }}
+                          </div>
+                          <Badge :variant="cat.active ? 'secondary' : 'outline'" class="text-[10px] px-2 py-0 border-0 h-5 min-w-[30px] justify-center">
+                            {{ cat.count }}
+                          </Badge>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="space-y-6">
+                      <h3 class="font-black text-xs uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2 mb-4">
+                        <Filter class="h-4 w-4 text-primary" /> Khoảng Giá
+                      </h3>
+                      <div class="space-y-6 bg-muted/30 p-5 rounded-3xl border border-dashed border-muted-foreground/20">
+                        <div class="flex items-center justify-between text-[11px] font-black text-muted-foreground uppercase">
+                          <span>0đ</span>
+                          <span>Max</span>
+                        </div>
+                        <Slider :default-value="[0, 100]" :max="100" :step="1" class="py-2" />
+                        <div class="flex flex-col gap-3">
+                          <div class="relative">
+                            <Input type="number" placeholder="Min" class="h-11 bg-background border-0 rounded-xl pl-10 font-bold" />
+                            <span class="absolute left-4 top-3 text-xs font-bold text-muted-foreground">đ</span>
+                          </div>
+                          <div class="relative">
+                            <Input type="number" placeholder="Max" class="h-11 bg-background border-0 rounded-xl pl-10 font-bold" />
+                            <span class="absolute left-4 top-3 text-xs font-bold text-muted-foreground">đ</span>
+                          </div>
+                        </div>
+                        <Button class="w-full font-black h-12 text-sm uppercase tracking-widest rounded-2xl shadow-lg shadow-primary/20" @click="isMobileSidebarOpen = false">
+                          Áp dụng ngay
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-3xl h-48 group cursor-pointer border shadow-sm border-primary/10">
+                      <img 
+                          src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                          alt="Ads" 
+                          class="w-full h-full object-cover"
+                      >
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                      <div class="absolute bottom-4 left-4 text-white">
+                        <Badge class="bg-primary hover:bg-primary/90 border-0 mb-2 px-3 py-1 text-[10px] font-black">NEW TOOL</Badge>
+                        <h4 class="font-black text-sm leading-tight italic">Auto Reg Clone Max Speed</h4>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="absolute bottom-0 left-0 w-full p-6 bg-background border-t shrink-0">
+                    <Button variant="ghost" class="w-full rounded-2xl font-black text-sm h-12 gap-2 text-muted-foreground" @click="isMobileSidebarOpen = false">
+                      Đóng trình lọc
+                    </Button>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
 
           <!-- Hot Deals Carousel -->
           <div class="relative overflow-hidden rounded-[2.5rem] border shadow-2xl group/carousel h-[520px] md:h-[450px]">

@@ -11,11 +11,14 @@ import {APP_NAME} from "@/constants/app";
 
 // Menu items cho Mobile
 const navItems = [
-  { name: 'Trang chủ', href: '/' },
-  { name: 'Lịch sử mua hàng', href: '/orders' },
-  { name: 'Nạp tiền', href: '/deposit' },
-  { name: 'Tin tức MMO', href: '/blog' },
+  { name: 'Trang chủ', href: '/', icon: LayoutGrid },
+  { name: 'Lịch sử mua hàng', href: '/user/orders', icon: ShoppingCart },
+  { name: 'Nạp tiền', href: '/user/wallet', icon: Wallet },
+  { name: 'Tin tức MMO', href: '/blog', icon: Bell },
 ]
+
+const { user, isLoggedIn } = useAuth()
+const isMobileMenuOpen = ref(false)
 </script>
 
 <template>
@@ -23,26 +26,75 @@ const navItems = [
     <div class="container flex h-16 items-center justify-between gap-4">
 
       <div class="flex items-center gap-2 md:gap-6">
-        <Sheet>
+        <Sheet v-model:open="isMobileMenuOpen">
           <SheetTrigger as-child>
-            <Button variant="ghost" size="icon" class="md:hidden shrink-0">
-              <Menu class="h-5 w-5" />
-            </Button>
+            <button class="md:hidden h-10 w-10 flex items-center justify-center rounded-lg bg-muted/50 border shadow-sm active:scale-90 transition-all hover:bg-muted group">
+              <div class="relative w-5 h-3.5 flex flex-col justify-between">
+                <span class="w-full h-0.5 bg-primary rounded-full transition-all group-hover:w-3/4"></span>
+                <span class="w-full h-0.5 bg-primary rounded-full transition-all group-hover:w-full"></span>
+                <span class="w-full h-0.5 bg-primary rounded-full transition-all group-hover:w-1/2"></span>
+              </div>
+            </button>
           </SheetTrigger>
-          <SheetContent side="left">
-            <div class="flex items-center gap-2 font-bold text-xl mb-8 text-primary">
-              <LayoutGrid class="h-6 w-6" /> MMO Market
+          <SheetContent side="left" class="w-[300px] p-0 border-0 shadow-2xl overflow-hidden bg-background">
+            <div class="h-full flex flex-col">
+              <!-- Premium Header -->
+              <div class="relative overflow-hidden bg-primary p-6 pt-12 text-white">
+                <div class="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-2xl"></div>
+                
+                <div class="relative z-10">
+                  <NuxtLink to="/" class="flex items-center gap-3 font-black text-2xl tracking-tighter mb-8" @click="isMobileMenuOpen = false">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-primary shadow-xl shadow-black/20">
+                      <span class="text-lg">M</span>
+                    </div>
+                    <span>MMO <span class="text-white/80">{{ APP_NAME }}</span></span>
+                  </NuxtLink>
+
+                  <!-- User Info or Login Prompt -->
+                  <div v-if="isLoggedIn" class="flex items-center gap-4 bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/20">
+                    <div class="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-primary font-black text-lg border-2 border-white/30 shadow-lg">
+                      {{ user.avatar }}
+                    </div>
+                    <div class="min-w-0">
+                      <p class="text-sm font-black leading-tight truncate uppercase">{{ user.name }}</p>
+                      <p class="text-[10px] text-white/70 font-bold mt-0.5">{{ user.balance }}</p>
+                    </div>
+                  </div>
+                  <NuxtLink to="/login" v-else @click="isMobileMenuOpen = false" class="block">
+                    <div class="flex items-center gap-4 bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/20 hover:bg-white/20 transition-colors">
+                      <div class="h-10 w-10 rounded-xl bg-white/20 flex items-center justify-center">
+                        <User class="h-5 w-5 text-white" />
+                      </div>
+                      <p class="font-black text-sm uppercase tracking-wider">Đăng nhập ngay</p>
+                    </div>
+                  </NuxtLink>
+                </div>
+              </div>
+
+              <!-- Navigation -->
+              <div class="flex-1 overflow-y-auto p-4 space-y-2 mt-4">
+                <p class="px-3 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground italic mb-3">Khám phá</p>
+                <NuxtLink
+                    v-for="item in navItems"
+                    :key="item.name"
+                    :to="item.href"
+                    class="flex items-center gap-4 rounded-2xl px-4 py-3.5 text-sm font-black transition-all duration-300 group"
+                    active-class="bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02]"
+                    @click="isMobileMenuOpen = false"
+                >
+                  <div class="h-8 w-8 rounded-lg flex items-center justify-center transition-colors group-hover:scale-110" :class="$route.path === item.href ? 'bg-white/20' : 'bg-muted text-foreground'">
+                    <component :is="item.icon" class="h-4 w-4" />
+                  </div>
+                  {{ item.name }}
+                </NuxtLink>
+              </div>
+
+              <!-- Footer info -->
+              <div class="p-6 bg-muted/20 border-t mt-auto text-center shrink-0">
+                <p class="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.2em]">Hỗ trợ kỹ thuật 24/7</p>
+                <p class="text-[10px] font-bold text-primary mt-1">mmo.market.support</p>
+              </div>
             </div>
-            <nav class="flex flex-col gap-4">
-              <NuxtLink
-                  v-for="item in navItems"
-                  :key="item.name"
-                  :to="item.href"
-                  class="text-base font-medium hover:text-primary transition-colors"
-              >
-                {{ item.name }}
-              </NuxtLink>
-            </nav>
           </SheetContent>
         </Sheet>
 
@@ -80,16 +132,9 @@ const navItems = [
           <span class="absolute top-2 right-2.5 h-2 w-2 rounded-full bg-red-500 animate-pulse border border-background"></span>
         </Button>
 
-        <Button variant="ghost" size="icon" class="relative text-muted-foreground hover:text-foreground">
-          <ShoppingCart class="h-5 w-5" />
-          <span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow-sm">
-            3
-          </span>
-        </Button>
-
         <div class="h-6 w-px bg-border hidden sm:block"></div>
 
-        <NuxtLink to="/user/wallet" v-if="user">
+        <NuxtLink to="/user/wallet" v-if="isLoggedIn">
           <Button variant="ghost" size="icon" class="rounded-full border border-border bg-muted/50">
             <User class="h-5 w-5" />
           </Button>

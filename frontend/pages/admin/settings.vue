@@ -10,10 +10,7 @@ import {
   Server,
   Key,
   Palette,
-  Check
 } from 'lucide-vue-next'
-
-const { theme, setTheme } = useTheme()
 
 definePageMeta({
   layout: 'admin'
@@ -112,50 +109,6 @@ const systemSettings = ref({
                  <Save class="h-5 w-5" /> Lưu cấu hình
                </Button>
              </div>
-          </div>
-        </Card>
-
-        <!-- Theme Selection -->
-        <Card class="border-0 shadow-lg overflow-hidden">
-          <div class="p-8 border-b bg-muted/30">
-            <h2 class="font-black text-xl mb-6 flex items-center gap-2">
-               Giao diện hệ thống <div class="h-1.5 w-1.5 rounded-full bg-primary"></div>
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div 
-                class="relative p-6 rounded-[2rem] border-2 transition-all cursor-pointer group"
-                :class="theme === 'standard' ? 'border-primary bg-primary/5' : 'border-transparent bg-muted/30 hover:bg-muted/50'"
-                @click="setTheme('standard')"
-              >
-                <div class="flex items-center justify-between mb-4">
-                  <div class="h-10 w-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
-                    <Palette class="h-5 w-5" />
-                  </div>
-                  <div v-if="theme === 'standard'" class="h-6 w-6 rounded-full bg-primary flex items-center justify-center text-white">
-                    <Check class="h-4 w-4" />
-                  </div>
-                </div>
-                <p class="font-black text-sm uppercase tracking-widest leading-none">Standard Red</p>
-                <p class="text-[10px] font-bold text-muted-foreground mt-2">Tông màu đỏ trắng truyền thống của sàn.</p>
-              </div>
-
-              <div 
-                class="relative p-6 rounded-[2rem] border-2 transition-all cursor-pointer group"
-                :class="theme === 'admin' ? 'border-primary bg-primary/5' : 'border-transparent bg-muted/30 hover:bg-muted/50'"
-                @click="setTheme('admin')"
-              >
-                <div class="flex items-center justify-between mb-4">
-                  <div class="h-10 w-10 rounded-xl bg-[#6366f1] flex items-center justify-center text-white shadow-lg shadow-primary/20">
-                    <Palette class="h-5 w-5" />
-                  </div>
-                  <div v-if="theme === 'admin'" class="h-6 w-6 rounded-full bg-primary flex items-center justify-center text-white">
-                    <Check class="h-4 w-4" />
-                  </div>
-                </div>
-                <p class="font-black text-sm uppercase tracking-widest leading-none">Admin Indigo</p>
-                <p class="text-[10px] font-bold text-muted-foreground mt-2">Tông màu xanh Indigo chuyên nghiệp cho Admin.</p>
-              </div>
-            </div>
           </div>
         </Card>
 

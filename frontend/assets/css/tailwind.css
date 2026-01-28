@@ -63,7 +63,6 @@
     --radix-accordion-content-height: 0;
     /* === DYNAMIC BRAND COLORS === */
     --brand-red: 0.577 0.245 27.325;
-    --brand-indigo: 0.511 0.262 276.966;
 
     /* Default (Red) */
     --primary: oklch(var(--brand-red));
@@ -91,12 +90,6 @@
     --input: oklch(0.92 0.004 286.32);
   }
 
-  /* Brand Overrides */
-  [data-brand="admin"] {
-    --primary: oklch(var(--brand-indigo));
-    --ring: oklch(var(--brand-indigo));
-  }
-
   .dark {
     --background: oklch(0.141 0.005 285.823);
     --foreground: oklch(0.985 0 0);
@@ -111,12 +104,6 @@
     --border: oklch(0.274 0.006 286.033);
     --input: oklch(0.274 0.006 286.033);
     --ring: oklch(0.627 0.265 29.234);
-  }
-
-  /* Dark mode brand overrides */
-  .dark[data-brand="admin"] {
-    --primary: oklch(0.585 0.233 277.117);
-    --ring: oklch(0.585 0.233 277.117);
   }
 }
 

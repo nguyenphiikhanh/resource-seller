@@ -121,61 +121,106 @@ const toggleSidebar = () => {
 
     <!-- Mobile Sidebar (Sheet) -->
     <Sheet v-model:open="isSidebarOpen">
-      <SheetContent side="left" class="w-64 p-0">
-        <div class="flex h-16 items-center border-b px-6">
-          <NuxtLink to="/" class="flex items-center gap-2 font-bold text-xl tracking-tighter" @click="isSidebarOpen = false">
-            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-red-600 text-white shadow-lg shadow-primary/20">
-              <span class="text-sm">M</span>
-            </div>
-            <span>MMO <span class="text-primary">{{ APP_NAME }}</span></span>
-          </NuxtLink>
-        </div>
-        <div class="flex flex-col gap-2 p-4">
-          <template v-if="isSellerMode && (user.role === 'seller' || user.role === 'admin')">
-            <p class="mb-2 px-2 text-[10px] font-black uppercase tracking-widest text-primary italic">Kênh Người Bán</p>
-            <NuxtLink 
-              v-for="item in sellerNavigation" 
-              :key="item.name" 
-              :to="item.href"
-              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-all hover:bg-muted"
-              active-class="bg-primary/10 text-primary shadow-sm"
-              @click="isSidebarOpen = false"
-            >
-              <component :is="item.icon" class="h-4 w-4" />
-              {{ item.name }}
-            </NuxtLink>
-            <Separator class="my-4 opacity-50" />
-            <NuxtLink to="/user/dashboard" class="px-2 text-xs font-bold text-muted-foreground hover:text-primary" @click="isSidebarOpen = false">
-              ← Về mua hàng
-            </NuxtLink>
-          </template>
-
-          <template v-else>
-            <p class="mb-2 px-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground italic">Người Mua</p>
-            <NuxtLink 
-              v-for="item in navigation" 
-              :key="item.name" 
-              :to="item.href"
-              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-all hover:bg-muted"
-              active-class="bg-primary/10 text-primary shadow-sm"
-              @click="isSidebarOpen = false"
-            >
-              <component :is="item.icon" class="h-4 w-4" />
-              {{ item.name }}
-            </NuxtLink>
-            <template v-if="user.role === 'seller' || user.role === 'admin'">
-              <Separator class="my-4 opacity-50" />
-              <NuxtLink to="/seller/dashboard" class="px-2 text-xs font-bold text-primary hover:underline" @click="isSidebarOpen = false">
-                Chuyển tới Bán hàng →
+      <SheetContent side="left" class="w-[300px] p-0 border-0 shadow-2xl overflow-hidden bg-background">
+        <div class="h-full flex flex-col">
+          <!-- Premium Header with User Profile -->
+          <div class="relative overflow-hidden bg-primary p-6 pt-12 text-white">
+            <!-- Decorative circle -->
+            <div class="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-2xl"></div>
+            <div class="absolute top-20 -left-10 h-32 w-32 rounded-full bg-black/10 blur-xl"></div>
+            
+            <div class="relative z-10">
+              <NuxtLink to="/" class="flex items-center gap-3 font-black text-2xl tracking-tighter mb-8" @click="isSidebarOpen = false">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-primary shadow-xl shadow-black/20">
+                  <span class="text-lg">M</span>
+                </div>
+                <span>MMO <span class="text-white/80">{{ APP_NAME }}</span></span>
               </NuxtLink>
-            </template>
-          </template>
-        </div>
-        <div class="mt-auto border-t p-4 px-6 absolute bottom-0 left-0 w-full">
-          <button @click="logout(); navigateTo('/login'); isSidebarOpen = false" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-destructive transition-colors hover:bg-destructive/10">
-            <LogOut class="h-4 w-4" />
-            Đăng xuất
-          </button>
+
+              <div class="flex items-center gap-4 bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/20">
+                <Avatar class="h-12 w-12 border-2 border-white/30">
+                  <AvatarFallback class="bg-white text-primary font-black text-sm">{{ user.avatar }}</AvatarFallback>
+                </Avatar>
+                <div class="min-w-0">
+                  <p class="text-sm font-black leading-tight truncate uppercase tracking-tight">{{ user.name }}</p>
+                  <div class="flex items-center gap-2 mt-1">
+                    <Badge variant="secondary" class="bg-white/20 text-white border-0 text-[9px] font-black h-4 px-1.5 uppercase">{{ user.role }}</Badge>
+                    <span class="text-[10px] text-white/60 font-medium">Bảo mật cao</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Section -->
+          <div class="flex-1 overflow-y-auto p-4 space-y-8 mt-4">
+            <!-- Balance Card -->
+            <div class="bg-muted/30 border border-dashed border-primary/20 p-5 rounded-3xl flex items-center justify-between">
+              <div>
+                <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 leading-none mb-1.5">Số dư hiện tại</p>
+                <p class="font-black text-lg text-primary">{{ user.balance }}</p>
+              </div>
+              <div class="h-10 w-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-sm">
+                <Wallet class="h-5 w-5" />
+              </div>
+            </div>
+
+            <!-- Menu Groups -->
+            <div class="space-y-2">
+              <template v-if="isSellerMode && (user.role === 'seller' || user.role === 'admin')">
+                <p class="px-3 text-[10px] font-black uppercase tracking-[0.2em] text-primary italic mb-3">Kênh Người Bán</p>
+                <NuxtLink 
+                  v-for="item in sellerNavigation" 
+                  :key="item.name" 
+                  :to="item.href"
+                  class="flex items-center gap-4 rounded-2xl px-4 py-3.5 text-sm font-black transition-all duration-300 group"
+                  active-class="bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02]"
+                  @click="isSidebarOpen = false"
+                >
+                  <div class="h-8 w-8 rounded-lg flex items-center justify-center transition-colors px-0 group-hover:scale-110" :class="$route.path === item.href ? 'bg-white/20' : 'bg-primary/5 text-primary'">
+                    <component :is="item.icon" class="h-4 w-4" />
+                  </div>
+                  {{ item.name }}
+                </NuxtLink>
+                <div class="pt-6 px-3">
+                  <NuxtLink to="/user/dashboard" class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-all group" @click="isSidebarOpen = false">
+                    <ChevronRight class="h-3 w-3 rotate-180 group-hover:-translate-x-1 transition-transform" /> Về Mua Hàng
+                  </NuxtLink>
+                </div>
+              </template>
+
+              <template v-else>
+                <p class="px-3 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground italic mb-3">Menu Chính</p>
+                <NuxtLink 
+                  v-for="item in navigation" 
+                  :key="item.name" 
+                  :to="item.href"
+                  class="flex items-center gap-4 rounded-2xl px-4 py-3.5 text-sm font-black transition-all duration-300 group"
+                  active-class="bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02]"
+                  @click="isSidebarOpen = false"
+                >
+                  <div class="h-8 w-8 rounded-lg flex items-center justify-center transition-colors px-0 group-hover:scale-110" :class="$route.path === item.href ? 'bg-white/20' : 'bg-muted text-foreground'">
+                    <component :is="item.icon" class="h-4 w-4" />
+                  </div>
+                  {{ item.name }}
+                </NuxtLink>
+                <div v-if="user.role === 'seller' || user.role === 'admin'" class="pt-6 px-3">
+                  <NuxtLink to="/seller/dashboard" class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary hover:underline transition-all group" @click="isSidebarOpen = false">
+                    Chuyển sang Bán Hàng <ChevronRight class="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                  </NuxtLink>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Bottom Logout Area -->
+          <div class="p-6 bg-muted/20 border-t shrink-0">
+            <button @click="logout(); navigateTo('/login'); isSidebarOpen = false" class="flex w-full items-center justify-center gap-3 rounded-2xl bg-destructive/10 px-4 py-4 text-sm font-black text-destructive transition-all hover:bg-destructive hover:text-white hover:shadow-lg hover:shadow-destructive/20 active:scale-95 leading-none">
+              <LogOut class="h-4 w-4" />
+              ĐĂNG XUẤT HỆ THỐNG
+            </button>
+            <p class="text-[10px] text-center mt-4 font-bold text-muted-foreground/40 uppercase tracking-tighter">Phiên bản 2.0.26 Premium</p>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
@@ -185,8 +230,12 @@ const toggleSidebar = () => {
       <!-- Top header -->
       <header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-md lg:px-8">
         <div class="flex items-center gap-4">
-          <button class="lg:hidden p-2 rounded-xl hover:bg-muted transition-colors" @click="toggleSidebar">
-            <Menu class="h-6 w-6" />
+          <button class="lg:hidden h-12 w-12 flex items-center justify-center rounded-[1rem] bg-card border shadow-sm active:scale-90 transition-all hover:bg-muted group" @click="toggleSidebar">
+            <div class="relative w-5 h-4 flex flex-col justify-between">
+              <span class="w-full h-0.5 bg-primary rounded-full transition-all group-hover:w-3/4"></span>
+              <span class="w-full h-0.5 bg-primary rounded-full transition-all group-hover:w-full"></span>
+              <span class="w-full h-0.5 bg-primary rounded-full transition-all group-hover:w-1/2"></span>
+            </div>
           </button>
           <div class="relative hidden max-w-md items-center md:flex group">
             <Search class="absolute left-3.5 h-4 w-4 text-muted-foreground transition-colors group-focus-within:text-primary" />
