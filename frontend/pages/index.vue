@@ -120,7 +120,7 @@ const formatCurrency = (value: number) => {
     <div class="bg-red-50 dark:bg-red-900/10 border-b border-red-100 dark:border-red-900/30 text-sm py-2.5 overflow-hidden">
       <div class="container flex items-center justify-between">
         <div class="flex items-center gap-4 w-full md:w-2/3 overflow-hidden">
-          <div class="flex items-center gap-2 text-primary font-bold whitespace-nowrap px-2">
+          <div class="flex items-center gap-2 text-primary font-bold whitespace-nowrap px-2 flex-shrink-0">
             <Zap class="h-4 w-4 animate-pulse" /> LIVE:
           </div>
           <div class="flex flex-col relative w-full h-5 overflow-hidden">
@@ -133,9 +133,14 @@ const formatCurrency = (value: number) => {
             </div>
           </div>
         </div>
-        <div class="hidden md:flex gap-6 text-muted-foreground font-medium text-sm">
-          <a href="#" class="hover:text-primary transition-colors flex items-center gap-1.5"><ShieldCheck class="h-4 w-4"/> Chính sách bảo hành</a>
-          <a href="#" class="hover:text-primary transition-colors flex items-center gap-1.5"><Globe class="h-4 w-4"/> Support Telegram</a>
+        <div class="flex items-center gap-6 text-muted-foreground font-bold text-sm">
+          <NuxtLink to="/login" class="text-primary hover:underline flex items-center gap-1.5 border border-primary/20 bg-primary/5 px-4 py-1 rounded-full text-xs">
+            <User class="h-3 w-3"/> Đăng nhập
+          </NuxtLink>
+          <div class="hidden lg:flex gap-6">
+            <a href="#" class="hover:text-primary transition-colors flex items-center gap-1.5 font-medium"><ShieldCheck class="h-4 w-4"/> Bảo hành</a>
+            <a href="#" class="hover:text-primary transition-colors flex items-center gap-1.5 font-medium"><Globe class="h-4 w-4"/> Telegram</a>
+          </div>
         </div>
       </div>
     </div>
@@ -216,9 +221,16 @@ const formatCurrency = (value: number) => {
                 <p class="text-red-100 text-base md:text-lg font-medium leading-relaxed">
                   Hàng cổ 2018-2022. Đã verify mail. Thích hợp chạy hàng VPCS. Bao đổi trả trong 24h.
                 </p>
-                <Button variant="secondary" size="lg" class="font-bold shadow-lg rounded-full px-8 text-base h-12">
-                  Mua Ngay (Giảm 20%)
-                </Button>
+                <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center pt-2">
+                  <Button variant="secondary" size="lg" class="font-bold shadow-lg rounded-2xl px-8 text-base h-12 bg-white text-red-700 hover:bg-red-50">
+                    Mua Ngay (Giảm 20%)
+                  </Button>
+                  <NuxtLink to="/login">
+                    <Button variant="outline" size="lg" class="font-bold rounded-2xl px-8 text-base h-12 border-white/40 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20">
+                      Đăng nhập mua hàng
+                    </Button>
+                  </NuxtLink>
+                </div>
               </div>
               <div class="hidden md:block relative">
                 <div class="w-40 h-40 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 flex items-center justify-center rotate-6 shadow-2xl transition-transform hover:rotate-0">

@@ -89,14 +89,16 @@ const navItems = [
 
         <div class="h-6 w-px bg-border hidden sm:block"></div>
 
-        <Button size="sm" class="hidden sm:flex font-bold shadow-md shadow-primary/20 gap-2 bg-gradient-to-r from-primary to-red-600 border-0 hover:opacity-90">
-          <Wallet class="h-4 w-4" />
-          <span class="hidden lg:inline">Nạp tiền</span>
-        </Button>
-
-        <Button variant="ghost" size="icon" class="rounded-full border border-border bg-muted/50">
-          <User class="h-5 w-5" />
-        </Button>
+        <NuxtLink to="/user/wallet" v-if="user">
+          <Button variant="ghost" size="icon" class="rounded-full border border-border bg-muted/50">
+            <User class="h-5 w-5" />
+          </Button>
+        </NuxtLink>
+        <NuxtLink to="/login" v-else>
+          <Button class="font-bold rounded-xl h-10 px-6 gap-2">
+            <User class="h-4 w-4" /> Đăng nhập
+          </Button>
+        </NuxtLink>
       </div>
     </div>
   </header>
