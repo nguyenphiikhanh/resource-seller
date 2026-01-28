@@ -1,0 +1,43 @@
+# Task: Build MMO Resource Seller UI
+
+- [/] Planning and Setup <!-- id: 0 -->
+    - [x] Explore codebase and current theme <!-- id: 1 -->
+    - [x] Create implementation plan <!-- id: 2 -->
+- [ ] Implement Layouts <!-- id: 3 -->
+    - [ ] Public Layout <!-- id: 4 -->
+    - [ ] Auth/Guest Layout <!-- id: 5 -->
+    - [ ] User Layout (Sidebar + Header) <!-- id: 6 -->
+    - [ ] Seller Layout (Sidebar + Header) <!-- id: 7 -->
+    - [ ] Admin Layout (Sidebar + Header) <!-- id: 8 -->
+- [ ] Implement Public Pages <!-- id: 9 -->
+    - [ ] Home Page <!-- id: 10 -->
+    - [ ] Shop Detail Page (Radio Cards + Product Modal) <!-- id: 13 -->
+    - [ ] Checkout Page <!-- id: 14 -->
+- [ ] Implement Auth Pages <!-- id: 15 -->
+    - [ ] Login Page <!-- id: 16 -->
+    - [ ] Register Page <!-- id: 17 -->
+    - [ ] Forgot Password Page <!-- id: 18 -->
+- [ ] Implement User Pages <!-- id: 19 -->
+    - [ ] User Dashboard <!-- id: 20 -->
+    - [ ] User Orders <!-- id: 21 -->
+    - [ ] User Wallet <!-- id: 22 -->
+    - [ ] User Settings <!-- id: 23 -->
+    - [ ] Become Seller Form <!-- id: 24 -->
+- [ ] Implement Seller Pages <!-- id: 25 -->
+    - [ ] Seller Dashboard <!-- id: 26 -->
+    - [ ] Seller Products Management <!-- id: 27 -->
+    - [ ] Seller Create/Edit Product <!-- id: 28 -->
+    - [ ] Seller Shop Settings <!-- id: 29 -->
+    - [ ] Seller Orders Management <!-- id: 30 -->
+- [ ] Implement Admin Pages <!-- id: 31 -->
+    - [ ] Admin Dashboard <!-- id: 32 -->
+    - [ ] Admin Seller Requests <!-- id: 33 -->
+    - [ ] Admin Shops Management <!-- id: 34 -->
+    - [ ] Admin Users Management <!-- id: 35 -->
+    - [ ] Admin Transactions <!-- id: 36 -->
+    - [ ] Admin Permissions Management <!-- id: 37 -->
+    - [ ] Admin System Settings <!-- id: 38 -->
+- [ ] Verification and Polish <!-- id: 39 -->
+    - [ ] Responsive Design Check <!-- id: 40 -->
+    - [ ] Theme (Dark/Light) Verification <!-- id: 41 -->
+    - [ ] Navigation Flow Verification <!-- id: 42 -->
