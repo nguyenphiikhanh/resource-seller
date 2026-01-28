@@ -36,7 +36,7 @@ const toggleSidebar = () => {
 <template>
   <div class="flex min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
     <!-- Desktop Sidebar -->
-    <aside class="hidden w-64 border-r bg-background lg:block shadow-xl shadow-indigo-500/5">
+    <aside class="hidden w-64 border-r bg-background lg:block shadow-xl shadow-primary/5">
       <div class="flex h-16 items-center border-b px-6">
         <NuxtLink to="/" class="flex items-center gap-2 font-black text-xl tracking-tighter">
           <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white shadow-lg shadow-primary/20">
@@ -71,10 +71,10 @@ const toggleSidebar = () => {
       <SheetContent side="left" class="w-64 p-0 border-0">
         <div class="flex h-16 items-center border-b px-6 bg-slate-900 text-white">
           <NuxtLink to="/" class="flex items-center gap-2 font-black text-xl tracking-tighter" @click="isSidebarOpen = false">
-            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500 text-white shadow-lg">
+            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white shadow-lg">
               <span class="text-sm">A</span>
             </div>
-            <span>MMO <span class="text-indigo-400">Admin</span></span>
+            <span>MMO <span class="text-primary">Admin</span></span>
           </NuxtLink>
         </div>
         <div class="flex flex-col gap-1 p-4">
@@ -83,8 +83,8 @@ const toggleSidebar = () => {
             v-for="item in adminNavigation" 
             :key="item.name" 
             :to="item.href"
-            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-all hover:bg-indigo-50 hover:text-indigo-600"
-            active-class="bg-indigo-600/10 text-indigo-600"
+            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-all hover:bg-primary/5 hover:text-primary"
+            active-class="bg-primary/10 text-primary"
             @click="isSidebarOpen = false"
           >
             <component :is="item.icon" class="h-4 w-4" />
@@ -103,7 +103,7 @@ const toggleSidebar = () => {
     <!-- Main Content Area -->
     <div class="flex flex-1 flex-col overflow-x-hidden">
       <!-- Top header -->
-      <header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-md lg:px-8 border-indigo-100">
+      <header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-md lg:px-8 border-primary/10">
         <div class="flex items-center gap-4">
           <button class="lg:hidden p-2 rounded-xl hover:bg-muted" @click="toggleSidebar">
             <Menu class="h-6 w-6" />
@@ -112,7 +112,7 @@ const toggleSidebar = () => {
             <Search class="absolute left-3.5 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
             <Input 
               placeholder="Tìm kiếm hệ thống..." 
-              class="w-64 pl-10 md:w-80 h-10 border-0 bg-slate-100 dark:bg-slate-900 focus-visible:ring-1 focus-visible:ring-indigo-600 rounded-xl"
+              class="w-64 pl-10 md:w-80 h-10 border-0 bg-slate-100 dark:bg-slate-900 focus-visible:ring-1 focus-visible:ring-primary rounded-xl"
             />
           </div>
         </div>
@@ -122,29 +122,29 @@ const toggleSidebar = () => {
           
           <button class="relative rounded-xl p-2.5 hover:bg-muted transition-colors">
             <Bell class="h-5 w-5" />
-            <span class="absolute top-2.5 right-2.5 flex h-2 w-2 rounded-full bg-indigo-600 ring-2 ring-background"></span>
+            <span class="absolute top-2.5 right-2.5 flex h-2 w-2 rounded-full bg-primary ring-2 ring-background"></span>
           </button>
 
           <DropdownMenu>
             <DropdownMenuTrigger as-child>
-              <button class="flex items-center gap-2 rounded-xl bg-card border px-2 py-1.5 hover:bg-muted transition-all shadow-sm border-indigo-100">
-                <Avatar class="h-8 w-8 border-2 border-indigo-600/20">
-                  <AvatarFallback class="bg-indigo-600 text-white font-black text-xs">{{ user.avatar }}</AvatarFallback>
+              <button class="flex items-center gap-2 rounded-xl bg-card border px-2 py-1.5 hover:bg-muted transition-all shadow-sm border-primary/10">
+                <Avatar class="h-8 w-8 border-2 border-primary/20">
+                  <AvatarFallback class="bg-primary text-white font-black text-xs">{{ user.avatar }}</AvatarFallback>
                 </Avatar>
                 <div class="hidden text-left sm:block">
                   <p class="text-xs font-black leading-tight">{{ user.name }}</p>
-                  <p class="text-[10px] text-indigo-600 font-black uppercase tracking-tighter">System Power</p>
+                  <p class="text-[10px] text-primary font-black uppercase tracking-tighter">System Power</p>
                 </div>
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" class="w-56 rounded-2xl p-2 shadow-2xl border-indigo-50">
+            <DropdownMenuContent align="end" class="w-56 rounded-2xl p-2 shadow-2xl border-primary/5">
               <DropdownMenuLabel class="font-black text-xs uppercase tracking-widest text-muted-foreground p-3">Quản trị viên</DropdownMenuLabel>
               <DropdownMenuItem class="rounded-xl py-2.5 font-bold gap-3">
-                <User class="mr-2 h-4 w-4 text-indigo-600" />
+                <User class="mr-2 h-4 w-4 text-primary" />
                 <span>Hồ sơ</span>
               </DropdownMenuItem>
               <DropdownMenuItem class="rounded-xl py-2.5 font-bold gap-3">
-                <Settings class="mr-2 h-4 w-4 text-indigo-600" />
+                <Settings class="mr-2 h-4 w-4 text-primary" />
                 <span>Cấu hình</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator class="my-2" />

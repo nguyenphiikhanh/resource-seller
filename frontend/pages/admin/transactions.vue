@@ -46,7 +46,7 @@ const transactions = [
     <!-- Table -->
     <Card class="border-0 shadow-md overflow-hidden">
       <Table>
-        <TableHeader class="bg-indigo-50 dark:bg-slate-900 font-black">
+        <TableHeader class="bg-primary/5 dark:bg-slate-900 font-black">
           <TableRow>
             <TableHead>Giao dịch</TableHead>
             <TableHead>Người thực hiện</TableHead>
@@ -70,7 +70,7 @@ const transactions = [
                 </div>
               </div>
             </TableCell>
-            <TableCell class="font-bold text-indigo-600">@{{ t.user }}</TableCell>
+            <TableCell class="font-bold text-primary">@{{ t.user }}</TableCell>
             <TableCell class="font-black text-sm">{{ t.amount }}</TableCell>
             <TableCell class="text-xs font-medium">{{ t.method }}</TableCell>
             <TableCell class="text-[10px] font-bold text-muted-foreground">{{ t.time }}</TableCell>

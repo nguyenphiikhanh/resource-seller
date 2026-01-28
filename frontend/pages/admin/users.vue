@@ -32,7 +32,7 @@ const users = [
         <p class="text-muted-foreground mt-1">Quản lý tài khoản, số dư và phân quyền cho toàn bộ thành viên.</p>
       </div>
       
-      <Button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold gap-2 h-11 px-6 rounded-xl">
+      <Button class="bg-primary hover:bg-primary/90 text-white font-bold gap-2 h-11 px-6 rounded-xl shadow-lg shadow-primary/20">
         <Users class="h-4 w-4" /> Xuất danh sách Excel
       </Button>
     </div>
@@ -40,7 +40,7 @@ const users = [
     <!-- Stats Mini Grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div v-for="s in [
-        { l: 'Tổng User', v: '5,280', c: 'text-indigo-600' },
+        { l: 'Tổng User', v: '5,280', c: 'text-primary' },
         { l: 'Đang Online', v: '842', c: 'text-green-600' },
         { l: 'Mới (24h)', v: '+24', c: 'text-blue-600' },
         { l: 'Bị Khóa', v: '18', c: 'text-red-600' }
@@ -77,7 +77,7 @@ const users = [
     <!-- User Table -->
     <Card class="border-0 shadow-md overflow-hidden">
       <Table>
-        <TableHeader class="bg-indigo-50 dark:bg-slate-900">
+        <TableHeader class="bg-primary/5 dark:bg-slate-900">
           <TableRow>
             <TableHead class="w-20">ID</TableHead>
             <TableHead>Thông tin tài khoản</TableHead>
@@ -106,7 +106,7 @@ const users = [
                 :variant="u.role === 'Admin' ? 'default' : 'secondary'"
                 class="font-black text-[10px] uppercase px-2 py-0.5"
                 :class="{
-                  'bg-indigo-600': u.role === 'Admin',
+                  'bg-primary': u.role === 'Admin',
                   'bg-blue-500/10 text-blue-600': u.role === 'Seller',
                   'bg-slate-100 text-slate-600': u.role === 'User',
                 }"
@@ -114,7 +114,7 @@ const users = [
                 {{ u.role }}
               </Badge>
             </TableCell>
-            <TableCell class="font-black font-mono text-indigo-600 text-sm italic">{{ u.balance }}</TableCell>
+            <TableCell class="font-black font-mono text-primary text-sm italic">{{ u.balance }}</TableCell>
             <TableCell>
               <div class="flex items-center gap-2">
                 <div :class="`h-1.5 w-1.5 rounded-full ${u.status === 'Hoạt động' ? 'bg-green-500' : 'bg-red-500'}`"></div>
@@ -130,7 +130,7 @@ const users = [
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" class="w-48 rounded-2xl p-2">
                   <DropdownMenuItem class="gap-3 rounded-xl py-2.5 font-bold">
-                    <UserCheck class="h-4 w-4 text-indigo-600" /> Sửa thông tin
+                    <UserCheck class="h-4 w-4 text-primary" /> Sửa thông tin
                   </DropdownMenuItem>
                   <DropdownMenuItem class="gap-3 rounded-xl py-2.5 font-bold">
                     <CreditCard class="h-4 w-4 text-green-600" /> Cộng/Trừ tiền

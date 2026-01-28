@@ -33,7 +33,7 @@ const systemSettings = ref({
     <div class="flex items-center justify-between">
       <div>
         <h1 class="text-3xl font-black tracking-tight flex items-center gap-3">
-          Cấu hình hệ thống <Settings class="h-8 w-8 text-indigo-600" />
+          Cấu hình hệ thống <Settings class="h-8 w-8 text-primary" />
         </h1>
         <p class="text-muted-foreground mt-1">Quản lý toàn bộ tham số, phí sàn và bảo mật nền tảng.</p>
       </div>
@@ -46,7 +46,7 @@ const systemSettings = ref({
       <!-- Admin Settings Sidebar -->
       <div class="lg:col-span-1">
         <nav class="flex flex-col gap-2 sticky top-24">
-          <button class="flex items-center gap-3 px-5 py-4 text-sm font-black rounded-2xl bg-indigo-600 text-white shadow-lg shadow-indigo-500/20">
+          <button class="flex items-center gap-3 px-5 py-4 text-sm font-black rounded-2xl bg-primary text-white shadow-lg shadow-primary/20">
             <Globe class="h-4 w-4" /> Tổng quan
           </button>
           <button class="flex items-center gap-3 px-5 py-4 text-sm font-bold rounded-2xl text-muted-foreground hover:bg-muted transition-colors">
@@ -69,12 +69,12 @@ const systemSettings = ref({
         <Card class="border-0 shadow-lg overflow-hidden">
           <div class="p-8 border-b bg-muted/30">
             <h2 class="font-black text-xl mb-6 flex items-center gap-2">
-               Thông tin cơ bản <div class="h-1.5 w-1.5 rounded-full bg-indigo-600"></div>
+               Thông tin cơ bản <div class="h-1.5 w-1.5 rounded-full bg-primary"></div>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div class="space-y-2">
                 <Label class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Tên Website</Label>
-                <Input v-model="systemSettings.siteName" class="h-12 bg-card border-0 rounded-xl font-bold text-indigo-600 shadow-sm" />
+                <Input v-model="systemSettings.siteName" class="h-12 bg-card border-0 rounded-xl font-bold text-primary shadow-sm" />
               </div>
               <div class="space-y-2">
                 <Label class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">URL Website</Label>
@@ -84,7 +84,7 @@ const systemSettings = ref({
                 <Label class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Phí sàn mặc định (%)</Label>
                 <div class="relative">
                   <Input v-model="systemSettings.feePercent" type="number" class="h-12 bg-card border-0 rounded-xl font-black pr-12 shadow-sm" />
-                  <span class="absolute right-4 top-3 text-sm font-black text-indigo-600">%</span>
+                  <span class="absolute right-4 top-3 text-sm font-black text-primary">%</span>
                 </div>
               </div>
               <div class="space-y-2">
@@ -98,17 +98,17 @@ const systemSettings = ref({
           </div>
           
           <div class="p-8 space-y-8">
-             <div class="flex items-center justify-between p-6 rounded-3xl bg-indigo-50/50 border border-indigo-100">
+             <div class="flex items-center justify-between p-6 rounded-3xl bg-primary/5 border border-primary/10">
                <div class="space-y-1">
-                 <p class="font-black text-indigo-800">Chế độ bảo trì</p>
-                 <p class="text-xs text-indigo-600/70 font-medium">Tạm đóng Website để nâng cấp. Người dùng sẽ thấy trang báo lỗi.</p>
+                 <p class="font-black text-primary/80">Chế độ bảo trì</p>
+                 <p class="text-xs text-primary/60 font-medium">Tạm đóng Website để nâng cấp. Người dùng sẽ thấy trang báo lỗi.</p>
                </div>
                <Switch v-model:checked="systemSettings.maintenance" />
              </div>
 
              <div class="flex justify-end gap-3">
                <Button variant="outline" class="h-14 px-8 font-black rounded-2xl border-slate-200">Hủy bỏ</Button>
-               <Button class="h-14 px-10 font-black rounded-2xl bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-500/20 gap-2">
+               <Button class="h-14 px-10 font-black rounded-2xl bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 gap-2">
                  <Save class="h-5 w-5" /> Lưu cấu hình
                </Button>
              </div>
@@ -145,7 +145,7 @@ const systemSettings = ref({
                 @click="setTheme('admin')"
               >
                 <div class="flex items-center justify-between mb-4">
-                  <div class="h-10 w-10 rounded-xl bg-[#6366f1] flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+                  <div class="h-10 w-10 rounded-xl bg-[#6366f1] flex items-center justify-center text-white shadow-lg shadow-primary/20">
                     <Palette class="h-5 w-5" />
                   </div>
                   <div v-if="theme === 'admin'" class="h-6 w-6 rounded-full bg-primary flex items-center justify-center text-white">

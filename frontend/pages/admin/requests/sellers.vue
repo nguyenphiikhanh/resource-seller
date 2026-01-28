@@ -56,7 +56,7 @@ const viewRequest = (req) => {
       </div>
       
       <div class="flex gap-2 bg-muted p-1 rounded-xl">
-        <button class="px-4 py-2 text-xs font-bold rounded-lg bg-background shadow-sm text-indigo-600">Đang chờ (12)</button>
+        <button class="px-4 py-2 text-xs font-bold rounded-lg bg-background shadow-sm text-primary">Đang chờ (12)</button>
         <button class="px-4 py-2 text-xs font-bold rounded-lg text-muted-foreground hover:bg-background/50">Đã duyệt</button>
         <button class="px-4 py-2 text-xs font-bold rounded-lg text-muted-foreground hover:bg-background/50">Từ chối</button>
       </div>
@@ -64,7 +64,7 @@ const viewRequest = (req) => {
 
     <Card class="border-0 shadow-md overflow-hidden">
       <Table>
-        <TableHeader class="bg-indigo-50 dark:bg-slate-900 border-b">
+        <TableHeader class="bg-primary/5 dark:bg-slate-900 border-b">
           <TableRow>
             <TableHead>Người đăng ký</TableHead>
             <TableHead>Gian hàng dự kiến</TableHead>
@@ -79,7 +79,7 @@ const viewRequest = (req) => {
             <TableCell>
               <div class="flex items-center gap-3">
                 <Avatar class="h-8 w-8 border">
-                  <AvatarFallback class="bg-indigo-100 text-indigo-700 text-[10px] font-black">{{ req.user.substring(0, 2).toUpperCase() }}</AvatarFallback>
+                  <AvatarFallback class="bg-primary/10 text-primary text-[10px] font-black">{{ req.user.substring(0, 2).toUpperCase() }}</AvatarFallback>
                 </Avatar>
                 <div>
                   <p class="font-bold text-sm leading-tight text-slate-800 dark:text-slate-100">{{ req.user }}</p>
@@ -89,7 +89,7 @@ const viewRequest = (req) => {
             </TableCell>
             <TableCell class="font-bold text-sm">{{ req.shopName }}</TableCell>
             <TableCell>
-              <Badge variant="outline" class="text-[10px] font-bold border-indigo-200 text-indigo-700 bg-indigo-50/50">{{ req.category }}</Badge>
+              <Badge variant="outline" class="text-[10px] font-bold border-primary/20 text-primary/80 bg-primary/5">{{ req.category }}</Badge>
             </TableCell>
             <TableCell class="text-xs text-muted-foreground font-medium">{{ req.date }}</TableCell>
             <TableCell>
@@ -102,7 +102,7 @@ const viewRequest = (req) => {
               </Badge>
             </TableCell>
             <TableCell class="text-right">
-              <Button variant="ghost" size="sm" class="h-9 gap-1.5 font-black text-indigo-600 hover:bg-indigo-50 rounded-lg" @click="viewRequest(req)">
+              <Button variant="ghost" size="sm" class="h-9 gap-1.5 font-black text-primary hover:bg-primary/5 rounded-lg" @click="viewRequest(req)">
                 <Eye class="h-4 w-4" /> Chi tiết
               </Button>
             </TableCell>
@@ -115,13 +115,13 @@ const viewRequest = (req) => {
     <Dialog v-model:open="isModalOpen">
       <DialogContent class="sm:max-w-[600px] p-0 overflow-hidden rounded-3xl border-0 shadow-2xl">
         <div v-if="selectedRequest" class="animate-in zoom-in-95 duration-200">
-          <div class="bg-indigo-600 p-8 text-white relative">
+          <div class="bg-primary p-8 text-white relative">
             <div class="absolute right-0 top-0 h-full w-40 bg-white/5 skew-x-[-20deg] translate-x-10"></div>
             <div class="h-16 w-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/30 shadow-lg">
               <Store class="h-8 w-8 text-white" />
             </div>
             <h2 class="text-2xl font-black tracking-tight text-center">Xác minh yêu cầu Seller</h2>
-            <p class="text-center text-indigo-100/70 text-sm mt-1">Yêu cầu ID: {{ selectedRequest.id }}</p>
+            <p class="text-center text-white/70 text-sm mt-1">Yêu cầu ID: {{ selectedRequest.id }}</p>
           </div>
           
           <div class="p-8 space-y-6">
@@ -157,7 +157,7 @@ const viewRequest = (req) => {
               <Button variant="outline" class="h-14 font-black rounded-2xl gap-2 border-slate-200 text-slate-600 hover:bg-slate-50">
                 <XCircle class="h-5 w-5 text-red-500" /> Từ chối
               </Button>
-              <Button class="h-14 font-black rounded-2xl gap-2 bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-500/20">
+              <Button class="h-14 font-black rounded-2xl gap-2 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">
                 <CheckCircle2 class="h-5 w-5" /> Chấp nhận
               </Button>
             </div>

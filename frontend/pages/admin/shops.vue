@@ -56,7 +56,7 @@ const shops = [
     <!-- Table -->
     <Card class="border-0 shadow-md overflow-hidden">
       <Table>
-        <TableHeader class="bg-indigo-50 dark:bg-slate-900">
+        <TableHeader class="bg-primary/5 dark:bg-slate-900">
           <TableRow>
             <TableHead>Gian hàng</TableHead>
             <TableHead>Chủ sở hữu</TableHead>
@@ -71,7 +71,7 @@ const shops = [
             <TableCell>
               <div class="flex items-center gap-3">
                 <div class="h-10 w-10 rounded-xl bg-muted flex items-center justify-center border shrink-0">
-                   <Store class="h-5 w-5 text-indigo-600" />
+                   <Store class="h-5 w-5 text-primary" />
                 </div>
                 <div>
                   <p class="font-bold text-sm leading-tight">{{ shop.name }}</p>
@@ -80,7 +80,7 @@ const shops = [
               </div>
             </TableCell>
             <div class="flex items-center self-center h-full pt-4">
-               <span class="text-sm font-bold text-indigo-600">@{{ shop.owner }}</span>
+               <span class="text-sm font-bold text-primary">@{{ shop.owner }}</span>
             </div>
             <TableCell class="font-bold">{{ shop.products }}</TableCell>
             <TableCell>

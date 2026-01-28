@@ -34,12 +34,12 @@ const permissions = [
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div>
         <h1 class="text-3xl font-black tracking-tight flex items-center gap-3">
-          Phân quyền hệ thống <Lock class="h-7 w-7 text-indigo-600" />
+          Phân quyền hệ thống <Lock class="h-7 w-7 text-primary" />
         </h1>
         <p class="text-muted-foreground mt-1">Quản lý các vai trò quản trị (RBAC) và giới hạn quyền truy cập.</p>
       </div>
       
-      <Button class="bg-indigo-600 hover:bg-indigo-700 text-white font-black gap-2 h-11 px-6 rounded-xl shadow-lg shadow-indigo-500/20">
+      <Button class="bg-primary hover:bg-primary/90 text-white font-black gap-2 h-11 px-6 rounded-xl shadow-lg shadow-primary/20">
         <Plus class="h-4 w-4" /> Tạo vai trò mới
       </Button>
     </div>
@@ -47,12 +47,12 @@ const permissions = [
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Roles List -->
       <div class="lg:col-span-1 space-y-6">
-        <h2 class="font-black text-lg uppercase tracking-widest text-indigo-600 italic">Vai trò hiện có</h2>
+        <h2 class="font-black text-lg uppercase tracking-widest text-primary italic">Vai trò hiện có</h2>
         <div class="space-y-4">
-          <div v-for="role in roles" :key="role.name" class="p-5 bg-card rounded-2xl shadow-sm border group cursor-pointer hover:border-indigo-400 transition-all border-l-4" :style="{ borderLeftColor: role.color.replace('bg-', '') }">
+          <div v-for="role in roles" :key="role.name" class="p-5 bg-card rounded-2xl shadow-sm border group cursor-pointer hover:border-primary/50 transition-all border-l-4" :style="{ borderLeftColor: role.color.replace('bg-', '') }">
             <div class="flex justify-between items-start mb-4">
                <span :class="`px-3 py-1 text-[10px] font-black text-white rounded-lg ${role.color}`">{{ role.name }}</span>
-               <button class="text-muted-foreground hover:text-indigo-600"><MoreVertical class="h-4 w-4" /></button>
+               <button class="text-muted-foreground hover:text-primary"><MoreVertical class="h-4 w-4" /></button>
             </div>
             <p class="text-xs font-bold text-slate-700 mb-2">{{ role.permissions }}</p>
             <div class="flex items-center gap-2 text-[10px] font-black text-muted-foreground uppercase tracking-wider">
@@ -64,10 +64,10 @@ const permissions = [
 
       <!-- Permission Matrix -->
       <div class="lg:col-span-2 space-y-6">
-        <h2 class="font-black text-lg uppercase tracking-widest text-indigo-600 italic">Chi tiết quyền hạn</h2>
+        <h2 class="font-black text-lg uppercase tracking-widest text-primary italic">Chi tiết quyền hạn</h2>
         <Card class="border-0 shadow-md overflow-hidden">
           <Table>
-            <TableHeader class="bg-indigo-50 dark:bg-slate-900 border-b">
+            <TableHeader class="bg-primary/5 dark:bg-slate-900 border-b">
               <TableRow>
                 <TableHead>Module / Phân hệ</TableHead>
                 <TableHead class="text-center">Xem (Read)</TableHead>
@@ -102,11 +102,11 @@ const permissions = [
         </Card>
 
         <Card class="p-6 bg-slate-900 text-white border-0 shadow-xl relative overflow-hidden group">
-          <div class="absolute -right-10 -bottom-10 h-40 w-40 bg-indigo-600/20 rounded-full blur-3xl"></div>
+          <div class="absolute -right-10 -bottom-10 h-40 w-40 bg-primary/20 rounded-full blur-3xl"></div>
           <div class="flex gap-4 relative z-10">
-            <ShieldCheck class="h-8 w-8 text-indigo-400 shrink-0" />
+            <ShieldCheck class="h-8 w-8 text-primary/80 shrink-0" />
             <div>
-              <h3 class="font-black uppercase tracking-tighter text-indigo-400 italic">Security Recommendation</h3>
+              <h3 class="font-black uppercase tracking-tighter text-primary/80 italic">Security Recommendation</h3>
               <p class="text-xs text-white/70 leading-relaxed mt-2">
                 Tuyệt đối không cấp quyền <b>Delete</b> cho tài khoản <b>Support</b>. Chỉ có <b>Supper Admin</b> mới có quyền xóa dữ liệu nhạy cảm của người dùng.
               </p>
