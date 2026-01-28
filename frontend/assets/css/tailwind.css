@@ -8,12 +8,23 @@
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
   @keyframes accordion-down {
-    from { height: 0; }
-    to { height: var(--radix-accordion-content-height); }
+    from {
+      height: 0;
+    }
+
+    to {
+      height: var(--radix-accordion-content-height);
+    }
   }
+
   @keyframes accordion-up {
-    from { height: var(--radix-accordion-content-height); }
-    to { height: 0; }
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+
+    to {
+      height: 0;
+    }
   }
 
   /* Radius mapping */
@@ -49,99 +60,88 @@
 */
 @layer base {
   :root {
-    /* === FIX LỖI RADIX === */
-    /* Khai báo giá trị mặc định để CSS không báo lỗi 'Unresolved variable' */
     --radix-accordion-content-height: 0;
+    /* === DYNAMIC BRAND COLORS === */
+    --brand-red: 0.577 0.245 27.325;
+    --brand-indigo: 0.511 0.262 276.966;
 
+    /* Default (Red) */
+    --primary: oklch(var(--brand-red));
+    --primary-foreground: oklch(1 0 0);
+    --ring: oklch(var(--brand-red));
+
+    /* Base theme variables */
     --radius: 0.5rem;
-
-    /* Nền trắng */
     --background: oklch(1 0 0);
     --foreground: oklch(0.141 0.005 285.823);
-
-    /* Card */
+    /* ... rest of base vars ... */
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.141 0.005 285.823);
-
-    /* Popover */
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.141 0.005 285.823);
-
-    /* === MÀU CHÍNH: ĐỎ === */
-    --primary: oklch(0.577 0.245 27.325);
-    --primary-foreground: oklch(1 0 0);
-
-    /* Màu phụ */
     --secondary: oklch(0.967 0.001 286.375);
     --secondary-foreground: oklch(0.21 0.006 285.885);
-
     --muted: oklch(0.967 0.001 286.375);
     --muted-foreground: oklch(0.552 0.016 285.938);
-
     --accent: oklch(0.967 0.001 286.375);
     --accent-foreground: oklch(0.21 0.006 285.885);
-
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(1 0 0);
-
     --border: oklch(0.92 0.004 286.32);
     --input: oklch(0.92 0.004 286.32);
-    --ring: oklch(0.577 0.245 27.325);
+  }
+
+  /* Brand Overrides */
+  [data-brand="admin"] {
+    --primary: oklch(var(--brand-indigo));
+    --ring: oklch(var(--brand-indigo));
   }
 
   .dark {
     --background: oklch(0.141 0.005 285.823);
     --foreground: oklch(0.985 0 0);
-
     --card: oklch(0.141 0.005 285.823);
     --card-foreground: oklch(0.985 0 0);
-
-    --popover: oklch(0.141 0.005 285.823);
-    --popover-foreground: oklch(0.985 0 0);
-
-    /* === DARK MODE: ĐỎ === */
     --primary: oklch(0.627 0.265 29.234);
     --primary-foreground: oklch(1 0 0);
-
     --secondary: oklch(0.274 0.006 286.033);
     --secondary-foreground: oklch(0.985 0 0);
-
     --muted: oklch(0.274 0.006 286.033);
     --muted-foreground: oklch(0.705 0.015 286.067);
-
-    --accent: oklch(0.274 0.006 286.033);
-    --accent-foreground: oklch(0.985 0 0);
-
-    --destructive: oklch(0.396 0.141 25.723);
-    --destructive-foreground: oklch(0.637 0.237 25.331);
-
     --border: oklch(0.274 0.006 286.033);
     --input: oklch(0.274 0.006 286.033);
     --ring: oklch(0.627 0.265 29.234);
   }
-}
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@layer utilities {
-  .container {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  /* Dark mode brand overrides */
+  .dark[data-brand="admin"] {
+    --primary: oklch(0.585 0.233 277.117);
+    --ring: oklch(0.585 0.233 277.117);
   }
 
-  @media (min-width: 768px) {
+  @layer base {
+    * {
+      @apply border-border outline-ring/50;
+    }
+
+    body {
+      @apply bg-background text-foreground;
+    }
+  }
+
+  @layer utilities {
     .container {
-      padding-left: 2rem;
-      padding-right: 2rem;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
     }
   }
 }
