@@ -35,9 +35,9 @@ const categories = [
   <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
     <div class="flex items-center gap-4">
       <NuxtLink to="/seller/products">
-        <UiButton variant="ghost" size="icon" class="h-10 w-10 rounded-full">
+        <Button variant="ghost" size="icon" class="h-10 w-10 rounded-full">
           <ArrowLeft class="h-5 w-5" />
-        </UiButton>
+        </Button>
       </NuxtLink>
       <div>
         <h1 class="text-3xl font-extrabold tracking-tight">Thêm sản phẩm mới</h1>
@@ -48,40 +48,40 @@ const categories = [
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Form Column -->
       <div class="lg:col-span-2 space-y-6">
-        <UiCard class="p-8 border-0 shadow-sm space-y-8">
+        <Card class="p-8 border-0 shadow-sm space-y-8">
           <div class="space-y-6">
             <h3 class="font-bold text-lg flex items-center gap-2 border-l-4 border-primary pl-4">
               Thông tin cơ bản
             </h3>
             
             <div class="space-y-2">
-              <UiLabel class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Tên sản phẩm <span class="text-primary">*</span></UiLabel>
-              <UiInput v-model="formData.name" placeholder="Ví dụ: Via FB Ngoại Cổ - Đã XMDT" class="h-12 bg-muted/30 border-0 rounded-xl font-bold" />
+              <Label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Tên sản phẩm <span class="text-primary">*</span></Label>
+              <Input v-model="formData.name" placeholder="Ví dụ: Via FB Ngoại Cổ - Đã XMDT" class="h-12 bg-muted/30 border-0 rounded-xl font-bold" />
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-2">
-                <UiLabel class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Danh mục <span class="text-primary">*</span></UiLabel>
-                <UiSelect v-model="formData.category">
-                  <UiSelectTrigger class="h-12 bg-muted/30 border-0 rounded-xl font-medium">
-                    <UiSelectValue placeholder="Chọn danh mục" />
-                  </UiSelectTrigger>
-                  <UiSelectContent>
-                    <UiSelectItem v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</UiSelectItem>
-                  </UiSelectContent>
-                </UiSelect>
+                <Label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Danh mục <span class="text-primary">*</span></Label>
+                <Select v-model="formData.category">
+                  <SelectTrigger class="h-12 bg-muted/30 border-0 rounded-xl font-medium">
+                    <SelectValue placeholder="Chọn danh mục" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div class="space-y-2">
-                <UiLabel class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Giá bán (VNĐ) <span class="text-primary">*</span></UiLabel>
+                <Label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Giá bán (VNĐ) <span class="text-primary">*</span></Label>
                 <div class="relative">
-                  <UiInput v-model="formData.price" type="number" placeholder="0" class="h-12 bg-muted/30 border-0 rounded-xl font-bold pr-12" />
+                  <Input v-model="formData.price" type="number" placeholder="0" class="h-12 bg-muted/30 border-0 rounded-xl font-bold pr-12" />
                   <span class="absolute right-4 top-3.5 text-xs text-muted-foreground font-bold">VNĐ</span>
                 </div>
               </div>
             </div>
 
             <div class="space-y-2">
-              <UiLabel class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Mô tả sản phẩm</UiLabel>
+              <Label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Mô tả sản phẩm</Label>
               <textarea 
                 v-model="formData.description" 
                 rows="5" 
@@ -114,7 +114,7 @@ const categories = [
             </div>
 
             <div v-if="formData.stockType === 'list'" class="space-y-2">
-              <UiLabel class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Danh sách tài khoản (Mỗi dòng 1 acc)</UiLabel>
+              <Label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Danh sách tài khoản (Mỗi dòng 1 acc)</Label>
               <textarea 
                 v-model="formData.content" 
                 rows="8" 
@@ -132,12 +132,12 @@ const categories = [
               </div>
             </div>
           </div>
-        </UiCard>
+        </Card>
       </div>
 
       <!-- Preview / Helper Column -->
       <div class="space-y-6">
-        <UiCard class="p-6 border-0 shadow-sm space-y-6">
+        <Card class="p-6 border-0 shadow-sm space-y-6">
           <h3 class="font-bold text-sm uppercase tracking-widest text-muted-foreground">Hình ảnh sản phẩm</h3>
           <div class="aspect-square bg-muted rounded-2xl flex flex-col items-center justify-center border-2 border-dashed relative overflow-hidden group cursor-pointer">
             <ImageIcon class="h-10 w-10 text-muted-foreground group-hover:scale-110 transition-transform" />
@@ -151,24 +151,24 @@ const categories = [
             <div class="aspect-square bg-muted rounded-lg border-2 border-dashed"></div>
             <div class="aspect-square bg-muted rounded-lg border-2 border-dashed"></div>
           </div>
-        </UiCard>
+        </Card>
 
-        <UiCard class="p-6 bg-primary/5 border border-primary/20 space-y-4">
+        <Card class="p-6 bg-primary/5 border border-primary/20 space-y-4">
           <div class="flex items-center gap-2 text-primary font-black text-xs uppercase italic">
             <TrendingUp class="h-4 w-4" /> Tip bán chạy
           </div>
           <p class="text-xs text-muted-foreground leading-relaxed">
             Sản phẩm có <b>mô tả chi tiết</b> và <b>định dạng rõ ràng</b> thường có tỷ lệ chuyển đổi cao hơn gấp 3 lần. Đừng quên ghi chú <b>thời gian bảo hành</b> nhé!
           </p>
-        </UiCard>
+        </Card>
 
         <div class="flex flex-col gap-3">
-          <UiButton class="w-full h-14 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 gap-2">
+          <Button class="w-full h-14 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 gap-2">
             <Save class="h-5 w-5" /> Đăng sản phẩm
-          </UiButton>
-          <UiButton variant="outline" class="w-full h-14 rounded-2xl font-bold text-muted-foreground">
+          </Button>
+          <Button variant="outline" class="w-full h-14 rounded-2xl font-bold text-muted-foreground">
             Lưu nháp
-          </UiButton>
+          </Button>
         </div>
       </div>
     </div>

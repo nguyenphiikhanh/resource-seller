@@ -43,16 +43,16 @@ const recentActions = [
       </div>
       
       <div class="flex items-center gap-3">
-        <UiButton class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold gap-2 h-11 rounded-xl shadow-lg shadow-indigo-500/20">
+        <Button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold gap-2 h-11 rounded-xl shadow-lg shadow-indigo-500/20">
           <Zap class="h-4 w-4" /> Reset Cache hệ thống
-        </UiButton>
+        </Button>
       </div>
     </div>
 
     <!-- Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <template v-for="stat in stats" :key="stat.name">
-        <UiCard class="p-6 border-0 shadow-md relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+        <Card class="p-6 border-0 shadow-md relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
           <div class="absolute -right-6 -top-6 h-20 w-20 bg-indigo-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
           <div class="flex items-center justify-between mb-4 relative z-10">
             <div :class="`h-12 w-12 rounded-2xl ${stat.bg} flex items-center justify-center border border-indigo-500/5`">
@@ -66,13 +66,13 @@ const recentActions = [
             <p class="text-xs font-bold text-muted-foreground uppercase tracking-wider">{{ stat.name }}</p>
             <p class="text-2xl font-black mt-1 text-slate-800 dark:text-slate-100">{{ stat.value }}</p>
           </div>
-        </UiCard>
+        </Card>
       </template>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- System Traffic -->
-      <UiCard class="lg:col-span-2 p-8 border-0 shadow-md flex flex-col justify-center min-h-[400px] bg-slate-900 text-white relative overflow-hidden">
+      <Card class="lg:col-span-2 p-8 border-0 shadow-md flex flex-col justify-center min-h-[400px] bg-slate-900 text-white relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-slate-900"></div>
         <div class="relative z-10">
           <div class="flex justify-between items-center mb-10">
@@ -106,10 +106,10 @@ const recentActions = [
             <span>23:59</span>
           </div>
         </div>
-      </UiCard>
+      </Card>
 
       <!-- Recent Audit Logs -->
-      <UiCard class="p-6 border-0 shadow-md space-y-6 flex flex-col">
+      <Card class="p-6 border-0 shadow-md space-y-6 flex flex-col">
         <h2 class="font-bold text-lg flex items-center gap-2">
           <Clock class="h-5 w-5 text-indigo-600" /> Nhật ký hoạt động
         </h2>
@@ -126,10 +126,10 @@ const recentActions = [
             </div>
           </div>
         </div>
-        <UiButton variant="ghost" class="w-full text-[10px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 hover:bg-indigo-100 mt-4 rounded-xl">
+        <Button variant="ghost" class="w-full text-[10px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 hover:bg-indigo-100 mt-4 rounded-xl">
           Toàn bộ nhật ký hệ thống
-        </UiButton>
-      </UiCard>
+        </Button>
+      </Card>
     </div>
   </div>
 </template>

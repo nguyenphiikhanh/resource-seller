@@ -62,7 +62,7 @@ const formatCurrency = (value: number) => {
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <template v-for="method in paymentMethods" :key="method.id">
-            <UiCard class="p-5 border-2 border-transparent hover:border-primary/30 transition-all cursor-pointer group bg-card shadow-sm">
+            <Card class="p-5 border-2 border-transparent hover:border-primary/30 transition-all cursor-pointer group bg-card shadow-sm">
               <div class="flex items-start gap-4">
                 <div class="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 group-hover:bg-primary group-hover:text-white transition-colors">
                   <component :is="method.icon" class="h-5 w-5" />
@@ -73,11 +73,11 @@ const formatCurrency = (value: number) => {
                 </div>
                 <ChevronRight class="h-5 w-5 text-muted-foreground self-center opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-            </UiCard>
+            </Card>
           </template>
         </div>
 
-        <UiCard class="p-8 border-dashed border-2 bg-muted/30 flex flex-col items-center text-center">
+        <Card class="p-8 border-dashed border-2 bg-muted/30 flex flex-col items-center text-center">
           <div class="h-12 w-12 bg-background rounded-full flex items-center justify-center mb-4 border shadow-sm">
             <Info class="h-6 w-6 text-primary" />
           </div>
@@ -87,7 +87,7 @@ const formatCurrency = (value: number) => {
             <li class="flex items-center justify-center gap-2"><CheckCircle2 class="h-4 w-4 text-green-500" /> Thời gian xử lý trung bình: 10 - 30 giây.</li>
             <li class="flex items-center justify-center gap-2"><CheckCircle2 class="h-4 w-4 text-green-500" /> Tỷ giá: 1 VNĐ = 1 điểm trong hệ thống.</li>
           </ul>
-        </UiCard>
+        </Card>
       </div>
 
       <!-- Transaction History (Partial) -->
@@ -96,7 +96,7 @@ const formatCurrency = (value: number) => {
           <History class="h-5 w-5 text-primary" /> Giao dịch gần đây
         </h2>
         
-        <UiCard class="p-2 border-0 shadow-sm overflow-hidden">
+        <Card class="p-2 border-0 shadow-sm overflow-hidden">
           <div class="space-y-1">
             <div v-for="trx in recentTransactions" :key="trx.id" class="p-4 flex items-center justify-between hover:bg-muted/30 rounded-xl transition-colors">
               <div class="flex items-center gap-3">
@@ -116,11 +116,11 @@ const formatCurrency = (value: number) => {
             </div>
           </div>
           <div class="p-4 border-t">
-            <UiButton variant="ghost" class="w-full text-xs font-bold text-muted-foreground uppercase tracking-widest h-8">
+            <Button variant="ghost" class="w-full text-xs font-bold text-muted-foreground uppercase tracking-widest h-8">
               Xem toàn bộ lịch sử
-            </UiButton>
+            </Button>
           </div>
-        </UiCard>
+        </Card>
       </div>
     </div>
   </div>

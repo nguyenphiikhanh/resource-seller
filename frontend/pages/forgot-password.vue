@@ -27,12 +27,12 @@ const handleReset = () => {
 </script>
 
 <template>
-  <UiCard class="border-0 shadow-2xl overflow-hidden bg-background/60 backdrop-blur-xl">
+  <Card class="border-0 shadow-2xl overflow-hidden bg-background/60 backdrop-blur-xl">
     <div class="h-1.5 w-full bg-primary/20">
       <div class="h-full bg-primary animate-in slide-in-from-left duration-1000" :style="{ width: isSent ? '100%' : '30%' }"></div>
     </div>
     
-    <UiCardContent class="p-8 md:p-10">
+    <CardContent class="p-8 md:p-10">
       <div v-if="!isSent" class="animate-in fade-in slide-in-from-bottom-2">
         <div class="mb-8">
           <NuxtLink to="/login" class="inline-flex items-center text-xs font-bold text-muted-foreground hover:text-primary transition-colors gap-1 mb-4 uppercase tracking-wider">
@@ -44,10 +44,10 @@ const handleReset = () => {
 
         <form @submit.prevent="handleReset" class="space-y-6">
           <div class="space-y-2">
-            <UiLabel for="email" class="font-bold text-xs uppercase tracking-wider text-muted-foreground">Email của bạn</UiLabel>
+            <Label for="email" class="font-bold text-xs uppercase tracking-wider text-muted-foreground">Email của bạn</Label>
             <div class="relative group">
               <Mail class="absolute left-3.5 top-3.5 h-4 w-4 text-muted-foreground transition-colors group-focus-within:text-primary" />
-              <UiInput 
+              <Input 
                 id="email" 
                 v-model="email"
                 type="email" 
@@ -65,7 +65,7 @@ const handleReset = () => {
             </p>
           </div>
 
-          <UiButton 
+          <Button 
             type="submit" 
             class="w-full h-14 rounded-2xl font-extrabold text-lg shadow-lg shadow-primary/20 gap-3 group"
             :disabled="isLoading"
@@ -77,7 +77,7 @@ const handleReset = () => {
             <template v-else>
               Gửi liên kết khôi phục <ArrowRight class="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </template>
-          </UiButton>
+          </Button>
         </form>
       </div>
 
@@ -89,13 +89,13 @@ const handleReset = () => {
         <p class="text-muted-foreground mb-8 text-sm leading-relaxed max-w-xs mx-auto">
           Chúng tôi đã gửi liên kết khôi phục mật khẩu đến <br><b class="text-foreground">{{ email }}</b>.
         </p>
-        <UiButton 
+        <Button 
           variant="outline" 
           class="w-full h-12 rounded-xl font-bold gap-2"
           @click="isSent = false"
         >
           <ArrowLeft class="h-4 w-4" /> Thử lại với email khác
-        </UiButton>
+        </Button>
         
         <div class="mt-8 border-t pt-8">
           <NuxtLink to="/login" class="text-primary font-bold text-sm hover:underline underline-offset-4">
@@ -103,6 +103,6 @@ const handleReset = () => {
           </NuxtLink>
         </div>
       </div>
-    </UiCardContent>
-  </UiCard>
+    </CardContent>
+  </Card>
 </template>

@@ -35,9 +35,9 @@ const orders = [
       </div>
       
       <div class="flex items-center gap-3">
-        <UiButton variant="outline" class="font-bold gap-2 h-11 rounded-xl">
+        <Button variant="outline" class="font-bold gap-2 h-11 rounded-xl">
           <TrendingUp class="h-4 w-4" /> Thống kê bán hàng
-        </UiButton>
+        </Button>
       </div>
     </div>
 
@@ -45,42 +45,42 @@ const orders = [
     <div class="flex flex-col lg:flex-row gap-4 items-center bg-card p-4 rounded-2xl shadow-sm border">
       <div class="relative flex-1 w-full">
         <Search class="absolute left-3.5 top-3.5 h-4 w-4 text-muted-foreground" />
-        <UiInput placeholder="Tìm ID đơn hàng, tên khách hàng..." class="pl-10 h-11 bg-muted/30 border-0 rounded-xl" />
+        <Input placeholder="Tìm ID đơn hàng, tên khách hàng..." class="pl-10 h-11 bg-muted/30 border-0 rounded-xl" />
       </div>
       <div class="flex gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
-        <UiButton variant="outline" class="h-10 rounded-xl gap-2 text-xs font-bold border-muted-foreground/20">
+        <Button variant="outline" class="h-10 rounded-xl gap-2 text-xs font-bold border-muted-foreground/20">
           <Filter class="h-3.5 w-3.5" /> Bộ lọc
-        </UiButton>
-        <UiSelect>
-          <UiSelectTrigger class="h-10 w-40 bg-muted/30 border-0 rounded-xl text-xs font-bold">
-            <UiSelectValue placeholder="Tất cả trạng thái" />
-          </UiSelectTrigger>
-          <UiSelectContent>
-            <UiSelectItem value="all">Tất cả</UiSelectItem>
-            <UiSelectItem value="success">Hoàn thành</UiSelectItem>
-            <UiSelectItem value="dispute">Khiếu nại</UiSelectItem>
-            <UiSelectItem value="refund">Đã hoàn tiền</UiSelectItem>
-          </UiSelectContent>
-        </UiSelect>
+        </Button>
+        <Select>
+          <SelectTrigger class="h-10 w-40 bg-muted/30 border-0 rounded-xl text-xs font-bold">
+            <SelectValue placeholder="Tất cả trạng thái" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Tất cả</SelectItem>
+            <SelectItem value="success">Hoàn thành</SelectItem>
+            <SelectItem value="dispute">Khiếu nại</SelectItem>
+            <SelectItem value="refund">Đã hoàn tiền</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
 
     <!-- Table -->
-    <UiCard class="border-0 shadow-sm overflow-hidden">
-      <UiTable>
-        <UiTableHeader class="bg-muted/50">
-          <UiTableRow>
-            <UiTableHead>Thông tin đơn hàng</UiTableHead>
-            <UiTableHead>Khách hàng</UiTableHead>
-            <UiTableHead>Giá bán</UiTableHead>
-            <UiTableHead>Thời gian</UiTableHead>
-            <UiTableHead>Trạng thái</UiTableHead>
-            <UiTableHead class="text-right">Thao tác</UiTableHead>
-          </UiTableRow>
-        </UiTableHeader>
-        <UiTableBody>
-          <UiTableRow v-for="order in orders" :key="order.id" class="hover:bg-muted/5 transition-colors">
-            <UiTableCell>
+    <Card class="border-0 shadow-sm overflow-hidden">
+      <Table>
+        <TableHeader class="bg-muted/50">
+          <TableRow>
+            <TableHead>Thông tin đơn hàng</TableHead>
+            <TableHead>Khách hàng</TableHead>
+            <TableHead>Giá bán</TableHead>
+            <TableHead>Thời gian</TableHead>
+            <TableHead>Trạng thái</TableHead>
+            <TableHead class="text-right">Thao tác</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow v-for="order in orders" :key="order.id" class="hover:bg-muted/5 transition-colors">
+            <TableCell>
               <div class="flex items-center gap-3">
                 <div class="h-10 w-10 rounded-lg bg-primary/5 flex items-center justify-center border border-primary/10 shrink-0">
                   <ShoppingBag class="h-5 w-5 text-primary" />
@@ -90,17 +90,17 @@ const orders = [
                   <p class="text-[10px] font-mono text-muted-foreground mt-1">#{{ order.id }}</p>
                 </div>
               </div>
-            </UiTableCell>
-            <UiTableCell>
+            </TableCell>
+            <TableCell>
               <div class="flex items-center gap-2">
                 <User class="h-3.5 w-3.5 text-muted-foreground" />
                 <span class="text-sm font-medium">{{ order.customer }}</span>
               </div>
-            </UiTableCell>
-            <UiTableCell class="font-bold text-primary">{{ order.price }}</UiTableCell>
-            <UiTableCell class="text-xs text-muted-foreground">{{ order.time }}</UiTableCell>
-            <UiTableCell>
-              <UiBadge 
+            </TableCell>
+            <TableCell class="font-bold text-primary">{{ order.price }}</TableCell>
+            <TableCell class="text-xs text-muted-foreground">{{ order.time }}</TableCell>
+            <TableCell>
+              <Badge 
                 :variant="order.status === 'Hoàn thành' ? 'secondary' : 'outline'"
                 class="font-bold px-2.5 py-1 border-0"
                 :class="{
@@ -111,28 +111,28 @@ const orders = [
               >
                 <AlertTriangle v-if="order.status === 'Khiếu nại'" class="h-3 w-3 mr-1" />
                 {{ order.status }}
-              </UiBadge>
-            </UiTableCell>
-            <UiTableCell class="text-right">
+              </Badge>
+            </TableCell>
+            <TableCell class="text-right">
               <div class="flex justify-end gap-2">
-                <UiButton v-if="order.status === 'Khiếu nại'" variant="default" size="sm" class="h-8 gap-1 text-[10px] font-bold bg-primary hover:bg-primary/90 rounded-lg">
+                <Button v-if="order.status === 'Khiếu nại'" variant="default" size="sm" class="h-8 gap-1 text-[10px] font-bold bg-primary hover:bg-primary/90 rounded-lg">
                   <MessageCircle class="h-3 w-3" /> Phản hồi
-                </UiButton>
-                <UiButton v-if="order.status === 'Khiếu nại'" variant="outline" size="sm" class="h-8 gap-1 text-[10px] font-bold border-red-500/20 text-red-600 hover:bg-red-50 rounded-lg">
+                </Button>
+                <Button v-if="order.status === 'Khiếu nại'" variant="outline" size="sm" class="h-8 gap-1 text-[10px] font-bold border-red-500/20 text-red-600 hover:bg-red-50 rounded-lg">
                   <RotateCcw class="h-3 w-3" /> Hoàn tiền
-                </UiButton>
-                <UiButton variant="ghost" size="icon" class="h-8 w-8 rounded-full">
+                </Button>
+                <Button variant="ghost" size="icon" class="h-8 w-8 rounded-full">
                   <MoreVertical class="h-4 w-4" />
-                </UiButton>
+                </Button>
               </div>
-            </UiTableCell>
-          </UiTableRow>
-        </UiTableBody>
-      </UiTable>
-    </UiCard>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Card>
 
     <!-- Support Help -->
-    <UiCard class="p-6 bg-muted/50 border-2 border-dashed flex flex-col items-center text-center">
+    <Card class="p-6 bg-muted/50 border-2 border-dashed flex flex-col items-center text-center">
       <div class="h-10 w-10 bg-background rounded-full flex items-center justify-center mb-3 border shadow-sm">
         <Info class="h-5 w-5 text-primary" />
       </div>
@@ -140,6 +140,6 @@ const orders = [
       <p class="text-xs text-muted-foreground max-w-xl">
         Người bán có 24h để phản hồi khiếu nại của khách hàng. Sau 24h nếu không phản hồi, hệ thống sẽ <b>tự động hoàn tiền</b> cho người mua. Hãy thường xuyên kiểm tra thông báo.
       </p>
-    </UiCard>
+    </Card>
   </div>
 </template>

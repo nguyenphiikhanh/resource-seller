@@ -50,14 +50,14 @@ const profile = ref({
 
       <!-- Settings Content -->
       <div class="md:col-span-3 space-y-6">
-        <UiCard class="border-0 shadow-sm overflow-hidden">
+        <Card class="border-0 shadow-sm overflow-hidden">
           <div class="p-6 md:p-8 bg-muted/30 border-b">
             <h2 class="font-bold text-lg mb-4">Thông tin cá nhân</h2>
             <div class="flex items-center gap-6">
               <div class="relative group">
-                <UiAvatar class="h-24 w-24 border-4 border-background shadow-lg">
-                  <UiAvatarFallback class="bg-primary text-white text-2xl font-black">NK</UiAvatarFallback>
-                </UiAvatar>
+                <Avatar class="h-24 w-24 border-4 border-background shadow-lg">
+                  <AvatarFallback class="bg-primary text-white text-2xl font-black">NK</AvatarFallback>
+                </Avatar>
                 <button class="absolute bottom-0 right-0 h-8 w-8 bg-primary text-white rounded-full flex items-center justify-center border-2 border-background shadow-md hover:scale-110 transition-transform">
                   <Camera class="h-4 w-4" />
                 </button>
@@ -71,37 +71,37 @@ const profile = ref({
           <div class="p-6 md:p-8 space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-2">
-                <UiLabel class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Họ tên hiển thị</UiLabel>
+                <Label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Họ tên hiển thị</Label>
                 <div class="relative">
                   <User class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <UiInput v-model="profile.fullName" class="pl-10 h-11 bg-muted/20 border-0 rounded-xl font-medium" />
+                  <Input v-model="profile.fullName" class="pl-10 h-11 bg-muted/20 border-0 rounded-xl font-medium" />
                 </div>
               </div>
               <div class="space-y-2">
-                <UiLabel class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Tên đăng nhập</UiLabel>
+                <Label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Tên đăng nhập</Label>
                 <div class="relative">
                   <Settings class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <UiInput v-model="profile.username" readonly class="pl-10 h-11 bg-muted/50 border-0 rounded-xl font-mono text-xs opacity-70" />
+                  <Input v-model="profile.username" readonly class="pl-10 h-11 bg-muted/50 border-0 rounded-xl font-mono text-xs opacity-70" />
                 </div>
               </div>
               <div class="space-y-2">
-                <UiLabel class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</UiLabel>
+                <Label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</Label>
                 <div class="relative">
                   <Mail class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <UiInput v-model="profile.email" class="pl-10 h-11 bg-muted/20 border-0 rounded-xl font-medium" />
+                  <Input v-model="profile.email" class="pl-10 h-11 bg-muted/20 border-0 rounded-xl font-medium" />
                 </div>
               </div>
               <div class="space-y-2">
-                <UiLabel class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Số điện thoại</UiLabel>
+                <Label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Số điện thoại</Label>
                 <div class="relative">
                   <Smartphone class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <UiInput v-model="profile.phone" class="pl-10 h-11 bg-muted/20 border-0 rounded-xl font-medium" />
+                  <Input v-model="profile.phone" class="pl-10 h-11 bg-muted/20 border-0 rounded-xl font-medium" />
                 </div>
               </div>
             </div>
             
             <div class="space-y-2">
-              <UiLabel class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Giới thiệu (Bio)</UiLabel>
+              <Label class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Giới thiệu (Bio)</Label>
               <textarea 
                 v-model="profile.bio" 
                 rows="3" 
@@ -110,14 +110,14 @@ const profile = ref({
             </div>
 
             <div class="flex justify-end pt-4 border-t border-dashed">
-              <UiButton class="h-12 px-8 font-bold rounded-2xl gap-2 shadow-lg shadow-primary/20">
+              <Button class="h-12 px-8 font-bold rounded-2xl gap-2 shadow-lg shadow-primary/20">
                 <Save class="h-4 w-4" /> Lưu thay đổi
-              </UiButton>
+              </Button>
             </div>
           </div>
-        </UiCard>
+        </Card>
 
-        <UiCard class="p-6 md:p-8 border-0 shadow-sm border-l-4 border-l-red-500 bg-red-50 dark:bg-red-900/10">
+        <Card class="p-6 md:p-8 border-0 shadow-sm border-l-4 border-l-red-500 bg-red-50 dark:bg-red-900/10">
           <div class="flex items-start gap-4">
             <div class="h-10 w-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center shrink-0">
               <Lock class="h-5 w-5 text-red-600" />
@@ -126,11 +126,11 @@ const profile = ref({
               <h3 class="font-bold text-red-700">Đổi mật khẩu</h3>
               <p class="text-xs text-red-600/80 leading-relaxed font-medium">Bạn nên thường xuyên thay đổi mật khẩu để bảo vệ tài khoản khỏi các rủi ro bảo mật.</p>
               <div class="pt-4">
-                <UiButton variant="outline" class="h-10 px-6 font-bold rounded-xl border-red-500/20 text-red-600 hover:bg-red-100">Cập nhật mật khẩu</UiButton>
+                <Button variant="outline" class="h-10 px-6 font-bold rounded-xl border-red-500/20 text-red-600 hover:bg-red-100">Cập nhật mật khẩu</Button>
               </div>
             </div>
           </div>
-        </UiCard>
+        </Card>
       </div>
     </div>
   </div>

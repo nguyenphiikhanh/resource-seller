@@ -39,13 +39,13 @@ const recentSales = [
       </div>
       
       <div class="flex items-center gap-3">
-        <UiButton variant="outline" class="font-bold gap-2 h-11 rounded-xl">
+        <Button variant="outline" class="font-bold gap-2 h-11 rounded-xl">
           <BarChart3 class="h-4 w-4" /> Báo cáo chi tiết
-        </UiButton>
+        </Button>
         <NuxtLink to="/seller/products/create">
-          <UiButton class="font-bold gap-2 h-11 rounded-xl shadow-lg shadow-primary/20">
+          <Button class="font-bold gap-2 h-11 rounded-xl shadow-lg shadow-primary/20">
             <Package class="h-4 w-4" /> Đăng sản phẩm mới
-          </UiButton>
+          </Button>
         </NuxtLink>
       </div>
     </div>
@@ -53,27 +53,27 @@ const recentSales = [
     <!-- Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <template v-for="stat in stats" :key="stat.name">
-        <UiCard class="p-6 border-0 shadow-sm relative overflow-hidden group">
+        <Card class="p-6 border-0 shadow-sm relative overflow-hidden group">
           <div class="absolute -right-4 -top-4 h-16 w-16 bg-muted/50 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
           <div class="flex items-center justify-between mb-4 relative z-10">
             <div :class="`h-10 w-10 rounded-xl ${stat.bg} flex items-center justify-center`">
               <component :is="stat.icon" :class="`h-5 w-5 ${stat.color}`" />
             </div>
-            <UiBadge variant="secondary" class="font-bold text-[10px] px-2 py-0">
+            <Badge variant="secondary" class="font-bold text-[10px] px-2 py-0">
               {{ stat.change }}
-            </UiBadge>
+            </Badge>
           </div>
           <div class="relative z-10">
             <p class="text-xs font-bold text-muted-foreground uppercase tracking-wider">{{ stat.name }}</p>
             <p class="text-2xl font-black mt-1">{{ stat.value }}</p>
           </div>
-        </UiCard>
+        </Card>
       </template>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Sales Chart Mockup -->
-      <UiCard class="lg:col-span-2 p-8 border-0 shadow-sm flex flex-col min-h-[400px]">
+      <Card class="lg:col-span-2 p-8 border-0 shadow-sm flex flex-col min-h-[400px]">
         <div class="flex justify-between items-center mb-10">
           <h2 class="font-bold text-lg">Biểu đồ doanh thu (7 ngày qua)</h2>
           <div class="flex gap-2">
@@ -98,10 +98,10 @@ const recentSales = [
             <span class="text-[10px] font-bold text-muted-foreground">T{{ i+2 }}</span>
           </div>
         </div>
-      </UiCard>
+      </Card>
 
       <!-- Recent Sales List -->
-      <UiCard class="p-6 border-0 shadow-sm space-y-6">
+      <Card class="p-6 border-0 shadow-sm space-y-6">
         <h2 class="font-bold text-lg flex items-center gap-2">
           <BarChart3 class="h-5 w-5 text-primary" /> Đơn hàng vừa bán
         </h2>
@@ -120,10 +120,10 @@ const recentSales = [
             </div>
           </div>
         </div>
-        <UiButton variant="ghost" class="w-full text-xs font-bold text-muted-foreground uppercase tracking-widest mt-4">
+        <Button variant="ghost" class="w-full text-xs font-bold text-muted-foreground uppercase tracking-widest mt-4">
           Quản lý tất cả đơn hàng
-        </UiButton>
-      </UiCard>
+        </Button>
+      </Card>
     </div>
   </div>
 </template>

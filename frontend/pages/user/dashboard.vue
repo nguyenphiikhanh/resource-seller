@@ -40,7 +40,7 @@ const recentOrders = [
     <!-- Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <template v-for="stat in stats" :key="stat.name">
-        <UiCard class="p-6 border-0 shadow-sm hover:shadow-md transition-shadow">
+        <Card class="p-6 border-0 shadow-sm hover:shadow-md transition-shadow">
           <div class="flex items-center gap-4">
             <div :class="`h-12 w-12 rounded-2xl ${stat.bg} flex items-center justify-center`">
               <component :is="stat.icon" :class="`h-6 w-6 ${stat.color}`" />
@@ -50,62 +50,62 @@ const recentOrders = [
               <p class="text-2xl font-bold tracking-tight">{{ stat.value }}</p>
             </div>
           </div>
-        </UiCard>
+        </Card>
       </template>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Recent Orders Table -->
-      <UiCard class="lg:col-span-2 overflow-hidden border-0 shadow-sm">
+      <Card class="lg:col-span-2 overflow-hidden border-0 shadow-sm">
         <div class="p-6 border-b flex justify-between items-center">
           <h2 class="font-bold text-lg flex items-center gap-2">
             <History class="h-5 w-5 text-primary" /> Đơn hàng mới mua
           </h2>
           <NuxtLink to="/user/orders" class="text-sm font-bold text-primary hover:underline">Xem tất cả</NuxtLink>
         </div>
-        <UiTable>
-          <UiTableHeader class="bg-muted/30">
-            <UiTableRow>
-              <UiTableHead>Mã đơn</UiTableHead>
-              <UiTableHead>Sản phẩm</UiTableHead>
-              <UiTableHead>Ngày mua</UiTableHead>
-              <UiTableHead>Giá</UiTableHead>
-              <UiTableHead class="text-right">Trạng thái</UiTableHead>
-            </UiTableRow>
-          </UiTableHeader>
-          <UiTableBody>
-            <UiTableRow v-for="order in recentOrders" :key="order.id" class="hover:bg-muted/10 transition-colors">
-              <UiTableCell class="font-mono font-medium text-xs">{{ order.id }}</UiTableCell>
-              <UiTableCell class="font-bold">{{ order.product }}</UiTableCell>
-              <UiTableCell class="text-muted-foreground">{{ order.date }}</UiTableCell>
-              <UiTableCell class="font-bold">{{ order.price }}</UiTableCell>
-              <UiTableCell class="text-right">
-                <UiBadge 
+        <Table>
+          <TableHeader class="bg-muted/30">
+            <TableRow>
+              <TableHead>Mã đơn</TableHead>
+              <TableHead>Sản phẩm</TableHead>
+              <TableHead>Ngày mua</TableHead>
+              <TableHead>Giá</TableHead>
+              <TableHead class="text-right">Trạng thái</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow v-for="order in recentOrders" :key="order.id" class="hover:bg-muted/10 transition-colors">
+              <TableCell class="font-mono font-medium text-xs">{{ order.id }}</TableCell>
+              <TableCell class="font-bold">{{ order.product }}</TableCell>
+              <TableCell class="text-muted-foreground">{{ order.date }}</TableCell>
+              <TableCell class="font-bold">{{ order.price }}</TableCell>
+              <TableCell class="text-right">
+                <Badge 
                   :variant="order.status.includes('Lỗi') ? 'destructive' : 'secondary'"
                   class="font-bold px-2 py-0.5"
                 >
                   {{ order.status }}
-                </UiBadge>
-              </UiTableCell>
-            </UiTableRow>
-          </UiTableBody>
-        </UiTable>
-      </UiCard>
+                </Badge>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </Card>
 
       <!-- Quick Actions / Support -->
       <div class="space-y-6">
-        <UiCard class="p-6 bg-primary text-white border-0 shadow-lg shadow-primary/20 relative overflow-hidden group">
+        <Card class="p-6 bg-primary text-white border-0 shadow-lg shadow-primary/20 relative overflow-hidden group">
           <div class="absolute -right-8 -top-8 h-32 w-32 bg-white/10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-700"></div>
           <h3 class="font-bold text-xl mb-2 relative z-10">Bán hàng ngay!</h3>
           <p class="text-primary-foreground/80 text-sm mb-6 relative z-10">
             Bạn có tài nguyên MMO chất lượng? Hãy đăng ký gian hàng và bắt đầu kiếm tiền ngay hôm nay.
           </p>
           <NuxtLink to="/user/become-seller" class="relative z-10">
-            <UiButton variant="secondary" class="w-full font-bold h-11">Đăng ký Seller</UiButton>
+            <Button variant="secondary" class="w-full font-bold h-11">Đăng ký Seller</Button>
           </NuxtLink>
-        </UiCard>
+        </Card>
 
-        <UiCard class="p-6 border-0 shadow-sm space-y-4">
+        <Card class="p-6 border-0 shadow-sm space-y-4">
           <h3 class="font-bold flex items-center gap-2">
             <AlertTriangle class="h-4 w-4 text-yellow-500" /> Cần trợ giúp?
           </h3>
@@ -129,7 +129,7 @@ const recentOrders = [
               </div>
             </div>
           </div>
-        </UiCard>
+        </Card>
       </div>
     </div>
   </div>

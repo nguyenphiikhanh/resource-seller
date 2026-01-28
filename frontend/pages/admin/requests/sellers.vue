@@ -62,58 +62,58 @@ const viewRequest = (req) => {
       </div>
     </div>
 
-    <UiCard class="border-0 shadow-md overflow-hidden">
-      <UiTable>
-        <UiTableHeader class="bg-indigo-50 dark:bg-slate-900 border-b">
-          <UiTableRow>
-            <UiTableHead>Người đăng ký</UiTableHead>
-            <UiTableHead>Gian hàng dự kiến</UiTableHead>
-            <UiTableHead>Lĩnh vực</UiTableHead>
-            <UiTableHead>Ngày gửi</UiTableHead>
-            <UiTableHead>Trạng thái</UiTableHead>
-            <UiTableHead class="text-right">Hành động</UiTableHead>
-          </UiTableRow>
-        </UiTableHeader>
-        <UiTableBody>
-          <UiTableRow v-for="req in requests" :key="req.id" class="hover:bg-muted/5 transition-colors border-b last:border-0">
-            <UiTableCell>
+    <Card class="border-0 shadow-md overflow-hidden">
+      <Table>
+        <TableHeader class="bg-indigo-50 dark:bg-slate-900 border-b">
+          <TableRow>
+            <TableHead>Người đăng ký</TableHead>
+            <TableHead>Gian hàng dự kiến</TableHead>
+            <TableHead>Lĩnh vực</TableHead>
+            <TableHead>Ngày gửi</TableHead>
+            <TableHead>Trạng thái</TableHead>
+            <TableHead class="text-right">Hành động</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow v-for="req in requests" :key="req.id" class="hover:bg-muted/5 transition-colors border-b last:border-0">
+            <TableCell>
               <div class="flex items-center gap-3">
-                <UiAvatar class="h-8 w-8 border">
-                  <UiAvatarFallback class="bg-indigo-100 text-indigo-700 text-[10px] font-black">{{ req.user.substring(0, 2).toUpperCase() }}</UiAvatarFallback>
-                </UiAvatar>
+                <Avatar class="h-8 w-8 border">
+                  <AvatarFallback class="bg-indigo-100 text-indigo-700 text-[10px] font-black">{{ req.user.substring(0, 2).toUpperCase() }}</AvatarFallback>
+                </Avatar>
                 <div>
                   <p class="font-bold text-sm leading-tight text-slate-800 dark:text-slate-100">{{ req.user }}</p>
                   <p class="text-[10px] text-muted-foreground mt-0.5">ID: 102{{ req.id.split('-')[1] }}</p>
                 </div>
               </div>
-            </UiTableCell>
-            <UiTableCell class="font-bold text-sm">{{ req.shopName }}</UiTableCell>
-            <UiTableCell>
-              <UiBadge variant="outline" class="text-[10px] font-bold border-indigo-200 text-indigo-700 bg-indigo-50/50">{{ req.category }}</UiBadge>
-            </UiTableCell>
-            <UiTableCell class="text-xs text-muted-foreground font-medium">{{ req.date }}</UiTableCell>
-            <UiTableCell>
-              <UiBadge 
+            </TableCell>
+            <TableCell class="font-bold text-sm">{{ req.shopName }}</TableCell>
+            <TableCell>
+              <Badge variant="outline" class="text-[10px] font-bold border-indigo-200 text-indigo-700 bg-indigo-50/50">{{ req.category }}</Badge>
+            </TableCell>
+            <TableCell class="text-xs text-muted-foreground font-medium">{{ req.date }}</TableCell>
+            <TableCell>
+              <Badge 
                 :variant="req.status === 'Chờ duyệt' ? 'secondary' : 'outline'"
                 class="font-black px-2 py-0.5 border-0"
                 :class="req.status === 'Chờ duyệt' ? 'bg-amber-500/10 text-amber-600' : 'bg-green-500/10 text-green-600'"
               >
                 {{ req.status }}
-              </UiBadge>
-            </UiTableCell>
-            <UiTableCell class="text-right">
-              <UiButton variant="ghost" size="sm" class="h-9 gap-1.5 font-black text-indigo-600 hover:bg-indigo-50 rounded-lg" @click="viewRequest(req)">
+              </Badge>
+            </TableCell>
+            <TableCell class="text-right">
+              <Button variant="ghost" size="sm" class="h-9 gap-1.5 font-black text-indigo-600 hover:bg-indigo-50 rounded-lg" @click="viewRequest(req)">
                 <Eye class="h-4 w-4" /> Chi tiết
-              </UiButton>
-            </UiTableCell>
-          </UiTableRow>
-        </UiTableBody>
-      </UiTable>
-    </UiCard>
+              </Button>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Card>
 
     <!-- Request Details Modal -->
-    <UiDialog v-model:open="isModalOpen">
-      <UiDialogContent class="sm:max-w-[600px] p-0 overflow-hidden rounded-3xl border-0 shadow-2xl">
+    <Dialog v-model:open="isModalOpen">
+      <DialogContent class="sm:max-w-[600px] p-0 overflow-hidden rounded-3xl border-0 shadow-2xl">
         <div v-if="selectedRequest" class="animate-in zoom-in-95 duration-200">
           <div class="bg-indigo-600 p-8 text-white relative">
             <div class="absolute right-0 top-0 h-full w-40 bg-white/5 skew-x-[-20deg] translate-x-10"></div>
@@ -154,16 +154,16 @@ const viewRequest = (req) => {
             </div>
 
             <div class="grid grid-cols-2 gap-4 pt-4">
-              <UiButton variant="outline" class="h-14 font-black rounded-2xl gap-2 border-slate-200 text-slate-600 hover:bg-slate-50">
+              <Button variant="outline" class="h-14 font-black rounded-2xl gap-2 border-slate-200 text-slate-600 hover:bg-slate-50">
                 <XCircle class="h-5 w-5 text-red-500" /> Từ chối
-              </UiButton>
-              <UiButton class="h-14 font-black rounded-2xl gap-2 bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-500/20">
+              </Button>
+              <Button class="h-14 font-black rounded-2xl gap-2 bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-500/20">
                 <CheckCircle2 class="h-5 w-5" /> Chấp nhận
-              </UiButton>
+              </Button>
             </div>
           </div>
         </div>
-      </UiDialogContent>
-    </UiDialog>
+      </DialogContent>
+    </Dialog>
   </div>
 </template>

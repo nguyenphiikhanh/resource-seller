@@ -48,17 +48,17 @@ const handleSubmit = () => {
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Form Section -->
         <div class="lg:col-span-2">
-          <UiCard class="p-8 border-0 shadow-xl overflow-hidden relative">
+          <Card class="p-8 border-0 shadow-xl overflow-hidden relative">
             <div class="absolute top-0 right-0 h-32 w-32 bg-primary/5 rounded-bl-full"></div>
             
             <form @submit.prevent="handleSubmit" class="space-y-6 relative z-10">
               <div class="space-y-2">
-                <UiLabel for="shopName" class="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                <Label for="shopName" class="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
                   Tên gian hàng <span class="text-primary">*</span>
-                </UiLabel>
+                </Label>
                 <div class="relative group">
                   <Store class="absolute left-3.5 top-3.5 h-4 w-4 text-muted-foreground transition-colors group-focus-within:text-primary" />
-                  <UiInput 
+                  <Input 
                     id="shopName" 
                     v-model="shopName"
                     placeholder="Ví dụ: MMO Master Store" 
@@ -69,23 +69,23 @@ const handleSubmit = () => {
               </div>
 
               <div class="space-y-2">
-                <UiLabel for="category" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Lĩnh vực kinh doanh</UiLabel>
-                <UiSelect v-model="category">
-                  <UiSelectTrigger class="h-12 bg-muted/30 border-0 rounded-xl font-medium">
-                    <UiSelectValue placeholder="Chọn lĩnh vực chính" />
-                  </UiSelectTrigger>
-                  <UiSelectContent>
-                    <UiSelectItem value="fb">Tài khoản Facebook / Ads</UiSelectItem>
-                    <UiSelectItem value="tt">Tài khoản TikTok / Ads</UiSelectItem>
-                    <UiSelectItem value="code">Source Code / Software</UiSelectItem>
-                    <UiSelectItem value="vps">VPS / Proxy / Server</UiSelectItem>
-                    <UiSelectItem value="other">Các loại tài nguyên khác</UiSelectItem>
-                  </UiSelectContent>
-                </UiSelect>
+                <Label for="category" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Lĩnh vực kinh doanh</Label>
+                <Select v-model="category">
+                  <SelectTrigger class="h-12 bg-muted/30 border-0 rounded-xl font-medium">
+                    <SelectValue placeholder="Chọn lĩnh vực chính" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="fb">Tài khoản Facebook / Ads</SelectItem>
+                    <SelectItem value="tt">Tài khoản TikTok / Ads</SelectItem>
+                    <SelectItem value="code">Source Code / Software</SelectItem>
+                    <SelectItem value="vps">VPS / Proxy / Server</SelectItem>
+                    <SelectItem value="other">Các loại tài nguyên khác</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <div class="space-y-2">
-                <UiLabel for="experience" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Mô tả kinh nghiệm / nguồn hàng</UiLabel>
+                <Label for="experience" class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Mô tả kinh nghiệm / nguồn hàng</Label>
                 <textarea 
                   id="experience"
                   v-model="experience"
@@ -113,7 +113,7 @@ const handleSubmit = () => {
                 </div>
               </div>
 
-              <UiButton 
+              <Button 
                 type="submit" 
                 class="w-full h-14 rounded-2xl font-extrabold text-lg shadow-lg shadow-primary/20 gap-3 group"
                 :disabled="isLoading"
@@ -125,14 +125,14 @@ const handleSubmit = () => {
                 <template v-else>
                   Gửi yêu cầu xét duyệt <ArrowRight class="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </template>
-              </UiButton>
+              </Button>
             </form>
-          </UiCard>
+          </Card>
         </div>
 
         <!-- Info Sidebar -->
         <div class="space-y-6">
-          <UiCard class="p-6 border-0 shadow-sm space-y-6">
+          <Card class="p-6 border-0 shadow-sm space-y-6">
             <h3 class="font-bold text-base flex items-center gap-2">
               <HelpCircle class="h-4 w-4 text-primary" /> Tại sao nên bán hàng?
             </h3>
@@ -165,14 +165,14 @@ const handleSubmit = () => {
                 </div>
               </div>
             </div>
-          </UiCard>
+          </Card>
 
-          <UiCard class="p-5 bg-yellow-500/5 border border-yellow-500/10 flex gap-3">
+          <Card class="p-5 bg-yellow-500/5 border border-yellow-500/10 flex gap-3">
             <AlertTriangle class="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
             <p class="text-xs text-yellow-700/80 leading-relaxed font-medium">
               Admin sẽ duyệt yêu cầu của bạn trong vòng 2-12 tiếng. Hãy đảm bảo thông tin liên hệ chính xác.
             </p>
-          </UiCard>
+          </Card>
         </div>
       </div>
     </div>
@@ -198,7 +198,7 @@ const handleSubmit = () => {
       </div>
       
       <NuxtLink to="/user/dashboard">
-        <UiButton size="lg" class="h-14 px-10 font-bold rounded-2xl shadow-lg shadow-primary/20">Quay lại Dashboard</UiButton>
+        <Button size="lg" class="h-14 px-10 font-bold rounded-2xl shadow-lg shadow-primary/20">Quay lại Dashboard</Button>
       </NuxtLink>
     </div>
   </div>

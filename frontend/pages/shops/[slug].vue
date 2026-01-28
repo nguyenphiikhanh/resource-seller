@@ -121,12 +121,12 @@ const formatCurrency = (value: number) => {
       
       <!-- Shop Info Card -->
       <div class="container relative -mt-16 z-10">
-        <UiCard class="p-6 md:p-8 shadow-xl border-t-4 border-t-primary">
+        <Card class="p-6 md:p-8 shadow-xl border-t-4 border-t-primary">
           <div class="flex flex-col md:flex-row gap-6 items-start md:items-center">
-            <UiAvatar class="h-24 w-24 md:h-32 md:w-32 border-4 border-background shadow-lg rounded-2xl">
-              <UiAvatarImage :src="shop.logo" />
-              <UiAvatarFallback>{{ shop.name.charAt(0) }}</UiAvatarFallback>
-            </UiAvatar>
+            <Avatar class="h-24 w-24 md:h-32 md:w-32 border-4 border-background shadow-lg rounded-2xl">
+              <AvatarImage :src="shop.logo" />
+              <AvatarFallback>{{ shop.name.charAt(0) }}</AvatarFallback>
+            </Avatar>
             
             <div class="flex-1 space-y-2">
               <div class="flex items-center gap-2">
@@ -156,12 +156,12 @@ const formatCurrency = (value: number) => {
                 <p class="text-sm text-muted-foreground">Tỷ lệ hoàn thành</p>
                 <p class="text-2xl font-bold font-mono text-primary">99.8%</p>
               </div>
-              <UiButton variant="outline" class="gap-2">
+              <Button variant="outline" class="gap-2">
                 <TrendingUp class="h-4 w-4" /> Báo cáo vi phạm
-              </UiButton>
+              </Button>
             </div>
           </div>
-        </UiCard>
+        </Card>
       </div>
     </div>
 
@@ -169,13 +169,13 @@ const formatCurrency = (value: number) => {
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Left: Product Selection Expansion -->
         <div class="lg:col-span-2 space-y-6">
-          <UiAlert class="bg-primary/5 border-primary/20 text-primary mb-6">
+          <Alert class="bg-primary/5 border-primary/20 text-primary mb-6">
             <Info class="h-4 w-4" />
-            <UiAlertTitle class="font-bold">Lưu ý từ Người Bán</UiAlertTitle>
-            <UiAlertDescription>
+            <AlertTitle class="font-bold">Lưu ý từ Người Bán</AlertTitle>
+            <AlertDescription>
               {{ shop.announcement }}
-            </UiAlertDescription>
-          </UiAlert>
+            </AlertDescription>
+          </Alert>
 
           <div class="flex items-center justify-between mb-4">
             <h2 class="text-xl font-bold flex items-center gap-2">
@@ -187,7 +187,7 @@ const formatCurrency = (value: number) => {
           </div>
 
           <!-- Radio Cards for Products -->
-          <UiRadioGroup v-model="selectedProductId" class="grid gap-4">
+          <RadioGroup v-model="selectedProductId" class="grid gap-4">
             <template v-for="product in products" :key="product.id">
               <div 
                 class="relative border-2 rounded-2xl p-4 md:p-6 transition-all duration-200 cursor-pointer group"
@@ -197,7 +197,7 @@ const formatCurrency = (value: number) => {
                 <div class="flex items-start justify-between">
                   <div class="flex-1 space-y-2">
                     <div class="flex items-center gap-3">
-                      <UiRadioGroupItem :value="product.id" :id="product.id" class="sr-only" />
+                      <RadioGroupItem :value="product.id" :id="product.id" class="sr-only" />
                       <div class="h-5 w-5 rounded-full border-2 flex items-center justify-center" :class="selectedProductId === product.id ? 'border-primary' : 'border-muted-foreground'">
                         <div v-if="selectedProductId === product.id" class="h-2.5 w-2.5 rounded-full bg-primary"></div>
                       </div>
@@ -209,12 +209,12 @@ const formatCurrency = (value: number) => {
                     </p>
 
                     <div class="flex flex-wrap gap-2 pt-2 md:pl-8">
-                      <UiBadge variant="secondary" class="text-[10px] uppercase font-bold tracking-wider">
+                      <Badge variant="secondary" class="text-[10px] uppercase font-bold tracking-wider">
                         {{ product.category }}
-                      </UiBadge>
-                      <UiBadge variant="outline" class="text-[10px] uppercase font-bold">
+                      </Badge>
+                      <Badge variant="outline" class="text-[10px] uppercase font-bold">
                         Còn: {{ product.stock }}
-                      </UiBadge>
+                      </Badge>
                     </div>
                   </div>
 
@@ -223,31 +223,31 @@ const formatCurrency = (value: number) => {
                       <p class="text-xl font-extrabold text-primary">{{ formatCurrency(product.price) }}</p>
                       <p class="text-[10px] text-muted-foreground uppercase font-bold">Giá bán lẻ</p>
                     </div>
-                    <UiButton 
+                    <Button 
                       variant="ghost" 
                       size="sm" 
                       class="h-8 gap-1.5 text-xs font-bold"
                       @click.stop="openQuickView(product)"
                     >
                       <Eye class="h-3.5 w-3.5" /> Xem chi tiết
-                    </UiButton>
+                    </Button>
                   </div>
                 </div>
               </div>
             </template>
-          </UiRadioGroup>
+          </RadioGroup>
         </div>
 
         <!-- Right: Checkout Sidebar -->
         <div class="lg:col-span-1">
           <div class="sticky top-24 space-y-6">
-            <UiCard class="overflow-hidden border-2 border-primary/20 shadow-lg">
+            <Card class="overflow-hidden border-2 border-primary/20 shadow-lg">
               <div class="bg-primary p-4 text-white">
                 <h3 class="font-bold text-lg flex items-center gap-2">
                   <ShoppingBag class="h-5 w-5" /> Thông tin đơn hàng
                 </h3>
               </div>
-              <UiCardContent class="p-6 space-y-6">
+              <CardContent class="p-6 space-y-6">
                 <div v-if="selectedProduct" class="animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <p class="text-sm text-muted-foreground mb-1 uppercase tracking-wider font-bold text-[10px]">Tài nguyên đã chọn</p>
                   <h4 class="font-bold text-lg">{{ selectedProduct.name }}</h4>
@@ -270,9 +270,9 @@ const formatCurrency = (value: number) => {
                     </div>
                     
                     <NuxtLink to="/checkout" class="block">
-                      <UiButton class="w-full h-14 text-lg font-bold gap-3 rounded-2xl shadow-lg shadow-primary/20">
+                      <Button class="w-full h-14 text-lg font-bold gap-3 rounded-2xl shadow-lg shadow-primary/20">
                         Mua ngay <ArrowRight class="h-5 w-5" />
-                      </UiButton>
+                      </Button>
                     </NuxtLink>
                     
                     <p class="text-[11px] text-center text-muted-foreground mt-4 leading-relaxed px-4">
@@ -284,10 +284,10 @@ const formatCurrency = (value: number) => {
                   <ShoppingBag class="h-12 w-12 mx-auto mb-4 opacity-20" />
                   Vui lòng chọn sản phẩm bạn muốn mua
                 </div>
-              </UiCardContent>
-            </UiCard>
+              </CardContent>
+            </Card>
 
-            <UiCard class="p-4 bg-yellow-500/5 border-yellow-500/10">
+            <Card class="p-4 bg-yellow-500/5 border-yellow-500/10">
               <div class="flex gap-3">
                 <AlertTriangle class="h-5 w-5 text-yellow-600 shrink-0" />
                 <div>
@@ -297,22 +297,22 @@ const formatCurrency = (value: number) => {
                   </p>
                 </div>
               </div>
-            </UiCard>
+            </Card>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Product Detail Modal -->
-    <UiDialog v-model:open="isDetailModalOpen">
-      <UiDialogContent class="sm:max-w-[600px] p-0 overflow-hidden rounded-3xl">
+    <Dialog v-model:open="isDetailModalOpen">
+      <DialogContent class="sm:max-w-[600px] p-0 overflow-hidden rounded-3xl">
         <div v-if="productToView" class="animate-in zoom-in-95 duration-200">
           <div class="bg-muted p-8 text-center relative">
             <div class="h-20 w-20 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-primary/20">
               <Package class="h-10 w-10 text-primary" />
             </div>
             <h2 class="text-2xl font-bold tracking-tight">{{ productToView.name }}</h2>
-            <UiBadge class="mt-2 bg-primary/20 text-primary hover:bg-primary/30 border-0">{{ productToView.category }}</UiBadge>
+            <Badge class="mt-2 bg-primary/20 text-primary hover:bg-primary/30 border-0">{{ productToView.category }}</Badge>
           </div>
           
           <div class="p-8 space-y-6">
@@ -342,13 +342,13 @@ const formatCurrency = (value: number) => {
               </div>
             </div>
 
-            <UiButton class="w-full h-12 font-bold text-base" @click="selectedProductId = productToView.id; isDetailModalOpen = false">
+            <Button class="w-full h-12 font-bold text-base" @click="selectedProductId = productToView.id; isDetailModalOpen = false">
               Chọn mua sản phẩm này
-            </UiButton>
+            </Button>
           </div>
         </div>
-      </UiDialogContent>
-    </UiDialog>
+      </DialogContent>
+    </Dialog>
 
   </div>
 </template>

@@ -61,7 +61,7 @@ const handleCheckout = () => {
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <!-- Left: Order & Payment -->
           <div class="lg:col-span-2 space-y-6">
-            <UiCard class="p-6 md:p-8 space-y-8">
+            <Card class="p-6 md:p-8 space-y-8">
               <div>
                 <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
                   <div class="h-8 w-8 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -87,7 +87,7 @@ const handleCheckout = () => {
                 </div>
               </div>
 
-              <UiSeparator />
+              <Separator />
 
               <div>
                 <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
@@ -123,19 +123,19 @@ const handleCheckout = () => {
                   </template>
                 </div>
               </div>
-            </UiCard>
+            </Card>
           </div>
 
           <!-- Right: Summary & Action -->
           <div class="lg:col-span-1">
             <div class="sticky top-24 space-y-6">
-              <UiCard class="overflow-hidden shadow-2xl border-2 border-primary/20">
+              <Card class="overflow-hidden shadow-2xl border-2 border-primary/20">
                 <div class="bg-primary p-5 text-white">
                   <h3 class="font-bold text-lg flex items-center gap-2">
                     <Lock class="h-5 w-5" /> Thanh toán an toàn
                   </h3>
                 </div>
-                <UiCardContent class="p-6 space-y-6">
+                <CardContent class="p-6 space-y-6">
                   <div class="space-y-4">
                     <div class="flex justify-between text-sm">
                       <span class="text-muted-foreground">Giá sản phẩm</span>
@@ -150,7 +150,7 @@ const handleCheckout = () => {
                     </NuxtLink>
                   </div>
 
-                  <UiSeparator />
+                  <Separator />
 
                   <div>
                     <div class="flex justify-between items-baseline mb-8">
@@ -158,7 +158,7 @@ const handleCheckout = () => {
                       <span class="text-3xl font-extrabold text-primary">{{ formatCurrency(order.price) }}</span>
                     </div>
                     
-                    <UiButton 
+                    <Button 
                       class="w-full h-14 text-lg font-bold gap-3 rounded-2xl shadow-lg shadow-primary/20"
                       :disabled="isProcessing"
                       @click="handleCheckout"
@@ -170,10 +170,10 @@ const handleCheckout = () => {
                       <template v-else>
                         Thanh toán ngay <ArrowRight class="h-5 w-5" />
                       </template>
-                    </UiButton>
+                    </Button>
                   </div>
-                </UiCardContent>
-              </UiCard>
+                </CardContent>
+              </Card>
 
               <div class="flex items-center justify-center gap-4 opacity-50 grayscale">
                 <div class="h-8 w-12 bg-white border rounded"></div>
@@ -208,7 +208,7 @@ const handleCheckout = () => {
           Cảm ơn bạn đã tin tưởng dịch vụ tại <span class="text-primary font-bold">MMO DUYLON</span>. Đơn hàng của bạn đã sẵn sàng để sử dụng.
         </p>
         
-        <UiCard class="bg-card p-6 border-2 border-dashed border-primary/20 mb-10">
+        <Card class="bg-card p-6 border-2 border-dashed border-primary/20 mb-10">
           <div class="flex justify-between items-center text-sm mb-4">
             <span class="text-muted-foreground">Mã đơn hàng:</span>
             <span class="font-mono font-bold">{{ order.id }}</span>
@@ -217,18 +217,18 @@ const handleCheckout = () => {
             <span class="text-muted-foreground">Thời gian:</span>
             <span class="font-medium">28/01/2026 09:58</span>
           </div>
-        </UiCard>
+        </Card>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <NuxtLink to="/user/orders">
-            <UiButton size="lg" class="w-full sm:w-auto font-bold h-14 px-8 rounded-2xl gap-2">
+            <Button size="lg" class="w-full sm:w-auto font-bold h-14 px-8 rounded-2xl gap-2">
               Xem đơn hàng mua <ArrowRight class="h-5 w-5" />
-            </UiButton>
+            </Button>
           </NuxtLink>
           <NuxtLink to="/">
-            <UiButton variant="outline" size="lg" class="w-full sm:w-auto font-bold h-14 px-8 rounded-2xl">
+            <Button variant="outline" size="lg" class="w-full sm:w-auto font-bold h-14 px-8 rounded-2xl">
               Tiếp tục mua sắm
-            </UiButton>
+            </Button>
           </NuxtLink>
         </div>
       </div>
