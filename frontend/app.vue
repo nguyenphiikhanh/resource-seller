@@ -1,6 +1,10 @@
 <script setup>
 const { popups, visiblePopups } = usePopups()
 const route = useRoute()
+
+useHead({
+  title: 'Duy Muối - Scam đến tận những đồng tiền cuối'
+})
 </script>
 <template>
   <div>

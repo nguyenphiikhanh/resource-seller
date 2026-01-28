@@ -22,7 +22,7 @@ definePageMeta({
 })
 
 const seoSettings = ref({
-  title: 'MMO DUYLON - Tài nguyên MMO uy tín hàng đầu',
+  title: 'Duy Muối - Scam đến tận những đồng tiền cuối',
   description: 'Chuyên cung cấp Via Facebook, Kênh Youtube, Source Code và các công cụ hỗ trợ MMO chuyên nghiệp.',
   keywords: 'via facebook, clone, bm, youtube bkt, mmo tool',
   ogImage: 'https://mmo-duylon.vn/og-image.jpg',

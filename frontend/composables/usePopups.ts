@@ -25,7 +25,7 @@ export const usePopups = () => {
         {
             id: 'p1',
             title: 'Chào mừng bạn đến với MMO DUYLON!',
-            content: 'Chúng tôi cung cấp các tài nguyên MMO uy tín, chất lượng nhất thị trường. Chúc bạn một ngày giao dịch thành công!',
+            content: 'Dịch vụ Scam uy tín, chất lượng Scam nhất thị trường. Chúc bạn một ngày giao dịch thành công!',
             type: 'text',
             pages: ['/'],
             active: true
